@@ -1,0 +1,30 @@
+{
+  "name": "partner_demo",
+  "private": true,
+  "scripts": {
+    "start": "meteor run",
+    "test": "meteor test --once --driver-package meteortesting:mocha",
+    "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
+    "visualize": "meteor --production --extra-packages bundle-visualizer"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.10.4",
+    "bcrypt": "^5.0.0",
+    "crypto": "^1.0.1",
+    "datatables": "^1.10.18",
+    "eslint": "^7.9.0",
+    "jquery": "^3.5.1",
+    "jquery-validation": "^1.19.2",
+    "meteor-node-stubs": "^1.0.1",
+    "moment": "^2.28.0",
+    "popper.js": "^1.16.1",
+    "simpl-schema": "^1.10.1"
+  },
+  "meteor": {
+    "mainModule": {
+      "client": "client/main.js",
+      "server": "server/main.js"
+    },
+    "testModule": "tests/main.js"
+  }
+}
