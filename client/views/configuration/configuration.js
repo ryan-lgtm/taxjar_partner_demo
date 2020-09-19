@@ -6,7 +6,27 @@ import {
   $
 } from 'meteor/jquery'
 
+import {
+  Tracker
+} from 'meteor/tracker'
+
 Template.configuration.helpers({
+  isApiDisabled: function() {
+    if (Session.get('apiTokenValid') == 'true') {
+      return
+    } else {
+      return 'disabled'
+    }
+  },
+
+  isApiFeatureDisabled: function() {
+      if (Session.get('enableApi') == 'true') {
+        return
+      } else {
+        return 'disabled'
+      }
+  },
+
   streetAddress: function() {
     return Session.get('streetAddress');
   },
@@ -29,8 +49,10 @@ Template.configuration.helpers({
 
   enableApi: function() {
     if (Session.get('enableApi') == 'true') {
+      $('.enablers').removeAttr('disabled');
       return 'checked'
     } else {
+      $('.enablers').attr('disabled', true);
       return ''
     }
   },
@@ -39,6 +61,7 @@ Template.configuration.helpers({
     if (Session.get('enableSalesTax') == 'true') {
       return 'checked'
     } else {
+      $('.enableSaleTax').removeAttr('checked');
       return ''
     }
   },
@@ -47,12 +70,42 @@ Template.configuration.helpers({
     if (Session.get('enableTransactionSync') == 'true') {
       return 'checked'
     } else {
+      $('.enableTransactionSync').removeAttr('checked');
       return ''
     }
   }
 });
 
 Template.configuration.events({
+  'click #enableApi': function() {
+    console.log('I was fired.');
+    if ($('#enableApi').is(':checked')) {
+      Session.set('enableApi', 'true');
+      $('.enablers').removeAttr('disabled');
+    } else {
+      Session.set('enableApi', 'false');
+      Session.set('enableSalesTax', 'false');
+      Session.set('enableTransactionSync', 'false');
+      $('.enablers').removeAttr('checked');
+      $('.enablers').attr('disabled', true);
+    }
+  },
+
+  'input #apiToken': function(event) {
+    event.preventDefault();
+
+    let apiTokenValue = $.trim($('#apiToken').val());
+    let charCount = $('#apiToken').val().length;
+    if (charCount == 32) {
+      Session.set('apiTokenValid', 'true');
+    } else {
+      Session.set('apiTokenValid', 'false');
+      Session.set('enableApi', 'false');
+      Session.set('enableSalesTax', 'false');
+      Session.set('enableTransactionSync', 'false');
+    }
+  },
+
   'click .save-configuration': function(event) {
     event.preventDefault();
 
@@ -70,24 +123,12 @@ Template.configuration.events({
     }
 
     if ($('#enableSalesTax').is(':checked')) {
-      if (!$('#enableApi').is(':checked')) {
-        Bert.alert("API must be enabled for sales tax calculations.", 'danger');
-        $('#enableSalesTax').prop("checked", false);
-        var enableSalesTax = 'false';
-        return enableSalesTax
-      }
       var enableSalesTax = 'true';
     } else {
       var enableSalesTax = 'false';
     }
 
     if ($('#enableTransactionSync').is(':checked')) {
-      if (!$('#enableApi').is(':checked')) {
-        Bert.alert("API must be enabled for transaction sync.", 'danger');
-        $('#enableTransactionSync').prop("checked", false);
-        var enableTransactionSync = 'false';
-        return enableTransactionSync
-      }
       var enableTransactionSync = 'true';
     } else {
       var enableTransactionSync = 'false';

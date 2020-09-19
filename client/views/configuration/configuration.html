@@ -59,15 +59,15 @@
               </div>
               <div class="form-group bmd-form-group" style="margin-top: 25px;">
                 <label for="enableApi" style="font-size: 1.2em;">Enable API?</label>
-                <input {{enableApi}} style="position: absolute; right: 0px; margin-left: 5px; margin-top: auto; margin-bottom: auto;" type="checkbox" class="" value="" id="enableApi">
+                <input {{enableApi}} {{isApiDisabled}} style="position: absolute; right: 0px; margin-left: 5px; margin-top: auto; margin-bottom: auto;" type="checkbox" class="" value="" id="enableApi">
               </div>
               <div class="form-group bmd-form-group">
                 <label for="enableSalesTax" style="font-size: 1.2em;">Enable Sales Tax Calculations?</label>
-                <input {{enableSalesTax}} style="position: absolute; right: 0px;  margin-left: 5px; margin-top: auto; margin-bottom: auto;" type="checkbox" class="" value="" id="enableSalesTax">
+                <input {{enableSalesTax}} {{isApiFeatureDisabled}} class="enablers" style="position: absolute; right: 0px;  margin-left: 5px; margin-top: auto; margin-bottom: auto;" type="checkbox" id="enableSalesTax">
               </div>
               <div class="form-group bmd-form-group">
                 <label for="enableTransactionSync" style="font-size: 1.2em;">Enable Transaction Sync?</label>
-                <input {{enableTransactionSync}} style="position: absolute; right: 0px;  margin-left: 5px; margin-top: auto; margin-bottom: auto;" type="checkbox" class="" value="" id="enableTransactionSync">
+                <input {{enableTransactionSync}} {{isApiFeatureDisabled}} class="enablers" style="position: absolute; right: 0px;  margin-left: 5px; margin-top: auto; margin-bottom: auto;" type="checkbox" id="enableTransactionSync">
               </div>
             </div>
           </div>
