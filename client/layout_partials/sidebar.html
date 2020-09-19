@@ -1,0 +1,62 @@
+<template name="sidebar">
+  <div class="sidebar" data-color="orange" data-background-color="white" data-image="https://gdurl.com/MJrZ">
+    <div class="logo">
+      <a href="#" class="simple-text logo-normal">
+        SimplTax
+      </a>
+    </div>
+    <div class="sidebar-wrapper">
+      <ul class="nav">
+        <li class="nav-item home-active">
+          <a class="nav-link to-home" href="#">
+            <i class="material-icons">home</i>
+            <p>Home</p>
+          </a>
+        </li>
+        <li class="nav-item manage-locations-active ">
+          <a class="nav-link to-manage-locations" href="#">
+            <i class="material-icons">map</i>
+            <p>Manage Locations</p>
+          </a>
+        </li>
+        <li class="nav-item manage-products-active">
+          <a class="nav-link to-manage-products" href="#">
+            <i class="material-icons">shop</i>
+            <p>Manage Products</p>
+          </a>
+        </li>
+        <li class="nav-item manage-customers-active">
+          <a class="nav-link to-manage-customers" href="#">
+            <i class="material-icons">people</i>
+            <p>Manage Customers</p>
+          </a>
+        </li>
+        <li class="nav-item transactions-active">
+          <a class="nav-link to-transactions" href="#">
+            <i class="material-icons">shopping_bag</i>
+            <p>Transactions</p>
+          </a>
+        </li>
+        <li class="nav-item configuration-active">
+          <a class="nav-link to-configuration" href="#">
+            <i class="material-icons">settings</i>
+            <p>Configuration</p>
+          </a>
+        </li>
+        <li class="nav-item debugging-active">
+          <a class="nav-link to-debugging" href="#">
+            <i class="material-icons">report_problem</i>
+            <p>Debugging</p>
+          </a>
+        </li>
+      </ul>
+      <div class="statuses" style="margin-left: 15px; margin-top: 50px;">
+        <h3 class="text-center">API Configs</h3>
+        <p><strong>API Token Present:</strong> <span style="position: absolute; right: 10px;">{{checkToken}}</span></p>
+        <p><strong>API Enabled:</strong> <span style="position: absolute; right: 10px;">{{checkApi}}</span></p>
+        <p><strong>Sales Tax Enabled:</strong> <span style="position: absolute; right: 10px;">{{checkSalesTax}}</span></p>
+        <p><strong>Transaction Sync Enabled:</strong> <span style="position: absolute; right: 10px;">{{checkTransactionSync}}</span></p>
+      </div>
+    </div>
+  </div>
+</template>

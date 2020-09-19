@@ -1,0 +1,18 @@
+<template name="mainLayout">
+  {{>head}}
+  <body>
+    <div class="wrapper">
+      {{>sidebar}}
+      <div class="main-panel">
+        {{>navbar}}
+        <div class="content">
+          <div class="container-fluid">
+            {{> Template.dynamic template=content}}
+          </div>
+        </div>
+        {{>footer}}
+      </div>
+    </div>
+  </body>
+  {{>static_js}}
+</template>

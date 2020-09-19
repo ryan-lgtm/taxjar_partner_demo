@@ -1,0 +1,87 @@
+<template name="configuration">
+  <div class="row">
+    <div class="col-md-12 ml-auto mr-auto">
+      <h1 class="text-center">Configuration</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 ml-auto mr-auto">
+      <div class="card" style="height: 400px;">
+        <div class="card-header card-header-rose card-header-text">
+          <div class="card-icon">
+            <i class="material-icons">navigation</i>
+          </div>
+          <h2 class="card-title text-center">Address Details</h2>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-5 ml-auto mr-auto">
+
+              <div class="form-group bmd-form-group">
+                <label for="streetAddress">Street Address</label>
+                <input type="text" class="form-control" value="{{streetAddress}}" id="streetAddress">
+              </div>
+
+              <div class="form-group bmd-form-group">
+                <label for="city">City</label>
+                <input type="text" class="form-control" value="{{city}}" id="city">
+              </div>
+
+              <div class="form-group bmd-form-group">
+                <label for="state">State</label>
+                <input type="text" class="form-control" maxlength="2" value="{{state}}" id="state">
+              </div>
+
+              <div class="form-group bmd-form-group">
+                <label for="zipCode">Zip Code</label>
+                <input type="text" class="form-control" value="{{zipCode}}" id="zipCode">
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 ml-auto mr-auto">
+      <div class="card" style="height: 400px;">
+        <div class="card-header card-header-success card-header-text">
+          <div class="card-icon">
+            <i class="material-icons">api</i>
+          </div>
+          <h2 class="card-title text-center">TaxJar Integration Management</h2>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-5 ml-auto mr-auto">
+              <div class="form-group bmd-form-group">
+                <label for="apiToken">API Token</label>
+                <input type="password" class="form-control" value="{{apiToken}}" id="apiToken">
+              </div>
+              <div class="form-group bmd-form-group" style="margin-top: 25px;">
+                <label for="enableApi" style="font-size: 1.2em;">Enable API?</label>
+                <input {{enableApi}} style="position: absolute; right: 0px; margin-left: 5px; margin-top: auto; margin-bottom: auto;" type="checkbox" class="" value="" id="enableApi">
+              </div>
+              <div class="form-group bmd-form-group">
+                <label for="enableSalesTax" style="font-size: 1.2em;">Enable Sales Tax Calculations?</label>
+                <input {{enableSalesTax}} style="position: absolute; right: 0px;  margin-left: 5px; margin-top: auto; margin-bottom: auto;" type="checkbox" class="" value="" id="enableSalesTax">
+              </div>
+              <div class="form-group bmd-form-group">
+                <label for="enableTransactionSync" style="font-size: 1.2em;">Enable Transaction Sync?</label>
+                <input {{enableTransactionSync}} style="position: absolute; right: 0px;  margin-left: 5px; margin-top: auto; margin-bottom: auto;" type="checkbox" class="" value="" id="enableTransactionSync">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 mr-auto ml-auto">
+      <div class="text-center">
+        <a href="#" class="btn btn-primary btn-round mt-4 save-configuration">Save It</a>
+      </div>
+    </div>
+  </div>
+
+</template>
