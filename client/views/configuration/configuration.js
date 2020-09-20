@@ -11,6 +11,34 @@ import {
 } from 'meteor/tracker'
 
 Template.configuration.helpers({
+  apiTokenConfirmedValid: function() {
+    if (Session.get('apiTokenConfirmedValid') == 'true') {
+      return true
+    }
+  },
+
+  apiTokenConfirmedNotValid: function() {
+    if (Session.get('apiTokenConfirmedValid') == 'false') {
+      return true
+    }
+  },
+
+  fetchingResults: function() {
+    if (Session.get('fetchingResults') == true) {
+      return true
+    } else {
+      return false
+    }
+  },
+
+  apiTokenValid: function() {
+    if (Session.get('apiTokenValid') == 'true') {
+      return true
+    } else {
+      return false
+    }
+  },
+
   isApiDisabled: function() {
     if (Session.get('apiTokenValid') == 'true') {
       return
@@ -20,11 +48,11 @@ Template.configuration.helpers({
   },
 
   isApiFeatureDisabled: function() {
-      if (Session.get('enableApi') == 'true') {
-        return
-      } else {
-        return 'disabled'
-      }
+    if (Session.get('enableApi') == 'true') {
+      return
+    } else {
+      return 'disabled'
+    }
   },
 
   streetAddress: function() {
@@ -77,8 +105,23 @@ Template.configuration.helpers({
 });
 
 Template.configuration.events({
+  'click .test-api-cred': function(event) {
+    event.preventDefault();
+    Session.set('fetchingResults', true);
+    var token = Session.get('apiToken');
+
+    Meteor.call('testToken', token, Session.get('userSessionId'), function(err,res){
+      if (err) {
+        Session.set('fetchingResults', false);
+        Bert.alert('An unexpected error occurred.', 'danger');
+      } else {
+        Session.set('apiTokenConfirmedValid', res);
+        Session.set('fetchingResults', false);
+      }
+    });
+  },
+
   'click #enableApi': function() {
-    console.log('I was fired.');
     if ($('#enableApi').is(':checked')) {
       Session.set('enableApi', 'true');
       $('.enablers').removeAttr('disabled');
@@ -98,6 +141,7 @@ Template.configuration.events({
     let charCount = $('#apiToken').val().length;
     if (charCount == 32) {
       Session.set('apiTokenValid', 'true');
+      Session.set('apiToken', apiTokenValue)
     } else {
       Session.set('apiTokenValid', 'false');
       Session.set('enableApi', 'false');

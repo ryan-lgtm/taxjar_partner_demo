@@ -5,34 +5,46 @@ import {
 Template.sidebar.helpers({
   checkToken: function() {
     if (Session.get('apiToken')) {
+      $('#check-token').css('color','green');
       return 'true'
     } else {
+      $('#check-token').css('color','red');
       return 'false'
     }
   },
 
   checkApi: function() {
     if (Session.get('enableApi') == 'true') {
+      $('#check-api').css('color','green');
       return 'true'
     } else {
+      $('#check-api').css('color','red');
       return 'false'
     }
   },
 
   checkSalesTax: function() {
     if (Session.get('enableSalesTax') == 'true') {
+      $('#check-sales-tax').css('color','green');
       return 'true'
     } else {
+      $('#check-sales-tax').css('color','red');
       return 'false'
     }
   },
 
   checkTransactionSync: function() {
     if (Session.get('enableTransactionSync') == 'true') {
+      $('#check-transaction-sync').css('color','green');
       return 'true'
     } else {
+      $('#check-transaction-sync').css('color','red');
       return 'false'
     }
+  },
+
+  userSessionId: function() {
+    return Session.get('userSessionId');
   }
 });
 
@@ -78,10 +90,12 @@ Template.sidebar.events({
     FlowRouter.go('/configuration');
   },
 
-  'click .to-debugging': function(event) {
+  'click .open-debugging': function(event) {
     event.preventDefault();
-    $('.nav-item').removeClass('active');
-    $('.debugging-active').addClass('active');
-    FlowRouter.go('/debugging');
+    if (Session.get('toggleDebug') == true) {
+      Session.set('toggleDebug', false);
+    } else {
+      Session.set('toggleDebug', true);
+    }
   },
 });

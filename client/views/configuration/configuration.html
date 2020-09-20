@@ -69,6 +69,28 @@
                 <label for="enableTransactionSync" style="font-size: 1.2em;">Enable Transaction Sync?</label>
                 <input {{enableTransactionSync}} {{isApiFeatureDisabled}} class="enablers" style="position: absolute; right: 0px;  margin-left: 5px; margin-top: auto; margin-bottom: auto;" type="checkbox" id="enableTransactionSync">
               </div>
+              {{#unless apiTokenValid}}
+                <div class="form-group bmd-form-group" style="margin-top: 25px; color: red; font-size: 1.2em; width: 100%;">
+                  <i class="material-icons" style="font-size: 2em;">warning</i> API token must be 32 chars.
+                </div>
+              {{/unless}}
+              {{#if apiTokenValid}}
+                <div class="form-group bmd-form-group" style="margin-top: 25px; width: 100%;">
+                  <div class="text-center">
+                    <a href="#" class="btn btn-sm btn-default btn-round mt-4 test-api-cred">{{#if fetchingResults}}Fetching results..{{else}}Test API Credentials{{/if}}</a>
+                  </div>
+                  {{#if apiTokenConfirmedValid}}
+                    <div class="text-center">
+                      <i class="material-icons" style="font-size: 2em; color: green;">checkmark</i><span style="font-size: 1.2em;">Valid.</span>
+                    </div>
+                  {{/if}}
+                  {{#if apiTokenConfirmedNotValid}}
+                    <div class="text-center">
+                      <i class="material-icons" style="font-size: 2em; color: red;">error</i><span style="font-size: 1.2em;">Not Valid.</span>
+                    </div>
+                  {{/if}}
+                </div>
+              {{/if}}
             </div>
           </div>
         </div>

@@ -7,10 +7,16 @@
         {{>navbar}}
         <div class="content">
           <div class="container-fluid">
-            {{> Template.dynamic template=content}}
+            {{#if Template.subscriptionsReady}}
+              {{> Template.dynamic template=content}}
+              {{#if toggleDebug}}
+                <div style="margin-top: 75px;">
+                  {{> debugging}}
+                </div>
+              {{/if}}
+            {{/if}}
           </div>
         </div>
-        {{>footer}}
       </div>
     </div>
   </body>

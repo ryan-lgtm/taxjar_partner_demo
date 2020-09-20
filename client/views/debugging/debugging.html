@@ -1,3 +1,7 @@
 <template name="debugging">
-<p>Why hello there.</p>
+  <div style="bottom: 0; width: 100%; margin: 0 auto;">
+    {{#prism language="javascript" class="line-numbers"}}
+      {{#each sessionEvents}}{{this.sessionId}}+{{this.timeString}} | {{this.logEvent}}{{/each}}
+    {{/prism}}
+  </div>
 </template>

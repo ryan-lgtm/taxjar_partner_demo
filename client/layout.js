@@ -1,15 +1,14 @@
 Template.mainLayout.rendered = function() {
-
+  Meteor.call('getSessionId', function(err, id) {
+    Session.set('userSessionId', id);
+    Meteor.call('createSession',id,'New session started with Session ID: ' + id);
+  });
 };
 
-// Template.authLayout.helpers({
-//   verified: function() {
-//     if (Meteor.user()) {
-//       if (Meteor.user().emails[0].verified) {
-//         return true;
-//       } else {
-//         FlowRouter.go('/account-verification-pending');
-//       }
-//     }
-//   }
-// });
+Template.mainLayout.helpers({
+  toggleDebug: function() {
+    if (Session.get('toggleDebug')) {
+      return true
+    }
+  }
+})

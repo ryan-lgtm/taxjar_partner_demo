@@ -43,8 +43,8 @@
             <p>Configuration</p>
           </a>
         </li>
-        <li class="nav-item debugging-active">
-          <a class="nav-link to-debugging" href="#">
+        <li class="nav-item">
+          <a class="nav-link open-debugging" href="#">
             <i class="material-icons">report_problem</i>
             <p>Debugging</p>
           </a>
@@ -52,10 +52,11 @@
       </ul>
       <div class="statuses" style="margin-left: 15px; margin-top: 50px;">
         <h3 class="text-center">API Configs</h3>
-        <p><strong>API Token Present:</strong> <span style="position: absolute; right: 10px;">{{checkToken}}</span></p>
-        <p><strong>API Enabled:</strong> <span style="position: absolute; right: 10px;">{{checkApi}}</span></p>
-        <p><strong>Sales Tax Enabled:</strong> <span style="position: absolute; right: 10px;">{{checkSalesTax}}</span></p>
-        <p><strong>Transaction Sync Enabled:</strong> <span style="position: absolute; right: 10px;">{{checkTransactionSync}}</span></p>
+        <p><strong>API Token Present:</strong> <span id="check-token" style="position: absolute; right: 10px; font-weight: bold; color: red;">{{checkToken}}</span></p>
+        <p><strong>API Enabled:</strong> <span id="check-api" style="position: absolute; right: 10px; font-weight: bold; color: red;">{{checkApi}}</span></p>
+        <p><strong>Sales Tax Enabled:</strong> <span id="check-sales-tax" style="position: absolute; right: 10px; font-weight: bold; color: red;">{{checkSalesTax}}</span></p>
+        <p><strong>Transaction Sync Enabled:</strong> <span id="check-transaction-sync" style="position: absolute; right: 10px; font-weight: bold; color: red;">{{checkTransactionSync}}</span></p>
+        <p><strong>Your Session ID:</strong> <span id="user-session-id" style="position: absolute; right: 10px; font-weight: bold; color: green;">{{userSessionId}}</span></p>
       </div>
     </div>
   </div>
