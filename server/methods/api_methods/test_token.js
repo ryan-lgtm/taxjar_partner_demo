@@ -7,6 +7,7 @@ Meteor.methods({
     });
 
     const result = await client.categories().then(res => {
+      Meteor.call('createSession', sessionId, 'Calling GET /v2/categories (https://developers.taxjar.com/api/reference/#categories) to validate successful response.');
       var testCall = res;
       return testCall
     }).then(function(testCall) {

@@ -3,12 +3,30 @@ import {
 } from 'meteor/ostrio:flow-router-extra';
 
 Template.sidebar.helpers({
+  navTokenValid: function() {
+    if (Session.get('apiTokenConfirmedValid') == 'true') {
+      return true
+    } else {
+      return false
+    }
+  },
+
   checkToken: function() {
     if (Session.get('apiToken')) {
       $('#check-token').css('color','green');
       return 'true'
     } else {
       $('#check-token').css('color','red');
+      return 'false'
+    }
+  },
+
+  checkTokenValid: function() {
+    if (Session.get('apiTokenConfirmedValid')) {
+      $('#check-token-valid').css('color','green');
+      return 'true'
+    } else {
+      $('#check-token-valid').css('color','red');
       return 'false'
     }
   },
@@ -93,8 +111,14 @@ Template.sidebar.events({
   'click .open-debugging': function(event) {
     event.preventDefault();
     if (Session.get('toggleDebug') == true) {
+      $('.debugging-active').removeClass('btn-primary');
+      $('.open-debugging').css('color','');
+      Bert.alert('Debugging off.', 'success');
       Session.set('toggleDebug', false);
     } else {
+      $('.debugging-active').addClass('btn-primary');
+      $('.open-debugging').css('color','white');
+      Bert.alert('Debugging on.', 'success');
       Session.set('toggleDebug', true);
     }
   },

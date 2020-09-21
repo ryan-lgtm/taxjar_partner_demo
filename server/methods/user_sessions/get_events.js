@@ -6,7 +6,7 @@ Meteor.methods({
       'sessionId': sessionId
     }, {
       sort: {
-        'createdOn': 1
+        'createdOn': -1
       }
     }).fetch();
   };
@@ -16,8 +16,8 @@ Meteor.methods({
     res.forEach((element) => {
       logLine = new Object();
       logLine.sessionId = element.sessionId;
-      logLine.timeString = moment(element.createdOn).format('MM-DD-YYYY HH:mm');
-      logLine.logEvent = element.logEvent+`\n`;
+      logLine.timeString = moment(element.createdOn).format('MM-DD-YYYY HH:mm:ss');
+      logLine.logEvent = element.logEvent+`\n\n`;
       logLines.push(logLine);
     });
     return logLines

@@ -1,3 +1,74 @@
-<template name="manage-locations">
-<p>Why hello there.</p>
+<template name="manageLocations">
+  <div class="row">
+    <div class="col-md-12 ml-auto mr-auto">
+      <h1 class="text-center">Locations</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 ml-auto mr-auto">
+      <div class="card">
+        <div class="card-header card-header-rose card-header-text">
+          <div class="card-icon">
+            <i class="material-icons">beenhere</i>
+          </div>
+          <div class="col-md-10 ml-auto mr-auto">
+            <h2 class="card-title text-center">Nexus States</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-10 ml-auto mr-auto">
+              <div class="row">
+                <div style="margin-bottom: 5px;">
+                  <a href="#" style="left: 0px;" class="btn btn-sm btn-warning btn-round mt-4 retrieve-nexus">Retrieve Nexus</a>
+                </div>
+              </div>
+              <div class="row" style="display: table; margin-top: 15px;">
+                <hr>
+                {{#if fetchingResults}}
+                  <h1 style="margin: 0 auto;">Fetching Results..</h1>
+                {{/if}}
+                <div style="display: table-cell;">
+                  {{#if nexusStates}}
+                    <table class="nexusResults table table-bordered" style="font-size: 2em; table-layout: fixed; width: 100%;">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Country Code</th>
+                          <th>Country</th>
+                          <th>Region Code</th>
+                          <th>Region</th>
+                        </tr>
+                      </thead>
+                      <tfoot>
+                      </tfoot>
+                      <tbody>
+                        {{#each nexusStates}}
+                          <tr>
+                            <td>{{@index}}</td>
+                            <td>{{this.country_code}}</td>
+                            <td>{{this.country}}</td>
+                            <td>{{this.region_code}}</td>
+                            <td>{{this.region}}</td>
+                          </tr>
+                        {{/each}}
+                      </tbody>
+                    </table>
+                  {{/if}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 mr-auto ml-auto">
+      <div class="text-center">
+        <a href="#" class="btn btn-primary btn-round mt-4 save-configuration">Save It</a>
+      </div>
+    </div>
+  </div>
 </template>
