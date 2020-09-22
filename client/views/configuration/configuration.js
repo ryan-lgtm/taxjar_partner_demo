@@ -123,11 +123,11 @@ Template.configuration.events({
 
   'click #enableApi': function() {
     if ($('#enableApi').is(':checked')) {
-      Meteor.call('createSession', Session.get('userSessionId'), 'TaxJar API was enabled.');
+      Meteor.call('createSessionEvent', Session.get('userSessionId'), 'TaxJar API was enabled.');
       Session.set('enableApi', 'true');
       $('.enablers').removeAttr('disabled');
     } else {
-      Meteor.call('createSession', Session.get('userSessionid'), 'TaxJar API was disabled.');
+      Meteor.call('createSessionEvent', Session.get('userSessionid'), 'TaxJar API was disabled.');
       Session.set('enableApi', 'false');
       Session.set('enableSalesTax', 'false');
       Session.set('enableTransactionSync', 'false');
@@ -189,6 +189,6 @@ Template.configuration.events({
     Session.set("enableSalesTax", enableSalesTax);
     Session.set("enableTransactionSync", enableTransactionSync);
 
-    Meteor.call('createSession', Session.get('userSessionId'), 'Configurations saved.\n Primary address:\n'+Session.get('streetAddress')+' '+Session.get('city')+' '+Session.get('state')+' '+Session.get('zipCode')+`\n`+'API Configurations:\n'+'API Enabled: '+Session.get('enableApi')+`\n`+'Sales Tax Calculations enabled: '+Session.get('enableSalesTax')+`\n`+'Transaction Sync enabled: '+Session.get('enableTransactionSync')+`\n`)
+    Meteor.call('createSessionEvent', Session.get('userSessionId'), 'Configurations saved.\n Primary address:\n'+Session.get('streetAddress')+' '+Session.get('city')+' '+Session.get('state')+' '+Session.get('zipCode')+`\n`+'API Configurations:\n'+'API Enabled: '+Session.get('enableApi')+`\n`+'Sales Tax Calculations enabled: '+Session.get('enableSalesTax')+`\n`+'Transaction Sync enabled: '+Session.get('enableTransactionSync')+`\n`)
   }
 });

@@ -1,7 +1,7 @@
 Template.mainLayout.rendered = function() {
   Meteor.call('getSessionId', function(err, id) {
     Session.set('userSessionId', id);
-    Meteor.call('createSession',id,'New session started with Session ID: ' + id);
+    Meteor.call('createSessionEvent',id,'New session started with Session ID: ' + id);
   });
 };
 
@@ -11,4 +11,4 @@ Template.mainLayout.helpers({
       return true
     }
   }
-})
+});

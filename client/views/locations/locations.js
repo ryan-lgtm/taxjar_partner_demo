@@ -35,7 +35,7 @@ Template.manageLocations.events({
         }
       });
     } else {
-      Meteor.call('createSession', Session.get('userSessionId'), 'Could not retrieve nexus locations. API is not enabled.');
+      Meteor.call('createSessionEvent', Session.get('userSessionId'), 'Could not retrieve nexus locations. API is not enabled.');
       Bert.alert('Could not retrieve nexus locations. API is not enabled.', 'danger');
     }
   }
