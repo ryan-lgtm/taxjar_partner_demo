@@ -7,6 +7,10 @@ Meteor.methods({
     VisitorSession.remove({
       sessionId: sessionId
     });
+
+    Product.remove({
+      sessionId: sessionId
+    });
   }
 
 

@@ -1,3 +1,153 @@
-<template name="manage-products">
-<p>Why hello there.</p>
+<template name="manageProducts">
+  <div class="row">
+    <div class="col-md-12 ml-auto mr-auto">
+      <h1 class="text-center">Products</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 ml-auto mr-auto">
+      <div class="card">
+        <div class="card-header card-header-info card-header-text">
+          <div class="card-icon">
+            <i class="material-icons">shopping_basket</i>
+          </div>
+          <div class="col-md-10 ml-auto mr-auto">
+            <h2 class="card-title text-center">Product Catalog</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-10 ml-auto mr-auto">
+              <div class="row">
+                <div style="margin-bottom: 5px;">
+                  <a href="#" style="left: 0px;" data-toggle="modal" data-target="#seedModal" class="btn btn-sm btn-primary btn-round mt-4">Seed Product Demo Data</a>
+                  <a href="#" style="left: 0px;" class="btn btn-sm btn-warning btn-round mt-4 retrieve-ptcs">Sync Product Tax Categories</a>
+                  <a href="#" style="left: 0px;" data-toggle="modal" data-target="#createModal" class="btn btn-sm btn-info btn-round mt-4">Create Product</a>
+                </div>
+              </div>
+              <div class="row" style="display: table; margin-top: 15px;">
+                <hr>
+                <div style="display: table-cell;">
+                  {{#with products}}
+                    <table class="nexusResults table table-bordered" style="font-size: 2em; table-layout: fixed; width: 100%;">
+                      <thead>
+                        <tr>
+                          <th>Actions</th>
+                          <th>Product ID</th>
+                          <th>Product Name</th>
+                          <th>Description</th>
+                          <th>Unit Price</th>
+                          <th>Product Tax Code</th>
+                        </tr>
+                      </thead>
+                      <tfoot>
+                      </tfoot>
+                      <tbody>
+                        {{#each products}}
+                          <tr>
+                            <td class="text-center"><a href="#" class="btn btn-sm btn-info btn-round mt-4 edit-product">Edit</a><a href="#" class="btn btn-sm btn-danger btn-round mt-4 delete-product">Delete</a></td>
+                            <td>{{this.productIdentifier}}</td>
+                            <td>{{this.productName}}</td>
+                            <td>{{this.productDescription}}</td>
+                            <td>{{this.productUnitPrice}}</td>
+                            <td>{{this.productTaxCode}}</td>
+                          </tr>
+                        {{/each}}
+                      </tbody>
+                    </table>
+                  {{/with}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="seedModal" tabindex="-1" role="dialog" aria-labelledby="seedModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="exampleModalLabel">Product Demo Data</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p style="font-size: 1.2em;">Seeding product demo data will automatically generate sample products for the selected categories for your session.</p>
+          <div class="row">
+            <div class="col-md-5 ml-auto mr-auto">
+              <div class="form-group bmd-form-group" style="margin-top: 25px;">
+                <input style="position: absolute; right: 0px; margin-left: 5px; margin-top: auto; margin-bottom: auto;" type="checkbox" class="" value="" id="seedSoftware">
+                <label for="seedSoftware" style="font-size: 1.2em;"><strong>Software &amp; Digital</strong></label>
+              </div>
+              <div class="form-group bmd-form-group">
+                <input class="enablers" style="position: absolute; right: 0px;  margin-left: 5px; margin-top: auto; margin-bottom: auto;" type="checkbox" id="seedFoodBeverage">
+                <label for="seedFoodBeverage" style="font-size: 1.2em;"><strong>Food &amp; Beverage</strong></label>
+              </div>
+              <div class="form-group bmd-form-group">
+                <input class="enablers" style="position: absolute; right: 0px;  margin-left: 5px; margin-top: auto; margin-bottom: auto;" type="checkbox" id="seedServices">
+                <label for="seedServices" style="font-size: 1.2em;"><strong>Services</strong></label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary seed-products" data-dismiss="modal">Seed Products</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="exampleModalLabel">Create a New Product</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p style="font-size: 1.2em;">Add a new product to your session.</p>
+          <p  class="missingRequired" style="display: none; color: red"><strong>Product Name and Product Unit Price are required.</strong></p>
+          <div class="row">
+            <div class="col-md-5 ml-auto mr-auto">
+              <div class="form-group bmd-form-group">
+                <label for="productName">Product Name</label>
+                <input required type="text" class="form-control" value="" id="newProductName">
+              </div>
+
+              <div class="form-group bmd-form-group">
+                <label for="city">Product ID</label>
+                <input type="text" class="form-control" value="" id="newProductId">
+              </div>
+
+              <div class="form-group bmd-form-group">
+                <label for="city">Product Description</label>
+                <input type="text" class="form-control" value="" id="newProductDescription">
+              </div>
+
+              <div class="form-group bmd-form-group">
+                <label for="city">Product Unit Price</label>
+                <input required type="number" step="0.01" class="form-control" id="newProductUnitPrice">
+              </div>
+
+              <div class="form-group bmd-form-group">
+                <label for="city">Product Tax Code</label>
+                <input type="text" class="form-control" value="" id="newProductTaxCode">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary create-product">Create Product</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
