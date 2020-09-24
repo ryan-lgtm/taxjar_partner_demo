@@ -29,7 +29,7 @@
                 <hr>
                 <div style="display: table-cell;">
                   {{#with products}}
-                    <table class="nexusResults table table-bordered" style="font-size: 2em; table-layout: fixed; width: 100%;">
+                    <table class="nexusResults table table-bordered" style="font-size: 1.5em; table-layout: fixed; width: 100%;">
                       <thead>
                         <tr>
                           <th>Actions</th>
@@ -45,7 +45,7 @@
                       <tbody>
                         {{#each products}}
                           <tr>
-                            <td class="text-center"><a href="#" class="btn btn-sm btn-info btn-round mt-4 edit-product">Edit</a><a href="#" class="btn btn-sm btn-danger btn-round mt-4 delete-product">Delete</a></td>
+                            <td class="text-center"><a href="#" class="btn btn-sm btn-info btn-round mt-4 edit-product {{this._id}}"><i class="material-icons {{this._id}}-icon" style="font-size: 1.5em;">edit</i></a><a href="#" class="btn btn-sm btn-danger btn-round mt-4 delete-product" style="margin-left: 5px;"><i class="material-icons" style='font-size: 1.5em;'>delete_forever</i></a></td>
                             <td>{{this.productIdentifier}}</td>
                             <td>{{this.productName}}</td>
                             <td>{{this.productDescription}}</td>

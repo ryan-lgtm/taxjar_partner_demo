@@ -110,6 +110,36 @@ Template.manageProducts.events({
         }
       })
     }
+  },
+
+  'click .delete-product': function(event) {
+    event.preventDefault();
+
+    Meteor.call('deleteProduct', this._id, function(err,res){
+      if (err) {
+        Bert.alert('An unexpected error has occurred.', 'danger');
+        console.log(err);
+      } else {
+        Bert.alert('Product deleted successfully.', 'success');
+      }
+    });
+  },
+
+  'click .edit-product': function(event) {
+    event.preventDefault();
+    var id = '.'+String(this._id);
+    var idIcon = id+'-icon';
+    if ($(id).hasClass('enabled')) {
+      $(id).removeClass('enabled');
+      $(id).addClass('btn-info');
+      $(id).removeClass('btn-success');
+      $(idIcon).text('edit');
+    } else {
+      $(id).addClass('enabled');
+      $(id).removeClass('btn-info');
+      $(id).addClass('btn-success');
+      $(idIcon).text('done');
+    }
   }
   // 'click .retrieve-nexus': function(event) {
   //   event.preventDefault();

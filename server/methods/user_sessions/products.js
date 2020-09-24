@@ -152,6 +152,18 @@ Meteor.methods({
         Meteor.call('createSessionEvent',sessionId,'Created new product.\nProduct Name: '+product.productName+`\n`+'Product Description: '+product.productDescription+`\n`+'Product ID: '+product.productIdentifier+`\n`+'Product Unit Price: '+product.productUnitPrice+`\n`+'Product Tax Code: '+product.productTaxCode);
       }
     })
+  },
+
+  deleteProduct: function(productId) {
+    Product.remove({
+      _id: productId
+    }, function(err,res){
+      if (err) {
+        console.log(err);
+      } else {
+        return res
+      }
+    })
   }
 
 });

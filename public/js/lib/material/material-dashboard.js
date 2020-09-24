@@ -65,9 +65,6 @@ $(document).ready(function() {
     $(".selectpicker").selectpicker();
   }
 
-  //  Activate the tooltips
-  $('[rel="tooltip"]').tooltip();
-
   $('.form-control').on("focus", function() {
     $(this).parent('.input-group').addClass("input-group-focus");
   }).on("blur", function() {

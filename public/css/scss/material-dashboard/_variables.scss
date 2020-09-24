@@ -1,8 +1,6 @@
 @import "variables/colors";
 @import "variables/shadow";
 
-@import "variables/bootstrap-material-design-base";
-
 // Customized BS variables
 @import "variables/custom-forms";
 @import "variables/spacing";
@@ -34,5 +32,3 @@ $enable-shadows: true; // enable shadows, set to false to turn off shadows
 @import "variables/menu";
 @import "variables/drawer";
 @import "variables/snackbar";
-
-@import "variables/bootstrap-material-design";
