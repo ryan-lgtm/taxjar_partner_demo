@@ -15,13 +15,16 @@ Template.manageProducts.onCreated(function() {
 
   let template = Template.instance();
 
-  //template.sessionEvents = new ReactiveVar();
-
   template.autorun(() => {
     var sessionId = Session.get('userSessionId');
+
     var products = Product.find({
       'sessionId': sessionId
-    }).count();
+    }, {
+      sort: {
+        'lastUpdated': -1
+      }
+    }).fetch();
 
     var results = Meteor.call('getProducts', sessionId, function(err, res) {
       if (err) {
@@ -37,6 +40,18 @@ Template.manageProducts.onCreated(function() {
 Template.manageProducts.helpers({
   products: function() {
     return Session.get('products');
+  },
+
+  isEditable: function() {
+    var id = '.'+String(this._id+'-toggle');
+    console.log(id);
+    if ($(id).hasClass('enabled')) {
+      console.log("I'm editable");
+      return true
+    } else {
+      console.log("I'm not editable.");
+      return false
+    };
   }
 
 });
@@ -114,8 +129,9 @@ Template.manageProducts.events({
 
   'click .delete-product': function(event) {
     event.preventDefault();
-
-    Meteor.call('deleteProduct', this._id, function(err,res){
+    var sessionId = Session.get('userSessionId');
+    
+    Meteor.call('deleteProduct', sessionId, this, function(err,res){
       if (err) {
         Bert.alert('An unexpected error has occurred.', 'danger');
         console.log(err);
@@ -127,36 +143,45 @@ Template.manageProducts.events({
 
   'click .edit-product': function(event) {
     event.preventDefault();
-    var id = '.'+String(this._id);
-    var idIcon = id+'-icon';
-    if ($(id).hasClass('enabled')) {
-      $(id).removeClass('enabled');
-      $(id).addClass('btn-info');
-      $(id).removeClass('btn-success');
-      $(idIcon).text('edit');
+    var sessionId = Session.get('userSessionId');
+
+    var id = String(this._id);
+    var idClass='.'+id;
+    var idEnable = idClass+'-toggle';
+    var idIcon = idEnable+'-icon';
+    var isEditable = '.isEditable-'+String(this._id);
+    var notEditable = '.notEditable-'+String(this._id);
+
+    if ($(idEnable).hasClass('enabled')) {
+      let product = {
+        'productId': id,
+        'productIdentifier': $.trim($('.productIdentifier, '+id).val()),
+        'productName': $.trim($('.productName, '+id).val()),
+        'productDescription': $.trim($('.productDescription, '+id).val()),
+        'productUnitPrice': $.trim($('.productUnitPrice, '+id).val()),
+        'productTaxCode': $.trim($('.productTaxCode, '+id).val())
+      };
+      Meteor.call('editProduct', sessionId, product, function(err,res){
+        if (err) {
+          Bert.alert('Product could not be updated: '+err, 'danger');
+          return
+        } else {
+          Bert.alert('Product updated successfully.', 'success');
+          $(notEditable).show();
+          $(isEditable).hide();
+          $(idEnable).removeClass('enabled');
+          $(idEnable).addClass('btn-info');
+          $(idEnable).removeClass('btn-success');
+          $(idIcon).text('edit');
+        }
+      });
     } else {
-      $(id).addClass('enabled');
-      $(id).removeClass('btn-info');
-      $(id).addClass('btn-success');
+      $(notEditable).hide();
+      $(isEditable).show();
+      $(idEnable).addClass('enabled');
+      $(idEnable).removeClass('btn-info');
+      $(idEnable).addClass('btn-success');
       $(idIcon).text('done');
     }
   }
-  // 'click .retrieve-nexus': function(event) {
-  //   event.preventDefault();
-  //   if (Session.get('enableApi') == 'true') {
-  //     Meteor.call('retrieveNexus', Session.get('apiToken'), Session.get('userSessionId'), function(err,res){
-  //       if (err) {
-  //         Session.set('fetchingResults', false);
-  //         Bert.alert('An unexpected error occurred.', 'danger');
-  //       } else {
-  //         Session.set('fetchingResults', false);
-  //         Session.set('nexusStates', res.regions);
-  //         console.log(Session.get('nexusStates'));
-  //       }
-  //     });
-  //   } else {
-  //     Meteor.call('createSessionEvent', Session.get('userSessionId'), 'Could not retrieve nexus locations. API is not enabled.');
-  //     Bert.alert('Could not retrieve nexus locations. API is not enabled.', 'danger');
-  //   }
-  // }
 });

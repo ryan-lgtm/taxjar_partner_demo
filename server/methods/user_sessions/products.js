@@ -145,23 +145,45 @@ Meteor.methods({
       'productIdentifier': product.productIdentifier,
       'productUnitPrice': product.productUnitPrice,
       'productTaxCode': product.productTaxCode
-    }, function(err,res){
+    }, function(err, res) {
       if (err) {
         console.log(err);
       } else {
-        Meteor.call('createSessionEvent',sessionId,'Created new product.\nProduct Name: '+product.productName+`\n`+'Product Description: '+product.productDescription+`\n`+'Product ID: '+product.productIdentifier+`\n`+'Product Unit Price: '+product.productUnitPrice+`\n`+'Product Tax Code: '+product.productTaxCode);
+        Meteor.call('createSessionEvent', sessionId, 'Created new product.\nProduct Name: '+'Product Identifier: '+product.productIdentifier+'\nProduct Name: '+product.productName+'\nProduct Description: '+product.productDescription+'\nProduct Unit Price: '+product.productUnitPrice+'\nProduct Tax Code: '+product.productTaxCode);
       }
     })
   },
 
-  deleteProduct: function(productId) {
+  deleteProduct: function(sessionId, product) {
     Product.remove({
-      _id: productId
-    }, function(err,res){
+      _id: product._id
+    }, function(err, res) {
       if (err) {
         console.log(err);
       } else {
+        Meteor.call('createSessionEvent', sessionId, 'Product deleted:\n'+'Product Identifier: '+product.productIdentifier+'\nProduct Name: '+product.productName+'\nProduct Description: '+product.productDescription+'\nProduct Unit Price: '+product.productUnitPrice+'\nProduct Tax Code: '+product.productTaxCode);
         return res
+      }
+    })
+  },
+
+  editProduct: function(sessionId, product) {
+    Product.update({
+      _id: product.productId
+    }, {
+      $set: {
+        'productName': product.productName,
+        'productDescription': product.productDescription,
+        'productIdentifier': product.productIdentifier,
+        'productUnitPrice': product.productUnitPrice,
+        'productTaxCode': product.productTaxCode
+      }
+    }, function(err,res){
+      if (err) {
+        console.log(err);
+        return err
+      } else {
+        Meteor.call('createSessionEvent', sessionId, 'Product Updated:\n'+'Product Identifier: '+product.productIdentifier+'\nProduct Name: '+product.productName+'\nProduct Description: '+product.productDescription+'\nProduct Unit Price: '+product.productUnitPrice+'\nProduct Tax Code: '+product.productTaxCode);
       }
     })
   }
