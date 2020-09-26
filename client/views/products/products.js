@@ -52,8 +52,19 @@ Template.manageProducts.helpers({
       console.log("I'm not editable.");
       return false
     };
-  }
+  },
 
+  starred: function() {
+    var sessionId = Session.get('userSessionId');
+    var starred = TaxCategory.find({
+      sessionId: sessionId,
+      starred: true
+    }).fetch()
+
+    if (starred) {
+      return starred
+    }
+  }
 });
 
 Template.manageProducts.events({
@@ -94,6 +105,18 @@ Template.manageProducts.events({
     Bert.alert('Successfully seeded product data.', 'success');
   },
 
+  'click .retrieve-ptcs': function(event) {
+    event.preventDefault();
+
+    Meteor.call('syncProductTaxCodes', Session.get('userSessionId'), Session.get('apiToken'), function(err,res){
+      if (err) {
+        Bert.alert('Error: ' + err, 'danger');
+      } else {
+        Bert.alert('Successfully synced '+res+' product tax categories.','success');
+      }
+    });
+  },
+
   'click .create-product': function(event) {
     event.preventDefault();
     var sessionId = Session.get('userSessionId');
@@ -103,8 +126,13 @@ Template.manageProducts.events({
       'productDescription': $.trim($('#newProductDescription').val()),
       'productIdentifier': $.trim($('#newProductId').val()),
       'productUnitPrice': $.trim($('#newProductUnitPrice').val()),
-      'productTaxCode': $.trim($('#newProductTaxCode').val())
     };
+
+    if ($('.toggle-input').hasClass('hidden')) {
+      product['productTaxCode'] = $('#starredPtcs option:selected').attr('value');
+    } else {
+      product['productTaxCode'] = $.trim($('#newProductTaxCode').val());
+    }
 
     if (product.productName.length == 0 || product.productUnitPrice.length == 0) {
       $('.missingRequired').show();
@@ -130,7 +158,7 @@ Template.manageProducts.events({
   'click .delete-product': function(event) {
     event.preventDefault();
     var sessionId = Session.get('userSessionId');
-    
+
     Meteor.call('deleteProduct', sessionId, this, function(err,res){
       if (err) {
         Bert.alert('An unexpected error has occurred.', 'danger');
@@ -182,6 +210,20 @@ Template.manageProducts.events({
       $(idEnable).removeClass('btn-info');
       $(idEnable).addClass('btn-success');
       $(idIcon).text('done');
+    }
+  },
+
+  'click #enterInstead': function(event){
+    event.preventDefault();
+
+    if ($('.toggle-input').hasClass('hidden')) {
+      $('#starredPtcs').hide();
+      $('.toggle-input').removeClass('hidden');
+      $('.toggle-input').show();
+    } else {
+      $('#starredPtcs').show();
+      $('.toggle-input').addClass('hidden');
+      $('.toggle-input').hide();
     }
   }
 });

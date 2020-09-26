@@ -1,3 +1,5 @@
+const Taxjar = require('taxjar');
+
 Meteor.methods({
   seedSoftware: function(sessionId) {
     Product.insert({
@@ -129,6 +131,58 @@ Meteor.methods({
         return err
       }
     });
+  },
+
+  async syncProductTaxCodes(sessionId, token) {
+    const client = new Taxjar({
+      apiKey: token
+    });
+
+    const result = await client.categories().then(res => {
+      Meteor.call('createSessionEvent', sessionId, 'Calling GET /v2/categories (https://developers.taxjar.com/api/reference/#categories) to retrieve product tax code data.');
+        return res
+    }).then(function(res) {
+      Meteor.call('createSessionEvent', sessionId, 'Product tax code data retrieved. Creating or updating product tax code data to database.');
+      var data = res.categories;
+      data.forEach((obj) => {
+        TaxCategory.insert({
+          'sessionId': sessionId,
+          'name': obj.name,
+          'description': obj.description,
+          'productTaxCode': obj.product_tax_code
+        });
+      });
+      return true
+    }).then(function() {
+      var successCount = TaxCategory.find({
+        'sessionId': sessionId
+      }).count();
+      Meteor.call('createSessionEvent', sessionId, 'Successfully loaded '+successCount+' product tax codes.');
+      return successCount
+    }).catch(function(err) {
+      console.log(err);
+    });
+    return result
+  },
+
+  updateStarred: function(taxCategory) {
+    if (taxCategory.starred) {
+      TaxCategory.update({
+        _id: taxCategory._id
+      }, {
+        $set: {
+          starred: false
+        }
+      });
+    } else {
+      TaxCategory.update({
+        _id: taxCategory._id
+      }, {
+        $set: {
+          starred: true
+        }
+      })
+    }
   },
 
   getProducts: function(sessionId) {

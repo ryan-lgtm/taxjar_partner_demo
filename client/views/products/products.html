@@ -73,6 +73,28 @@
     </div>
   </div>
 
+  <div class="row">
+    <div class="col-md-12 ml-auto mr-auto">
+      <div class="card">
+        <div class="card-header card-header-info card-header-text">
+          <div class="card-icon">
+            <i class="material-icons">shopping_basket</i>
+          </div>
+          <div class="col-md-10 ml-auto mr-auto">
+            <h2 class="card-title text-center">Product Tax Categories</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-10 ml-auto mr-auto">
+              {{>taxCategorySearch}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Modal -->
   <div class="modal fade" id="seedModal" tabindex="-1" role="dialog" aria-labelledby="seedModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -111,7 +133,7 @@
   </div>
 
   <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h3 class="modal-title" id="exampleModalLabel">Create a New Product</h3>
@@ -146,7 +168,18 @@
 
               <div class="form-group bmd-form-group">
                 <label for="city">Product Tax Code</label>
-                <input type="text" class="form-control" value="" id="newProductTaxCode">
+                {{#if starred}}
+                  <select name="starredPtcs" id="starredPtcs">
+                    <option value="">-none-</option>
+                    {{#each starred}}
+                    <option value="{{productTaxCode}}">{{productTaxCode}} - {{name}}</option>
+                    {{/each}}
+                  </select>
+                  <p style="font-size:1.2em;"><a href="#" id="enterInstead">Toggle Manual Entry</a></p>
+                  <input style="display: none;" type="text" class="toggle-input hidden form-control" id="newProductTaxCode">
+                {{else}}
+                  <input type="text" class="form-control" id="newProductTaxCode">
+                {{/if}}
               </div>
             </div>
           </div>
