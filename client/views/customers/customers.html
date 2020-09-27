@@ -1,3 +1,146 @@
 <template name="manageCustomers">
-<p>Why hello there.</p>
+  <div class="row">
+    <div class="col-md-12 ml-auto mr-auto">
+      <h1 class="text-center">Customers</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 ml-auto mr-auto">
+      <div class="card">
+        <div class="card-header card-header-warning card-header-text">
+          <div class="card-icon">
+            <i class="material-icons">people_outline</i>
+          </div>
+          <div class="col-md-10 ml-auto mr-auto">
+            <h2 class="card-title text-center">Manage Customers</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-10 ml-auto mr-auto">
+              <div class="row">
+                <div style="margin-bottom: 5px;">
+                  <a href="#" style="left: 0px;" class="btn btn-sm btn-primary btn-round mt-4" id="seed-customers">Seed Customer Demo Data</a>
+                  <a href="#" style="left: 0px;" class="btn btn-sm btn-warning btn-round mt-4 sync-customers">Sync Customers with TaxJar</a>
+                  <a href="#" style="left: 0px;" data-toggle="modal" data-target="#createModal" class="btn btn-sm btn-info btn-round mt-4">Create Customer</a>
+                </div>
+              </div>
+              <div class="row" style="display: table; margin-top: 15px;">
+                <hr>
+                <div style="display: table-cell;">
+                  {{#with customers}}
+                    <table class="nexusResults table table-bordered" style="font-size: 1.5em; table-layout: fixed; width: 100%;">
+                      <thead>
+                        <tr>
+                          <th>Actions</th>
+                          <th>Customer ID</th>
+                          <th>Customer Name</th>
+                          <th>Street</th>
+                          <th>City</th>
+                          <th>State</th>
+                          <th>Zip Code</th>
+                          <th>Country</th>
+                          <th>Exemption Type</th>
+                        </tr>
+                      </thead>
+                      <tfoot>
+                      </tfoot>
+                      <tbody>
+                        {{#each customers}}
+                          <tr>
+                            <td class="text-center">
+                              <a href="#" class="btn btn-sm btn-info btn-round mt-4 edit-customer"><i class="material-icons" style="font-size: 1.5em;">edit</i></a>
+                              <a href="#" class="btn btn-sm btn-danger btn-round mt-4 delete-customer" style="margin-left: 5px;"><i class="material-icons" style='font-size: 1.5em;'>delete_forever</i></a>
+                            </td>
+                            <td>{{this.customerIdentifier}}</td>
+                            <td>{{this.customerName}}</td>
+                            <td>{{this.customerStreet}}</td>
+                            <td>{{this.customerCity}}</td>
+                            <td>{{this.customerState}}</td>
+                            <td>{{this.customerZip}}</td>
+                            <td>{{this.customerCountry}}</td>
+                            <td>{{this.customerExemptionType}}</td>
+                          </tr>
+                        {{/each}}
+                      </tbody>
+                    </table>
+                  {{/with}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="exampleModalLabel">Create a New Customer</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p style="font-size: 1.2em;">Add a new customer to your session.</p>
+          <p class="missingRequired" style="display: none; color: red"><strong>Customer ID, name, and exemption_type properties are required.</strong></p>
+          <div class="row">
+            <div class="col-md-5 ml-auto mr-auto">
+              <div class="form-group bmd-form-group">
+                <label for="customerName">Customer Name</label>
+                <input required type="text" class="form-control" value="" id="newCustomerName">
+              </div>
+
+              <div class="form-group bmd-form-group">
+                <label for="customerId">Customer ID</label>
+                <input required type="text" class="form-control" value="" id="newCustomerId">
+              </div>
+
+              <div class="form-group bmd-form-group">
+                <label for="customerStreet">Street</label>
+                <input type="text" class="form-control" value="" id="newCustomerStreet">
+              </div>
+
+              <div class="form-group bmd-form-group">
+                <label for="customerCity">City</label>
+                <input type="text" class="form-control" value="" id="newCustomerCity">
+              </div>
+
+              <div class="form-group bmd-form-group">
+                <label for="customerState">State</label>
+                <input type="text" class="form-control" value="" id="newCustomerState" maxlength="2">
+              </div>
+
+              <div class="form-group bmd-form-group">
+                <label for="customerZip">Zip Code</label>
+                <input type="text" class="form-control" value="" id="newCustomerZip" maxlength="5">
+              </div>
+
+              <div class="form-group bmd-form-group">
+                <label for="customerCountry">Country Code</label>
+                <input type="text" class="form-control" value="" id="newCustomerCountry" maxlength="2">
+              </div>
+
+              <div class="form-group bmd-form-group">
+                <label for="exemptionType">Exemption Type</label>
+                <select name="exemptionType" id="exemptionTypes">
+                  <option value="non_exempt">None (Non-exempt)</option>
+                  <option value="wholesale">Wholesale</option>
+                  <option value="government">Government</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary create-customer">Create Customer</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>

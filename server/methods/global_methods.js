@@ -15,7 +15,11 @@ Meteor.methods({
     TaxCategory.remove({
       sessionId: sessionId
     });
-    
+
+    Customer.remove({
+      sessionId: sessionId
+    });
+
   }
 
 

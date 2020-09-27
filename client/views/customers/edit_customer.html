@@ -1,0 +1,84 @@
+<template name="editCustomer">
+  {{#with currentCustomer}}
+    <div class="row">
+      <div class="col-md-12 ml-auto mr-auto">
+        <h1 class="text-center">Editing {{currentCustomer.customerName}}</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 ml-auto mr-auto">
+        <div class="card">
+          <div class="card-header card-header-warning card-header-text">
+            <div class="card-icon">
+              <i class="material-icons">person</i>
+            </div>
+            <div class="col-md-10 ml-auto mr-auto">
+              <h2 class="card-title text-center">Customer Edit</h2>
+            </div>
+          </div>
+          <div class="card-body">
+            <p class="missingRequired" style="display: none; color: red"><strong>Customer ID, name, and exemption_type properties are required.</strong></p>
+            <div class="row">
+              <div class="col-md-6 ml-auto mr-auto">
+                <div class="form-group bmd-form-group">
+                  <label for="customerName">Customer Name</label>
+                  <input required type="text" class="form-control" value="{{currentCustomer.customerName}}" id="customerName">
+                </div>
+
+                <div class="form-group bmd-form-group">
+                  <label for="customerId">Customer ID</label>
+                  <input required type="text" class="form-control" value="{{currentCustomer.customerIdentifier}}" id="customerId">
+                </div>
+
+                <div class="form-group bmd-form-group">
+                  <label for="customerStreet">Street</label>
+                  <input type="text" class="form-control" value="{{currentCustomer.customerStreet}}" id="customerStreet">
+                </div>
+
+                <div class="form-group bmd-form-group">
+                  <label for="customerCity">City</label>
+                  <input type="text" class="form-control" value="{{currentCustomer.customerCity}}" id="customerCity">
+                </div>
+
+                <div class="form-group bmd-form-group">
+                  <label for="customerState">State</label>
+                  <input type="text" class="form-control" value="{{currentCustomer.customerState}}" id="customerState" maxlength="2">
+                </div>
+
+                <div class="form-group bmd-form-group">
+                  <label for="customerZip">Zip Code</label>
+                  <input type="text" class="form-control" value="{{currentCustomer.customerZip}}" id="customerZip" maxlength="5">
+                </div>
+
+                <div class="form-group bmd-form-group">
+                  <label for="customerCountry">Country Code</label>
+                  <input type="text" class="form-control" value="{{currentCustomer.customerCountry}}" id="customerCountry" maxlength="2">
+                </div>
+
+                <div class="form-group bmd-form-group">
+                  <label for="exemptionType">Exemption Type</label>
+                  <select name="exemptionType" id="exemptionTypes">
+                    <option value="{{currentCustomer.customerExemptionType}}" selected>{{currentCustomer.customerExemptionType}}</option>
+                    <br>
+                    <option value="non_exempt">None (Non-exempt)</option>
+                    <option value="wholesale">Wholesale</option>
+                    <option value="government">Government</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {{/with}}
+
+  <div class="row">
+    <div class="col-md-6 mr-auto ml-auto">
+      <div class="text-center">
+        <a href="#" class="btn btn-primary btn-round mt-4 save-customer">Save It</a>
+      </div>
+    </div>
+  </div>
+</template>

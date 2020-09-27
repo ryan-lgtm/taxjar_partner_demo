@@ -29,7 +29,7 @@
                 <hr>
                 <div style="display: table-cell;">
                   {{#with products}}
-                    <table class="nexusResults table table-bordered" style="font-size: 1.5em; table-layout: fixed; width: 100%;">
+                    <table class="produtResults table table-bordered" style="font-size: 1.5em; table-layout: fixed; width: 100%;">
                       <thead>
                         <tr>
                           <th>Actions</th>
@@ -147,22 +147,22 @@
               </div>
 
               <div class="form-group bmd-form-group">
-                <label for="city">Product ID</label>
+                <label for="productId">Product ID</label>
                 <input type="text" class="form-control" value="" id="newProductId">
               </div>
 
               <div class="form-group bmd-form-group">
-                <label for="city">Product Description</label>
+                <label for="productDescription">Product Description</label>
                 <input type="text" class="form-control" value="" id="newProductDescription">
               </div>
 
               <div class="form-group bmd-form-group">
-                <label for="city">Product Unit Price</label>
+                <label for="productUnitPrice">Product Unit Price</label>
                 <input required type="number" step="0.01" class="form-control" id="newProductUnitPrice">
               </div>
 
               <div class="form-group bmd-form-group">
-                <label for="city">Product Tax Code</label>
+                <label for="productTaxCode">Product Tax Code</label>
                 {{#if starred}}
                   <select name="starredPtcs" id="starredPtcs">
                     <option value="">-none-</option>
