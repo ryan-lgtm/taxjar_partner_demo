@@ -46,19 +46,14 @@
                         {{#each products}}
                           <tr>
                             <td class="text-center">
-                              <a href="#" class="btn btn-sm btn-info btn-round mt-4 edit-product {{this._id}}-toggle"><i class="material-icons {{this._id}}-toggle-icon" style="font-size: 1.5em;">edit</i></a>
+                              <a href="#" class="btn btn-sm btn-info btn-round mt-4 edit-product"><i class="material-icons" style="font-size: 1.5em;">edit</i></a>
                               <a href="#" class="btn btn-sm btn-danger btn-round mt-4 delete-product" style="margin-left: 5px;"><i class="material-icons" style='font-size: 1.5em;'>delete_forever</i></a>
                             </td>
-                            <td class="isEditable-{{this._id}}" style="display: none;"><input type="input" style="margin: 0 auto; width: 100%;" class="productIdentifier {{this._id}}" value="{{this.productIdentifier}}"></td>
-                            <td class="isEditable-{{this._id}}" style="display: none;"><input type="input" style="margin: 0 auto; width: 100%;" class="productName {{this._id}}" value="{{this.productName}}"></td>
-                            <td class="isEditable-{{this._id}}" style="display: none;"><input type="input" style="margin: 0 auto; width: 100%;" class="productDescription {{this._id}}" value="{{this.productDescription}}"></td>
-                            <td class="isEditable-{{this._id}}" style="display: none;"><input type="input" style="margin: 0 auto; width: 100%;" class="productUnitPrice {{this._id}}" value="{{this.productUnitPrice}}"></td>
-                            <td class="isEditable-{{this._id}}" style="display: none;"><input type="input" style="margin: 0 auto; width: 100%;" class="productTaxCode {{this._id}}" value="{{this.productTaxCode}}"></td>
-                            <td class="notEditable-{{this._id}}">{{this.productIdentifier}}</td>
-                            <td class="notEditable-{{this._id}}">{{this.productName}}</td>
-                            <td class="notEditable-{{this._id}}">{{this.productDescription}}</td>
-                            <td class="notEditable-{{this._id}}">{{this.productUnitPrice}}</td>
-                            <td class="notEditable-{{this._id}}">{{this.productTaxCode}}</td>
+                            <td>{{this.productIdentifier}}</td>
+                            <td>{{this.productName}}</td>
+                            <td>{{this.productDescription}}</td>
+                            <td>{{this.productUnitPrice}}</td>
+                            <td>{{this.productTaxCode}}</td>
                           </tr>
                         {{/each}}
                       </tbody>
@@ -172,7 +167,7 @@
                   <select name="starredPtcs" id="starredPtcs">
                     <option value="">-none-</option>
                     {{#each starred}}
-                    <option value="{{productTaxCode}}">{{productTaxCode}} - {{name}}</option>
+                      <option value="{{productTaxCode}}">{{productTaxCode}} - {{name}}</option>
                     {{/each}}
                   </select>
                   <p style="font-size:1.2em;"><a href="#" id="enterInstead">Toggle Manual Entry</a></p>

@@ -140,7 +140,7 @@ Meteor.methods({
 
     const result = await client.categories().then(res => {
       Meteor.call('createSessionEvent', sessionId, 'Calling GET /v2/categories (https://developers.taxjar.com/api/reference/#categories) to retrieve product tax code data.');
-        return res
+      return res
     }).then(function(res) {
       Meteor.call('createSessionEvent', sessionId, 'Product tax code data retrieved. Creating or updating product tax code data to database.');
       var data = res.categories;
@@ -157,7 +157,7 @@ Meteor.methods({
       var successCount = TaxCategory.find({
         'sessionId': sessionId
       }).count();
-      Meteor.call('createSessionEvent', sessionId, 'Successfully loaded '+successCount+' product tax codes.');
+      Meteor.call('createSessionEvent', sessionId, 'Successfully loaded ' + successCount + ' product tax codes.');
       return successCount
     }).catch(function(err) {
       console.log(err);
@@ -203,7 +203,7 @@ Meteor.methods({
       if (err) {
         console.log(err);
       } else {
-        Meteor.call('createSessionEvent', sessionId, 'Created new product.\nProduct Name: '+'Product Identifier: '+product.productIdentifier+'\nProduct Name: '+product.productName+'\nProduct Description: '+product.productDescription+'\nProduct Unit Price: '+product.productUnitPrice+'\nProduct Tax Code: '+product.productTaxCode);
+        Meteor.call('createSessionEvent', sessionId, 'Created new product.\nProduct Name: ' + 'Product Identifier: ' + product.productIdentifier + '\nProduct Name: ' + product.productName + '\nProduct Description: ' + product.productDescription + '\nProduct Unit Price: ' + product.productUnitPrice + '\nProduct Tax Code: ' + product.productTaxCode);
       }
     })
   },
@@ -215,11 +215,40 @@ Meteor.methods({
       if (err) {
         console.log(err);
       } else {
-        Meteor.call('createSessionEvent', sessionId, 'Product deleted:\n'+'Product Identifier: '+product.productIdentifier+'\nProduct Name: '+product.productName+'\nProduct Description: '+product.productDescription+'\nProduct Unit Price: '+product.productUnitPrice+'\nProduct Tax Code: '+product.productTaxCode);
+        Meteor.call('createSessionEvent', sessionId, 'Product deleted:\n' + 'Product Identifier: ' + product.productIdentifier + '\nProduct Name: ' + product.productName + '\nProduct Description: ' + product.productDescription + '\nProduct Unit Price: ' + product.productUnitPrice + '\nProduct Tax Code: ' + product.productTaxCode);
         return res
       }
     })
   },
+
+  // async editProduct(sessionId, product) {
+  //
+  //   try {
+  //     Product.update({
+  //       _id: product.productId
+  //     }, {
+  //       $set: {
+  //         'productName': product.productName,
+  //         'productDescription': product.productDescription,
+  //         'productIdentifier': product.productIdentifier,
+  //         'productUnitPrice': product.productUnitPrice,
+  //         'productTaxCode': product.productTaxCode
+  //       }
+  //     }, function(err, res) {
+  //       if (err) {
+  //         console.log(err);
+  //         return err
+  //       } else {
+  //         console.log(product);
+  //         console.log(Product.findOne({_id: product.productId}));
+  //         Meteor.call('createSessionEvent', sessionId, 'Product Updated:\n' + 'Product Identifier: ' + product.productIdentifier + '\nProduct Name: ' + product.productName + '\nProduct Description: ' + product.productDescription + '\nProduct Unit Price: ' + product.productUnitPrice + '\nProduct Tax Code: ' + product.productTaxCode);
+  //         return res
+  //       }
+  //     });
+  //   } catch (err) {
+  //     console.log(err);
+  //   };
+  // }
 
   editProduct: function(sessionId, product) {
     Product.update({

@@ -1,2 +1,2 @@
 Meteor.subscribe("visitor_sessions");
-Meteor.subscribe("products");
+//Meteor.subscribe("products");

@@ -18,13 +18,9 @@ Template.manageProducts.onCreated(function() {
   template.autorun(() => {
     var sessionId = Session.get('userSessionId');
 
-    var products = Product.find({
+    Product.find({
       'sessionId': sessionId
-    }, {
-      sort: {
-        'lastUpdated': -1
-      }
-    }).fetch();
+    }).count();
 
     var results = Meteor.call('getProducts', sessionId, function(err, res) {
       if (err) {
@@ -33,25 +29,13 @@ Template.manageProducts.onCreated(function() {
         Session.set('products', res)
       }
     });
-    return products
+    return results
   });
 })
 
 Template.manageProducts.helpers({
   products: function() {
     return Session.get('products');
-  },
-
-  isEditable: function() {
-    var id = '.'+String(this._id+'-toggle');
-    console.log(id);
-    if ($(id).hasClass('enabled')) {
-      console.log("I'm editable");
-      return true
-    } else {
-      console.log("I'm not editable.");
-      return false
-    };
   },
 
   starred: function() {
@@ -108,11 +92,11 @@ Template.manageProducts.events({
   'click .retrieve-ptcs': function(event) {
     event.preventDefault();
 
-    Meteor.call('syncProductTaxCodes', Session.get('userSessionId'), Session.get('apiToken'), function(err,res){
+    Meteor.call('syncProductTaxCodes', Session.get('userSessionId'), Session.get('apiToken'), function(err, res) {
       if (err) {
         Bert.alert('Error: ' + err, 'danger');
       } else {
-        Bert.alert('Successfully synced '+res+' product tax categories.','success');
+        Bert.alert('Successfully synced ' + res + ' product tax categories.', 'success');
       }
     });
   },
@@ -159,7 +143,7 @@ Template.manageProducts.events({
     event.preventDefault();
     var sessionId = Session.get('userSessionId');
 
-    Meteor.call('deleteProduct', sessionId, this, function(err,res){
+    Meteor.call('deleteProduct', sessionId, this, function(err, res) {
       if (err) {
         Bert.alert('An unexpected error has occurred.', 'danger');
         console.log(err);
@@ -171,49 +155,10 @@ Template.manageProducts.events({
 
   'click .edit-product': function(event) {
     event.preventDefault();
-    var sessionId = Session.get('userSessionId');
-
-    var id = String(this._id);
-    var idClass='.'+id;
-    var idEnable = idClass+'-toggle';
-    var idIcon = idEnable+'-icon';
-    var isEditable = '.isEditable-'+String(this._id);
-    var notEditable = '.notEditable-'+String(this._id);
-
-    if ($(idEnable).hasClass('enabled')) {
-      let product = {
-        'productId': id,
-        'productIdentifier': $.trim($('.productIdentifier, '+id).val()),
-        'productName': $.trim($('.productName, '+id).val()),
-        'productDescription': $.trim($('.productDescription, '+id).val()),
-        'productUnitPrice': $.trim($('.productUnitPrice, '+id).val()),
-        'productTaxCode': $.trim($('.productTaxCode, '+id).val())
-      };
-      Meteor.call('editProduct', sessionId, product, function(err,res){
-        if (err) {
-          Bert.alert('Product could not be updated: '+err, 'danger');
-          return
-        } else {
-          Bert.alert('Product updated successfully.', 'success');
-          $(notEditable).show();
-          $(isEditable).hide();
-          $(idEnable).removeClass('enabled');
-          $(idEnable).addClass('btn-info');
-          $(idEnable).removeClass('btn-success');
-          $(idIcon).text('edit');
-        }
-      });
-    } else {
-      $(notEditable).hide();
-      $(isEditable).show();
-      $(idEnable).addClass('enabled');
-      $(idEnable).removeClass('btn-info');
-      $(idEnable).addClass('btn-success');
-      $(idIcon).text('done');
-    }
+    FlowRouter.go('/manage-products/edit/' + this._id);
   },
 
-  'click #enterInstead': function(event){
+  'click #enterInstead': function(event) {
     event.preventDefault();
 
     if ($('.toggle-input').hasClass('hidden')) {

@@ -1,0 +1,96 @@
+<template name="editProduct">
+  {{#with currentProduct}}
+    <div class="row">
+      <div class="col-md-12 ml-auto mr-auto">
+        <h1 class="text-center">Editing {{currentProduct.productName}}</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 ml-auto mr-auto">
+        <div class="card">
+          <div class="card-header card-header-info card-header-text">
+            <div class="card-icon">
+              <i class="material-icons">shopping_basket</i>
+            </div>
+            <div class="col-md-10 ml-auto mr-auto">
+              <h2 class="card-title text-center">Product Edit</h2>
+            </div>
+          </div>
+          <div class="card-body">
+            <p class="missingRequired" style="display: none; color: red"><strong>Product Name and Product Unit Price are required.</strong></p>
+            <div class="row">
+              <div class="col-md-6 ml-auto mr-auto">
+                <div class="form-group bmd-form-group">
+                  <label for="productIdentifier">Product ID</label>
+                  <input type="text" class="form-control" value="{{currentProduct.productIdentifier}}" id="productIdentifier">
+                </div>
+
+                <div class="form-group bmd-form-group">
+                  <label for="produtName">Product Name</label>
+                  <input required type="text" class="form-control" value="{{currentProduct.productName}}" id="productName">
+                </div>
+
+                <div class="form-group bmd-form-group">
+                  <label for="productDescription">Product Description</label>
+                  <input type="text" class="form-control" value="{{currentProduct.productDescription}}" id="productDescription">
+                </div>
+
+                <div class="form-group bmd-form-group">
+                  <label for="productUnitPrice">Unit Price</label>
+                  <input required type="number" step="0.01" class="form-control" value="{{currentProduct.productUnitPrice}}" id="productUnitPrice">
+                </div>
+
+                <div class="form-group bmd-form-group">
+                  <label for="city">Product Tax Code</label>
+                  {{#if starred}}
+                    <select name="starredPtcs" id="starredPtcs">
+                      <option value="{{currentProduct.productTaxCode}}">{{currentProduct.productTaxCode}}</option>
+                      <option value="">-none-</option>
+                      {{#each starred}}
+                        <option value="{{productTaxCode}}">{{productTaxCode}} - {{name}}</option>
+                      {{/each}}
+                    </select>
+                    <p style="font-size:1.2em;"><a href="#" id="enterInstead">Toggle Manual Entry</a></p>
+                    <input style="display: none;" type="text" class="toggle-input hidden form-control" id="productTaxCode">
+                  {{else}}
+                    <input type="text" class="form-control" value="{{currentProduct.productTaxCode}}" id="productTaxCode">
+                  {{/if}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {{/with}}
+
+  <div class="row">
+    <div class="col-md-6 mr-auto ml-auto">
+      <div class="text-center">
+        <a href="#" class="btn btn-primary btn-round mt-4 save-product">Save It</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" style="margin-top: 15px;">
+    <div class="col-md-12 ml-auto mr-auto">
+      <div class="card">
+        <div class="card-header card-header-info card-header-text">
+          <div class="card-icon">
+            <i class="material-icons">shopping_basket</i>
+          </div>
+          <div class="col-md-10 ml-auto mr-auto">
+            <h2 class="card-title text-center">Product Tax Categories</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-10 ml-auto mr-auto">
+              {{>taxCategorySearch}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
