@@ -49,10 +49,19 @@ Template.manageCustomers.events({
       if (err) {
         Bert.alert('Could not seed customers: ' + err, 'danger');
       } else {
+        $('#seed-customers').removeClass('btn-primary');
+        $('#seed-customers').addClass('btn-default');
+        $('#seed-customers').attr("id","disabled");
+        $('#disabled').attr("disabled","disabled");
         Bert.alert('Seeded customer data successfully.','success');
         Meteor.call('createSessionEvent', sessionId, 'Seeded customer data.');
       }
     })
+  },
+
+  'click #disabled': function(event) {
+    event.preventDefault();
+    Bert.alert("Can't seed data, it's already been created.",'danger');
   },
 
   'click .sync-customers': function(event) {

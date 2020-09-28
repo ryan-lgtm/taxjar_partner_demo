@@ -98,14 +98,22 @@ Meteor.methods({
       // Capture the remote customer ID's
       var customerIdsRemote = res.customers;
       // Identify which local customer ID's do not exist remotely.
-      var unsynced = customerIds.filter(function(obj) {
+      var unsyncedFromApp = customerIds.filter(function(obj) {
         return customerIdsRemote.indexOf(obj) == -1;
       });
+      // Identify which remote customers do not exist locally.
+      var unsyncedFromTaxJar = customerIdsRemote.filter(function(obj) {
+        return customerIds.indexOf(obj) == -1;
+      })
 
+      var unsynced = {
+        'unsyncedFromApp': unsyncedFromApp,
+        'unsyncedFromTaxJar': unsyncedFromTaxJar
+      }
       return unsynced
     }).then(function(unsynced) {
       // 3.) For each customer record that exists in-app and not in TaxJar, create it in TaxJar.
-      unsynced.forEach((record) => {
+      unsynced.unsyncedFromApp.forEach((record) => {
         var customer = Customer.findOne({
           'sessionId': sessionId,
           'customerIdentifier': record
@@ -123,6 +131,25 @@ Meteor.methods({
         client.createCustomer(data).then(res => {
           Meteor.call('createSessionEvent', sessionId, 'Synced customer data to TaxJar: ' + JSON.stringify(res, null, 4));
         })
+      });
+
+      // 4.) For each customer record that exists in TaxJar but not in-app, create it in the database.
+      unsynced.unsyncedFromTaxJar.forEach((record) => {
+        client.showCustomer(record).then(res => {
+          data = {
+            'sessionId': sessionId,
+            'customerIdentifier': res.customer.customer_id,
+            'customerExemptionType': res.customer.exemption_type,
+            'customerName': res.customer.name,
+            'customerStreet': res.customer.street,
+            'customerCity': res.customer.city,
+            'customerState': res.customer.state,
+            'customerZip': res.customer.zip,
+            'customerCountry': res.customer.country
+          }
+          Customer.insert(data);
+          Meteor.call('createSessionEvent', sessionId, 'Synced data from TaxJar to database:' + JSON.stringify(res, null, 4));
+        });
       });
     }).catch(function(err) {
       console.log(err);
@@ -182,7 +209,7 @@ Meteor.methods({
         'customerCountry': customer.customerCountry,
         'customerExemptionType': customer.customerExemptionType
       }
-    }, function(err,res){
+    }, function(err, res) {
       if (err) {
         console.log(err);
         return err
