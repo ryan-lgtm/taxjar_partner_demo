@@ -134,23 +134,27 @@ Meteor.methods({
       });
 
       // 4.) For each customer record that exists in TaxJar but not in-app, create it in the database.
-      unsynced.unsyncedFromTaxJar.forEach((record) => {
-        client.showCustomer(record).then(res => {
-          data = {
-            'sessionId': sessionId,
-            'customerIdentifier': res.customer.customer_id,
-            'customerExemptionType': res.customer.exemption_type,
-            'customerName': res.customer.name,
-            'customerStreet': res.customer.street,
-            'customerCity': res.customer.city,
-            'customerState': res.customer.state,
-            'customerZip': res.customer.zip,
-            'customerCountry': res.customer.country
-          }
-          Customer.insert(data);
-          Meteor.call('createSessionEvent', sessionId, 'Synced data from TaxJar to database:' + JSON.stringify(res, null, 4));
+      if (unsynced.unsyncedFromTaxJar.length > 101) {
+        Meteor.call('createSessionEvent', sessionId, 'Cannot sync customers from TaxJar. Too many customer records: ' + unsynced.unsyncedFromTaxJar.length);
+      } else {
+        unsynced.unsyncedFromTaxJar.forEach((record) => {
+          client.showCustomer(record).then(res => {
+            data = {
+              'sessionId': sessionId,
+              'customerIdentifier': res.customer.customer_id,
+              'customerExemptionType': res.customer.exemption_type,
+              'customerName': res.customer.name,
+              'customerStreet': res.customer.street,
+              'customerCity': res.customer.city,
+              'customerState': res.customer.state,
+              'customerZip': res.customer.zip,
+              'customerCountry': res.customer.country
+            }
+            Customer.insert(data);
+            Meteor.call('createSessionEvent', sessionId, 'Synced data from TaxJar to database:' + JSON.stringify(res, null, 4));
+          });
         });
-      });
+      }
     }).catch(function(err) {
       console.log(err);
     });
