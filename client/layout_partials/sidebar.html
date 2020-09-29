@@ -14,37 +14,74 @@
           </a>
         </li>
         {{#if navTokenValid}}
-          <li class="nav-item manage-locations-active ">
-            <a class="nav-link to-manage-locations" href="#">
-              <i class="material-icons">map</i>
-              <p>Manage Locations</p>
-            </a>
-          </li>
-          <li class="nav-item manage-products-active">
-            <a class="nav-link to-manage-products" href="#">
-              <i class="material-icons">shop</i>
-              <p>Manage Products</p>
-            </a>
-          </li>
-          <li class="nav-item manage-customers-active">
-            <a class="nav-link to-manage-customers" href="#">
+          {{#if customerView}}
+            <li class="nav-item">
+              <a class="nav-link toggle-admin" href="#">
+                <i class="material-icons">admin_panel_settings</i>
+                <p>Toggle Admin Nav</p>
+              </a>
+            </li>
+          {{else}}
+            <li class="nav-item">
+              <a class="nav-link toggle-customer" href="#">
+                <i class="material-icons">shopping_cart</i>
+                <p>Toggle Customer Nav</p>
+              </a>
+            </li>
+          {{/if}}
+          {{#if customerView}}
+          <li class="nav-item customer-options-active">
+            <a class="nav-link to-customer-options" href="#">
               <i class="material-icons">people</i>
-              <p>Manage Customers</p>
+              <p>Customer Options</p>
             </a>
           </li>
-          <li class="nav-item transactions-active">
-            <a class="nav-link to-transactions" href="#">
-              <i class="material-icons">shopping_bag</i>
-              <p>Transactions</p>
+          <li class="nav-item shop-active">
+            <a class="nav-link to-shop" href="#">
+              <i class="material-icons">store</i>
+              <p>Shop</p>
             </a>
           </li>
-        {{/if}}
-        <li class="nav-item configuration-active">
-          <a class="nav-link to-configuration" href="#">
-            <i class="material-icons">settings</i>
-            <p>Configuration</p>
-          </a>
-        </li>
+          <li class="nav-item checkout-active">
+            <a class="nav-link to-checkout" href="#">
+              <i class="material-icons">attach_money</i>
+              <p>Checkout</p>
+            </a>
+          </li>
+          {{else}}
+            <li class="nav-item manage-locations-active ">
+              <a class="nav-link to-manage-locations" href="#">
+                <i class="material-icons">map</i>
+                <p>Manage Locations</p>
+              </a>
+            </li>
+            <li class="nav-item manage-products-active">
+              <a class="nav-link to-manage-products" href="#">
+                <i class="material-icons">shop</i>
+                <p>Manage Products</p>
+              </a>
+            </li>
+            <li class="nav-item manage-customers-active">
+              <a class="nav-link to-manage-customers" href="#">
+                <i class="material-icons">people</i>
+                <p>Manage Customers</p>
+              </a>
+            </li>
+            <li class="nav-item transactions-active">
+              <a class="nav-link to-transactions" href="#">
+                <i class="material-icons">shopping_bag</i>
+                <p>Transactions</p>
+              </a>
+            </li>
+          {{/if}}
+          {{/if}}
+          <li class="nav-item configuration-active">
+            <a class="nav-link to-configuration" href="#">
+              <i class="material-icons">settings</i>
+              <p>Configuration</p>
+            </a>
+          </li>
+
         <li class="nav-item debugging-active">
           <a class="nav-link open-debugging" href="#">
             <i class="open-debugging material-icons">report_problem</i>

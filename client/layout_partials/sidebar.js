@@ -63,10 +63,49 @@ Template.sidebar.helpers({
 
   userSessionId: function() {
     return Session.get('userSessionId');
+  },
+
+  customerView: function() {
+    if (Session.get('customerView') == true) {
+      return true
+    } else {
+      return false
+    }
   }
 });
 
 Template.sidebar.events({
+  'click .toggle-customer': function(event) {
+    event.preventDefault();
+    Session.set('customerView', true);
+  },
+
+  'click .toggle-admin': function(event) {
+    event.preventDefault();
+    Session.set('customerView', false);
+  },
+
+  'click .to-customer-options': function(event) {
+    event.preventDefault();
+    $('.nav-item').removeClass('active');
+    $('.customer-options-active').addClass('active');
+    FlowRouter.go('/customer-options');
+  },
+
+  'click .to-shop': function(event) {
+    event.preventDefault();
+    $('.nav-item').removeClass('active');
+    $('.shop-active').addClass('active');
+    FlowRouter.go('/shop');
+  },
+
+  'click .to-checkout': function(event) {
+    event.preventDefault();
+    $('.nav-item').removeClass('active');
+    $('.checkout-active').addClass('active');
+    FlowRouter.go('/checkout');
+  },
+
   'click .to-home': function(event) {
     event.preventDefault();
     $('.nav-item').removeClass('active');
