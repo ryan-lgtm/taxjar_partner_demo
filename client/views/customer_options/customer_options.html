@@ -1,3 +1,65 @@
 <template name="customerOptions">
-yo
+  <div class="row">
+    <div class="col-md-12 ml-auto mr-auto">
+      <h1 class="text-center">CustomerOptions</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 ml-auto mr-auto">
+      <div class="card">
+        <div class="card-header card-header-warning card-header-text">
+          <div class="card-icon">
+            <i class="material-icons">people_outline</i>
+          </div>
+          <div class="col-md-10 ml-auto mr-auto">
+            <h2 class="card-title text-center">Customer Selection</h2>
+            <h4 class="text-center" style="font-size: 1.2em; color: #000">Choose a customer (or none) to imitate during checkout.</h4>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-10 ml-auto mr-auto">
+              <div class="row" style="display: table; margin-top: 15px;">
+                <hr>
+                <div style="display: table-cell;">
+                  {{#with customers}}
+                    <table class="nexusResults table table-bordered" style="font-size: 1.5em; table-layout: fixed; width: 100%;">
+                      <thead>
+                        <tr>
+                          <th>Customer Name</th>
+                          <th>City</th>
+                          <th>State</th>
+                          <th>Exemption Type</th>
+                        </tr>
+                      </thead>
+                      <tfoot>
+                      </tfoot>
+                      <tbody>
+                        <tr class="no-impersonation">
+                          <td class="text-center" style="margin: 0 auto">
+                            None
+                          </td>
+                          <td class="text-center" style="margin: 0 auto">-</td>
+                          <td class="text-center" style="margin: 0 auto">-</td>
+                          <td class="text-center" style="margin: 0 auto">-</td>
+                        </tr>
+                        {{#each customers}}
+                          <tr class="customer-rows {{this._id}} select-customer">
+                            <td>{{this.customerName}}</td>
+                            <td>{{this.customerCity}}</td>
+                            <td>{{this.customerState}}</td>
+                            <td>{{this.customerExemptionType}}</td>
+                          </tr>
+                        {{/each}}
+                      </tbody>
+                    </table>
+                  {{/with}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
