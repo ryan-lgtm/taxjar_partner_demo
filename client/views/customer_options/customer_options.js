@@ -43,7 +43,8 @@ Template.customerOptions.events({
   'click .select-customer': function(event) {
     event.preventDefault();
 
-    Session.set('impersonated', this._id);
+    Session.set('selectedCustomer', this._id);
+    Meteor.call('createSessionEvent', Session.get('userSessionId'), 'Imitating order activity with Customer ID '+this.customerIdentifier+'. Exemption status: '+this.customerExemptionType);
     $('.no-impersonation').css('background-color', '#fff')
     $('.customer-rows').css('background-color', '#fff');
     $('.'+String(this._id)).css('background-color','#d3d3d3')
@@ -52,7 +53,8 @@ Template.customerOptions.events({
   'click .no-impersonation': function(event) {
     event.preventDefault();
 
-    Session.set('impersonated', 'none');
+    Session.set('selectedCustomer', 'none');
+    Meteor.call('createSessionEvent', Session.get('userSessionId'), 'Imitating order activity with no customer selected. No exemption status applies.');
     $('.customer-rows').css('background-color', '#fff');
     $('.no-impersonation').css('background-color','#d3d3d3')
   }

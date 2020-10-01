@@ -1,7 +1,7 @@
 <template name="customerOptions">
   <div class="row">
     <div class="col-md-12 ml-auto mr-auto">
-      <h1 class="text-center">CustomerOptions</h1>
+      <h1 class="text-center">Customer Options</h1>
     </div>
   </div>
   <div class="row">
@@ -19,43 +19,52 @@
         <div class="card-body">
           <div class="row">
             <div class="col-md-10 ml-auto mr-auto">
-              <div class="row" style="display: table; margin-top: 15px;">
-                <hr>
-                <div style="display: table-cell;">
-                  {{#with customers}}
-                    <table class="nexusResults table table-bordered" style="font-size: 1.5em; table-layout: fixed; width: 100%;">
-                      <thead>
-                        <tr>
-                          <th>Customer Name</th>
-                          <th>City</th>
-                          <th>State</th>
-                          <th>Exemption Type</th>
-                        </tr>
-                      </thead>
-                      <tfoot>
-                      </tfoot>
-                      <tbody>
-                        <tr class="no-impersonation">
-                          <td class="text-center" style="margin: 0 auto">
-                            None
-                          </td>
-                          <td class="text-center" style="margin: 0 auto">-</td>
-                          <td class="text-center" style="margin: 0 auto">-</td>
-                          <td class="text-center" style="margin: 0 auto">-</td>
-                        </tr>
-                        {{#each customers}}
-                          <tr class="customer-rows {{this._id}} select-customer">
-                            <td>{{this.customerName}}</td>
-                            <td>{{this.customerCity}}</td>
-                            <td>{{this.customerState}}</td>
-                            <td>{{this.customerExemptionType}}</td>
+              {{#if customers}}
+                <div class="row" style="display: table; margin-top: 15px;">
+                  <hr>
+                  <div style="display: table-cell;">
+                    {{#with customers}}
+                      <table class="nexusResults table table-bordered" style="font-size: 1.5em; table-layout: fixed; width: 100%;">
+                        <thead>
+                          <tr>
+                            <th>Customer ID</th>
+                            <th>Customer Name</th>
+                            <th>City</th>
+                            <th>State</th>
+                            <th>Exemption Type</th>
                           </tr>
-                        {{/each}}
-                      </tbody>
-                    </table>
-                  {{/with}}
+                        </thead>
+                        <tfoot>
+                        </tfoot>
+                        <tbody>
+                          <tr class="no-impersonation">
+                            <td class="text-center" style="margin: 0 auto">
+                              None
+                            </td>
+                            <td class="text-center" style="margin: 0 auto">-</td>
+                            <td class="text-center" style="margin: 0 auto">-</td>
+                            <td class="text-center" style="margin: 0 auto">-</td>
+                            <td class="text-center" style="margin: 0 auto">-</td>
+                          </tr>
+                          {{#each customers}}
+                            <tr class="customer-rows {{this._id}} select-customer">
+                              <td>{{this.customerIdentifier}}</td>
+                              <td>{{this.customerName}}</td>
+                              <td>{{this.customerCity}}</td>
+                              <td>{{this.customerState}}</td>
+                              <td>{{this.customerExemptionType}}</td>
+                            </tr>
+                          {{/each}}
+                        </tbody>
+                      </table>
+                    {{/with}}
+                  </div>
                 </div>
-              </div>
+              {{else}}
+                <h3 class="text-center" style="margin-top: 15px; color: #000;">
+                  No customers created for your session. Any calculation/order tests will not have exempt classifications.
+                </h3>
+              {{/if}}
             </div>
           </div>
         </div>
