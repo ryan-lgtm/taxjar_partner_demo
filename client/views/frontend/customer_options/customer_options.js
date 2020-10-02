@@ -36,6 +36,12 @@ Template.customerOptions.onCreated(function() {
 Template.customerOptions.helpers({
   customers: function() {
     return Session.get('customers');
+  },
+
+  selectedCustomer: function() {
+    if (this._id == Session.get('selectedCustomer')) {
+      return true
+    }
   }
 });
 

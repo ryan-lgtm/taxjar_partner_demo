@@ -47,7 +47,7 @@
                             <td class="text-center" style="margin: 0 auto">-</td>
                           </tr>
                           {{#each customers}}
-                            <tr class="customer-rows {{this._id}} select-customer">
+                            <tr class="customer-rows {{this._id}} select-customer" style="{{#if selectedCustomer}} background-color: #d3d3d3 {{/if}}">
                               <td>{{this.customerIdentifier}}</td>
                               <td>{{this.customerName}}</td>
                               <td>{{this.customerCity}}</td>
