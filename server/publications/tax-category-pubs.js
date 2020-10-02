@@ -1,9 +1,9 @@
 Meteor.publish('tax_categories', function(search) {
   check(search, Match.OneOf(String, null, undefined));
 
+  var sessionId = this.connection.id;
   let query = {},
     projection = {
-      limit: 25,
       sort: {
         starred: -1
       }
@@ -13,10 +13,12 @@ Meteor.publish('tax_categories', function(search) {
     let regex = new RegExp(search, 'i');
     if (search == 'starred') {
       query = {
+        sessionId: sessionId,
         starred: true
       }
     } else {
       query = {
+        sessionId: sessionId,
         $or: [{
             name: regex
           },
@@ -29,9 +31,6 @@ Meteor.publish('tax_categories', function(search) {
         ]
       };
     }
-
-    projection.limit = 100;
   }
-
   return TaxCategory.find(query, projection);
 });

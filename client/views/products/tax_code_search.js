@@ -38,7 +38,8 @@ Template.taxCategorySearch.helpers({
   },
 
   taxCodes() {
-    let taxCodes = TaxCategory.find({sessionId: Session.get('userSessionId')});
+    let sessionId = Session.get('userSessionId');
+    let taxCodes = TaxCategory.find({sessionId: sessionId});
 
     if (taxCodes) {
       return taxCodes;
@@ -61,8 +62,8 @@ Template.taxCategorySearch.events({
       template.searching.set(true);
     }
 
-    if (value == '' && event.keyCode === 13) {
-      template.searchQuery.set('starred');
+    if (value == '') {
+      template.searchQuery.set(value);
       template.searching.set(true);
     }
   },
@@ -77,5 +78,11 @@ Template.taxCategorySearch.events({
         return
       }
     });
+  },
+
+  'click .view-starred' (event, template) {
+    event.preventDefault();
+    template.searchQuery.set('starred');
+    template.searching.set(true);
   }
 })

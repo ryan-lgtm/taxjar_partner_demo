@@ -77,7 +77,7 @@
               {{#if apiTokenValid}}
                 <div class="form-group bmd-form-group" style="margin-top: 25px; width: 100%;">
                   <div class="text-center">
-                    <a href="#" class="btn btn-sm btn-default btn-round mt-4 test-api-cred">{{#if fetchingResults}}Fetching results..{{else}}Test API Credentials{{/if}}</a>
+                    <a href="#" class="btn btn-sm {{#if apiTokenConfirmedValid}}btn-default{{else}}btn-success{{/if}} btn-round mt-4 test-api-cred">{{#if fetchingResults}}Fetching results..{{else}}Test API Credentials{{/if}}</a>
                   </div>
                   {{#if apiTokenConfirmedValid}}
                     <div class="text-center">

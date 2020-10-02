@@ -188,7 +188,7 @@ Template.configuration.events({
     Session.set("enableApi", enableApi);
     Session.set("enableSalesTax", enableSalesTax);
     Session.set("enableTransactionSync", enableTransactionSync);
-
+    Bert.alert('Configuration updates saved successfully.', 'success');
     Meteor.call('createSessionEvent', Session.get('userSessionId'), 'Configurations saved.\n Primary address:\n'+Session.get('streetAddress')+' '+Session.get('city')+' '+Session.get('state')+' '+Session.get('zipCode')+`\n`+'API Configurations:\n'+'API Enabled: '+Session.get('enableApi')+`\n`+'Sales Tax Calculations enabled: '+Session.get('enableSalesTax')+`\n`+'Transaction Sync enabled: '+Session.get('enableTransactionSync')+`\n`)
   }
 });

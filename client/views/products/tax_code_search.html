@@ -1,5 +1,4 @@
 <template name="taxCategorySearch">
-  {{#if ptcsSynced}}
   <div class="row">
     <div class="pull-left">
       <p style="font-size: 1.2em;">Star your frequently used ones or to save for later. Clear your search to review saved results.</p>
@@ -8,6 +7,9 @@
   <div class="row">
     <div class="pull-right">
       <input type="text" name="search" class="form-control" width="250px" placeholder="Find a tax code...">
+    </div>
+    <div class="pull-right" style="margin-left: 15px;">
+      <a href="#" class="btn btn-sm btn-success btn-round mt-4 view-starred"><i class="material-icons" style="color: gold">star</i> View Saved</a>
     </div>
   </div>
 
@@ -27,6 +29,7 @@
         <tbody>
           {{#if searching}}
             <h3>Searching...</h3>
+          {{else}}
             {{#each taxCodes}}
               <tr>
                 <td>
@@ -43,31 +46,9 @@
             {{else}}
               <h3>Nothing found for {{query}}.</h3>
             {{/each}}
-          {{else}}
-            {{#each taxCodes}}
-              <tr>
-                <td>
-                  <a href="#" class="star-ptc">
-                    <i class="material-icons" style="color: gold">
-                      {{#if this.starred}}star{{else}}star_outline{{/if}}
-                    </i>
-                  </a>
-                  {{productTaxCode}}
-                </td>
-                <td>{{name}}</td>
-                <td>{{description}}</td>
-              </tr>
-            {{/each}}
           {{/if}}
         </tbody>
       </table>
     </div>
   </div>
-  {{else}}
-  <div class="row">
-    <div>
-      <p style="font-size: 1.5em; margin: 0 auto;">No Product Tax Codes available. Try syncing them first!</p>
-    </div>
-  </div>
-  {{/if}}
 </template>

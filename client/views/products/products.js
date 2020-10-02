@@ -96,6 +96,9 @@ Template.manageProducts.events({
       if (err) {
         Bert.alert('Error: ' + err, 'danger');
       } else {
+        $('.retrieve-ptcs').attr('disabled',true);
+        $('.retrieve-ptcs').removeClass('btn-warning');
+        $('.retrieve-ptcs').addClass('btn-default');
         Bert.alert('Successfully synced ' + res + ' product tax categories.', 'success');
       }
     });
