@@ -1,0 +1,96 @@
+<template name="customerBusinessDetails">
+  <div class="row">
+    <div class="col-md-6 ml-auto mr-auto">
+      <div class="card" style="height: 400px;">
+        <div class="card-header card-header-rose card-header-text">
+          <div class="card-icon">
+            <i class="material-icons">person</i>
+          </div>
+          <h2 class="card-title text-center">Customer Details</h2>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-5 ml-auto mr-auto">
+              {{#if customer}}
+                {{#with customer}}
+                  <div style="font-size: 2em; color: #000; margin-top: 50%;">
+                    <p class="text-center">{{this.customerName}}</p>
+                    <p class="text-center">{{this.customerStreet}}</p>
+                    <p class="text-center">{{this.customerCity}}, {{this.customerState}} {{this.customerZip}}</p>
+                    <p class="text-center">Exemption Status: {{this.customerExemptionType}}</p>
+                    <a href="#" class="btn btn-sm btn-danger btn-round mt-4 remove-customer text-center"><i class="material-icons" style='font-size: 1.5em;'>delete_forever</i></a>
+                  </div>
+                {{/with}}
+              {{else}}
+                <div class="form-group bmd-form-group">
+                  <label for="customerStreet">Street</label>
+                  <input type="text" class="form-control" id="customerStreet">
+                </div>
+
+                <div class="form-group bmd-form-group">
+                  <label for="customerCity">City</label>
+                  <input type="text" class="form-control" id="customerCity">
+                </div>
+
+                <div class="form-group bmd-form-group">
+                  <label for="customerState">State</label>
+                  <input type="text" class="form-control" id="customerState" maxlength="2">
+                </div>
+
+                <div class="form-group bmd-form-group">
+                  <label for="customerZip">Zip Code</label>
+                  <input type="text" class="form-control" id="customerZip" maxlength="5">
+                </div>
+              {{/if}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 ml-auto mr-auto">
+      <div class="card" style="height: 400px;">
+        <div class="card-header card-header-success card-header-text">
+          <div class="card-icon">
+            <i class="material-icons">api</i>
+          </div>
+          <h2 class="card-title text-center">From (business) Details</h2>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-5 ml-auto mr-auto">
+              {{#if businessAddress}}
+                {{#with businessAddress}}
+                  <div style="font-size: 2em; color: #000; margin-top: 50%;">
+                    <p class="text-center">{{this.streetAddress}}</p>
+                    <p class="text-center">{{this.city}}, {{this.state}} {{this.zipCode}}</p>
+                    <a href="#" class="btn btn-sm btn-danger btn-round mt-4 remove-froms text-center"><i class="material-icons" style='font-size: 1.5em;'>delete_forever</i></a>
+                  </div>
+                {{/with}}
+              {{else}}
+                <div class="form-group bmd-form-group">
+                  <label for="customerStreet">Street</label>
+                  <input type="text" class="form-control" id="fromStreet">
+                </div>
+
+                <div class="form-group bmd-form-group">
+                  <label for="customerCity">City</label>
+                  <input type="text" class="form-control" id="fromCity">
+                </div>
+
+                <div class="form-group bmd-form-group">
+                  <label for="customerState">State</label>
+                  <input type="text" class="form-control" id="fromState" maxlength="2">
+                </div>
+
+                <div class="form-group bmd-form-group">
+                  <label for="customerZip">Zip Code</label>
+                  <input type="text" class="form-control" id="fromZip" maxlength="5">
+                </div>
+              {{/if}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

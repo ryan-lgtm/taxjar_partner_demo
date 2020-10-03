@@ -180,10 +180,14 @@ Template.configuration.events({
       var enableTransactionSync = 'false';
     }
 
-    Session.set("streetAddress", streetAddress);
-    Session.set("city", city);
-    Session.set("state", state);
-    Session.set("zipCode", zipCode);
+    var businessAddress = {
+      'streetAddress': streetAddress,
+      'city': city,
+      'state': state,
+      'zipCode': zipCode
+    }
+    
+    Session.set("businessAddress", businessAddress);
     Session.set("apiToken", apiToken);
     Session.set("enableApi", enableApi);
     Session.set("enableSalesTax", enableSalesTax);
