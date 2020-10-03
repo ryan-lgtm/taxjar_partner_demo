@@ -47,6 +47,14 @@
                     {{/with}}
                   </div>
                 </div>
+                <div class="row">
+                  <div class="col-md-3 offset-md-9">
+                    <div class="form-group bmd-form-group">
+                      <label for="discount">Discount</label>
+                      <input required type="number" step="0.01" class="form-control" value="{{discountAmount}}" id="discountAmount">
+                    </div>
+                  </div>
+                </div>
               {{else}}
                 <h3 class="text-center" style="margin-top: 15px; color: #000;">
                   <em>No items in cart.</em>

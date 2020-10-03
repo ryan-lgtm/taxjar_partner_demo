@@ -16,13 +16,15 @@ Template.shop.helpers({
   },
 
   checkoutCount: function() {
-    if (Session.get('transactionInProgress') == true) {
-      var lineItems = Transaction.findOne({
-        'transactionStatus': 'In Progress',
-        'sessionId': Session.get('userSessionId')
-      }).lineItems;
-      if (lineItems) {
-        return lineItems.length
+    if (Session.get('transactionInProgress')) {
+      if (Session.get('transactionInProgress') == true) {
+        var transaction = Transaction.findOne({
+          'transactionStatus': 'In Progress',
+          'sessionId': Session.get('userSessionId')
+        });
+        if (transaction) {
+          return transaction.lineItems.length
+        }
       }
     }
   }

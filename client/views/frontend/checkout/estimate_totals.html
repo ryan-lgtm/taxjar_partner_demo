@@ -1,0 +1,108 @@
+<template name="estimateTotals">
+  <div class="row">
+    <div class="col-md-6 ml-auto mr-auto">
+      <div class="card" style="height: 400px;">
+        <div class="card-header card-header-rose card-header-text">
+          <div class="card-icon">
+            <i class="material-icons">compare_arrows</i>
+          </div>
+          <h2 class="card-title text-center">Estimate Shipping &amp; Tax</h2>
+        </div>
+        <div class="card-body">
+          <div class="row" style="margin-top: 15%;">
+            <div class="col-md-5 ml-auto mr-auto">
+              <div class="form-group bmd-form-group">
+                <label for="shipping">Shipping Costs</label>
+                <input required type="number" step="0.01" class="form-control" value="{{shippingTotal}}" id="shippingTotal">
+              </div>
+
+              <div class="row" style="margin-top: 25%;">
+                <div class="col-md-12 mr-auto ml-auto">
+                  <div class="text-center">
+                    <a href="#" class="btn btn-primary btn-round mt-4 calculate-tax">Calculate</a>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 mr-auto ml-auto">
+                  <div class="text-center">
+                    <a href="#" class="btn btn-warning btn-round mt-4 explain">Explain</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 ml-auto mr-auto">
+      <div class="card" style="height: 400px;">
+        <div class="card-header card-header-success card-header-text">
+          <div class="card-icon">
+            <i class="material-icons">attach_money</i>
+          </div>
+          <h2 class="card-title text-center">Totals</h2>
+        </div>
+        <div class="card-body">
+          <div class="row" style="display: table; margin-top: 15px;">
+            <div style="display: table-cell;">
+              <table class="lineItems table ml-auto mr-auto" style="font-size: 1.5em; table-layout: fixed; width: 75%;">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tfoot>
+                </tfoot>
+                <tbody>
+                  <tr>
+                    <td style="font-size: 1.2em; text-align: center;">
+                      <strong>Subtotal</strong>
+                    </td>
+                    <td style="text-align: right;">
+                      {{lineItemTotal}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="font-size: 1.2em; text-align: center;">
+                      <strong>Shipping</strong>
+                    </td>
+                    <td style="text-align: right;">
+                      {{shippingTotal}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="font-size: 1.2em; text-align: center;">
+                      <strong>Discount</strong>
+                    </td>
+                    <td style="text-align: right;">
+                      {{discountAmount}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="font-size: 1.2em; text-align: center;">
+                      <strong>Sales Tax</strong>
+                    </td>
+                    <td style="text-align: right;">
+                      {{amountToCollect}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="font-size: 1.5em; text-align: center;">
+                      <strong>Total</strong>
+                    </td>
+                    <td style="text-align: right; font-size: 1.2m;">
+                      {{orderTotal}}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</template>

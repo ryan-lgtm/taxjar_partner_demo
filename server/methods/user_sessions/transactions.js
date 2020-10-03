@@ -45,7 +45,7 @@ console.log('called to add products');
       if (err) {
         console.log(err);
       } else {
-        Meteor.call('createSessionEvent', sessionId, 'Added ' + product.productName + '(qty: ' + quantity + ') to transaction ID: ' + transactionId);
+        Meteor.call('createSessionEvent', sessionId, 'Added ' + product.productName + ' (qty: ' + quantity + ') to transaction ID: ' + transactionId);
       }
     });
   },

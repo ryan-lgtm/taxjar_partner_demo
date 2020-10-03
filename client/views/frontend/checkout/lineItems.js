@@ -36,6 +36,12 @@ Template.lineItems.helpers({
     var unitPrice = Product.findOne({_id: this.productId}).productUnitPrice;
 
     return (quantity * unitPrice).toFixed(2);
+  },
+
+  discountAmount: function(){
+    if (Session.get('discountAmount')) {
+      return Session.get('discountAmount');
+    }
   }
 });
 
@@ -47,5 +53,11 @@ Template.lineItems.events({
       'sessionId': Session.get('userSessionId')
     })._id;
     Meteor.call('transactionRemoveLineItem', Session.get('userSessionId'), transactionId, this);
+  },
+
+  'keyup #discountAmount': function(event, template) {
+    let value = event.target.value.trim();
+
+    Session.set('discountAmount', value);
   }
 });

@@ -56,19 +56,27 @@ Template.configuration.helpers({
   },
 
   streetAddress: function() {
-    return Session.get('streetAddress');
+    if (Session.get('businessAddressDefault')) {
+      return Session.get('businessAddressDefault').streetAddress;
+    }
   },
 
   city: function() {
-    return Session.get('city');
+    if (Session.get('businessAddressDefault')) {
+      return Session.get('businessAddressDefault').city;
+    }
   },
 
   state: function() {
-    return Session.get('state');
+    if (Session.get('businessAddressDefault')) {
+      return Session.get('businessAddressDefault').state;
+    }
   },
 
   zipCode: function() {
-    return Session.get('zipCode');
+    if (Session.get('businessAddressDefault')) {
+      return Session.get('businessAddressDefault').zipCode;
+    }
   },
 
   apiToken: function() {
@@ -110,7 +118,7 @@ Template.configuration.events({
     Session.set('fetchingResults', true);
     var token = Session.get('apiToken');
 
-    Meteor.call('testToken', token, Session.get('userSessionId'), function(err,res){
+    Meteor.call('testToken', token, Session.get('userSessionId'), function(err, res) {
       if (err) {
         Session.set('fetchingResults', false);
         Bert.alert('An unexpected error occurred.', 'danger');
@@ -186,13 +194,14 @@ Template.configuration.events({
       'state': state,
       'zipCode': zipCode
     }
-    
+
     Session.set("businessAddress", businessAddress);
+    Session.set("businessAddressDefault", businessAddress);
     Session.set("apiToken", apiToken);
     Session.set("enableApi", enableApi);
     Session.set("enableSalesTax", enableSalesTax);
     Session.set("enableTransactionSync", enableTransactionSync);
     Bert.alert('Configuration updates saved successfully.', 'success');
-    Meteor.call('createSessionEvent', Session.get('userSessionId'), 'Configurations saved.\n Primary address:\n'+Session.get('streetAddress')+' '+Session.get('city')+' '+Session.get('state')+' '+Session.get('zipCode')+`\n`+'API Configurations:\n'+'API Enabled: '+Session.get('enableApi')+`\n`+'Sales Tax Calculations enabled: '+Session.get('enableSalesTax')+`\n`+'Transaction Sync enabled: '+Session.get('enableTransactionSync')+`\n`)
+    Meteor.call('createSessionEvent', Session.get('userSessionId'), 'Configurations saved.\n Primary address:\n' + Session.get('streetAddress') + ' ' + Session.get('city') + ' ' + Session.get('state') + ' ' + Session.get('zipCode') + `\n` + 'API Configurations:\n' + 'API Enabled: ' + Session.get('enableApi') + `\n` + 'Sales Tax Calculations enabled: ' + Session.get('enableSalesTax') + `\n` + 'Transaction Sync enabled: ' + Session.get('enableTransactionSync') + `\n`)
   }
 });
