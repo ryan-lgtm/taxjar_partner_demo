@@ -20,6 +20,9 @@ Meteor.methods({
       sessionId: sessionId
     });
 
+    Transaction.remove({
+      sessionId: sessionId
+    });
   }
 
 

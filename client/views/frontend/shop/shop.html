@@ -1,3 +1,81 @@
 <template name="shop">
-yo
+  <div class="row">
+    <div class="col-md-12">
+      <a href="#" class="pull-right"><button class="btn btn-primary checkout"><i class="material-icons" style="font-size: 1.2em;">shopping_cart</i> Checkout {{#if checkoutCount}}({{checkoutCount}}){{/if}}</button></a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 ml-auto mr-auto">
+      <h1 class="text-center">Shop</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 ml-auto mr-auto">
+      <div class="card">
+        <div class="card-header card-header-success card-header-text">
+          <div class="card-icon">
+            <i class="material-icons">shopping_basket</i>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-10 ml-auto mr-auto">
+              <h2 class="card-title text-center">Products</h2>
+            </div>
+          </div>
+          <div class="row">
+            {{#each products}}
+              <div class="col-md-4">
+                <div class="card" style="height: 250px;">
+                  <div class="card-header card-header-info card-header-text">
+                    <div class="card-icon">
+                      <i class="material-icons">shopping_bag</i>
+                    </div>
+                    <div class="col-md-10 ml-auto mr-auto">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <h3 class="card-title text-center" style="width: 100%; height: 50px;">{{this.productName}}</h3>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div calss="col-md-12">
+                          <p style="font-size: 1.2em; color: #000; font-weight: bold;">{{this.productUnitPrice}}</p>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12 ml-auto mr-auto">
+                          <div class="form-group bmd-form-group" style="width: 25%; display: inline-block;">
+                            <label for="qty">Qty</label>
+                            <input type="text" class="form-control {{this._id}} qty" value="1">
+                          </div>
+                          <a href="#" class="text-center" style="margin-left: 5px; display: inline-block;">
+                            <button class="btn btn-sm btn-primary add-to-cart" style="margin: 0 auto;">
+                              <i class="material-icons">shopping_cart</i>
+                              Add to Cart
+                            </button>
+                          </a>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="text-center" style="margin: 15px 0;">
+                          <p style="font-size: 1.2em; color: #000;">{{this.productDescription}}</p>
+                        </div>
+                      </div>
+                      {{#if this.productTaxCode}}
+                        <div class="row">
+                          <div class="text-center">
+                            <p style="font-size: 1.2em; color: red;">(PTC: {{this.productTaxCode}})</p>
+                          </div>
+                        </div>
+                      {{/if}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {{/each}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>

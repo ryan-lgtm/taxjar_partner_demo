@@ -127,7 +127,7 @@ Template.configuration.events({
       Session.set('enableApi', 'true');
       $('.enablers').removeAttr('disabled');
     } else {
-      Meteor.call('createSessionEvent', Session.get('userSessionid'), 'TaxJar API was disabled.');
+      Meteor.call('createSessionEvent', Session.get('userSessionId'), 'TaxJar API was disabled.');
       Session.set('enableApi', 'false');
       Session.set('enableSalesTax', 'false');
       Session.set('enableTransactionSync', 'false');

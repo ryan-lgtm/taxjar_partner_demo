@@ -1,0 +1,62 @@
+import {
+  FlowRouter
+} from 'meteor/ostrio:flow-router-extra';
+
+import {
+  $
+} from 'meteor/jquery'
+
+import {
+  Tracker
+} from 'meteor/tracker'
+
+Template.shop.helpers({
+  products: function() {
+    return Session.get('products');
+  },
+
+  checkoutCount: function() {
+    if (Session.get('transactionInProgress') == true) {
+      var lineItems = Transaction.findOne({
+        'transactionStatus': 'In Progress',
+        'sessionId': Session.get('userSessionId')
+      }).lineItems;
+      if (lineItems) {
+        return lineItems.length
+      }
+    }
+  }
+});
+
+Template.shop.events({
+  'click .checkout': function(event, template) {
+    event.preventDefault();
+
+    FlowRouter.go('/checkout');
+  },
+
+  'click .add-to-cart': function(event, template) {
+    event.preventDefault();
+    var product = this;
+    var quantity = $.trim($('.' + String(product._id) + '.qty').val());
+
+    if (Session.get('selectedCustomer')) {
+      var selectedCustomer = Session.get('selectedCustomer');
+    } else {
+      var selectedCustomer = 'none';
+    }
+
+    if (Session.get('transactionInProgress') == true) {
+      var transactionId = Transaction.findOne({
+        'transactionStatus': 'In Progress',
+        'sessionId': Session.get('userSessionId')
+      })._id;
+      Meteor.call('transactionAddProduct', product, quantity, transactionId);
+    } else {
+      // new transaction
+      Session.set('transactionInProgress', true);
+      // params: sessionId, selected customer ID, product
+      Meteor.call('newTransaction', Session.get('userSessionId'), selectedCustomer, product, quantity);
+    }
+  }
+});
