@@ -48,5 +48,21 @@ console.log('called to add products');
         Meteor.call('createSessionEvent', sessionId, 'Added ' + product.productName + '(qty: ' + quantity + ') to transaction ID: ' + transactionId);
       }
     });
+  },
+
+  transactionRemoveLineItem: function(sessionId, transactionId, productData) {
+    Transaction.update({
+      '_id': transactionId
+    }, {
+      $pull: {
+        lineItems: productData
+      }
+    }, function(err, res) {
+      if (err) {
+        console.log(err);
+      } else {
+        Meteor.call('createSessionEvent', sessionId, 'Removed line item from transaction ' + transactionId);
+      }
+    })
   }
 });

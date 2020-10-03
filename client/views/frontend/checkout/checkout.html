@@ -1,3 +1,67 @@
 <template name="checkout">
-Yo
+  <div class="row">
+    <div class="col-md-12 ml-auto mr-auto">
+      <h1 class="text-center">Checkout</h1>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 ml-auto mr-auto">
+      <div class="card">
+        <div class="card-header card-header-rose card-header-text">
+          <div class="card-icon">
+            <i class="material-icons">shopping_cart</i>
+          </div>
+          <div class="col-md-10 ml-auto mr-auto">
+            <h2 class="card-title text-center">Cart</h2>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-10 ml-auto mr-auto">
+              {{#if transaction}}
+                <div class="row" style="display: table; margin-top: 15px;">
+                  <hr>
+                  <div style="display: table-cell;">
+                    {{#with transaction}}
+                      <table class="lineItems table" style="font-size: 1.5em; table-layout: fixed; width: 100%;">
+                        <thead>
+                          <tr>
+                            <th></th>
+                            <th>Product Name</th>
+                            <th>Quantity</th>
+                            <th>Unit Price</th>
+                            <th>Total Price</th>
+                          </tr>
+                        </thead>
+                        <tfoot>
+                        </tfoot>
+                        <tbody>
+                          {{#each transaction.lineItems}}
+                            <tr class="customer-rows {{this._id}} select-customer" style="{{#if selectedCustomer}} background-color: #d3d3d3 {{/if}}">
+                              <td class="text-center">
+                                <a href="#" class="btn btn-sm btn-danger btn-round mt-4 delete-lineitem" style="margin-left: 5px;"><i class="material-icons" style='font-size: 1.5em;'>delete_forever</i></a>
+                              </td>
+                              <td>{{productName}}</td>
+                              <td>{{this.quantity}}</td>
+                              <td>${{productUnitPrice}}</td>
+                              <td><strong>${{productTotalPrice}}</strong></td>
+                            </tr>
+                          {{/each}}
+                        </tbody>
+                      </table>
+                    {{/with}}
+                  </div>
+                </div>
+              {{else}}
+                <h3 class="text-center" style="margin-top: 15px; color: #000;">
+                  <em>No items in cart.</em>
+                </h3>
+              {{/if}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
