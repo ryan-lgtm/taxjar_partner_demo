@@ -23,13 +23,12 @@ Meteor.methods({
       if (err) {
         console.log(err);
       } else {
-        console.log(res);
-        return
+        Meteor.call('createSessionEvent', sessionId, 'Started new transaction: ' + res + '.\nTransaction Status: In Progress\nExemption Status: ' + exemptionStatus + '\nProducts: ' + product.productName + ' (qty: ' + quantity + ')')
       }
     });
   },
 
-  transactionAddProduct: function(product, quantity, transactionId) {
+  transactionAddProduct: function(sessionId, product, quantity, transactionId) {
 console.log('called to add products');
     var productData = {
       productId: String(product._id),
@@ -43,8 +42,11 @@ console.log('called to add products');
         lineItems: productData
       }
     }, function(err, res) {
-      console.log(err);
-      console.log(res);
+      if (err) {
+        console.log(err);
+      } else {
+        Meteor.call('createSessionEvent', sessionId, 'Added ' + product.productName + '(qty: ' + quantity + ') to transaction ID: ' + transactionId);
+      }
     });
   }
 });

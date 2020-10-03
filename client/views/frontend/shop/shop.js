@@ -51,7 +51,7 @@ Template.shop.events({
         'transactionStatus': 'In Progress',
         'sessionId': Session.get('userSessionId')
       })._id;
-      Meteor.call('transactionAddProduct', product, quantity, transactionId);
+      Meteor.call('transactionAddProduct', Session.get('userSessionId'), product, quantity, transactionId);
     } else {
       // new transaction
       Session.set('transactionInProgress', true);
