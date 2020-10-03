@@ -1,14 +1,4 @@
-import {
-  FlowRouter
-} from 'meteor/ostrio:flow-router-extra';
 
-import {
-  $
-} from 'meteor/jquery'
-
-import {
-  Tracker
-} from 'meteor/tracker'
 
 Template.customerBusinessDetails.helpers({
   customer: function() {
@@ -24,11 +14,7 @@ Template.customerBusinessDetails.helpers({
   businessAddress: function() {
     var businessAddress = Session.get('businessAddress');
 
-    if (businessAddress) {
-      return businessAddress
-    } else {
-      return null
-    }
+    return businessAddress
   }
 });
 
@@ -36,12 +22,148 @@ Template.customerBusinessDetails.events({
   'click .remove-customer': function(event, template) {
     event.preventDefault();
 
-    Session.set('selectedCustomer', 'none');
+    Session.set('selectedCustomer', undefined);
   },
 
   'click .remove-froms': function(event, template) {
     event.preventDefault();
 
     Session.set('businessAddress', undefined);
+  },
+
+  'keyup #customerStreet': function(event, template) {
+    let streetAddress = $.trim($('#customerStreet').val());
+    let city = $.trim($('#customerCity').val());
+    let state = $.trim($('#customerState').val());
+    let zipCode = $.trim($('#customerZip').val());
+
+    var toAddress = {
+      'toStreetAddress': streetAddress,
+      'toCity': city,
+      'toState': state,
+      'toZipCode': zipCode,
+      'toCountry': 'US'
+    }
+
+    Session.set('customerAddress', toAddress);
+  },
+
+  'keyup #customerCity': function(event, template) {
+    let streetAddress = $.trim($('#customerStreet').val());
+    let city = $.trim($('#customerCity').val());
+    let state = $.trim($('#customerState').val());
+    let zipCode = $.trim($('#customerZip').val());
+
+    var toAddress = {
+      'toStreetAddress': streetAddress,
+      'toCity': city,
+      'toState': state,
+      'toZipCode': zipCode,
+      'toCountry': 'US'
+    }
+
+    Session.set('customerAddress', toAddress);
+  },
+
+  'keyup #customerState': function(event, template) {
+    let streetAddress = $.trim($('#customerStreet').val());
+    let city = $.trim($('#customerCity').val());
+    let state = $.trim($('#customerState').val());
+    let zipCode = $.trim($('#customerZip').val());
+
+    var toAddress = {
+      'toStreetAddress': streetAddress,
+      'toCity': city,
+      'toState': state,
+      'toZipCode': zipCode,
+      'toCountry': 'US'
+    }
+
+    Session.set('customerAddress', toAddress);
+  },
+
+  'keyup #customerZip': function(event, template) {
+    let streetAddress = $.trim($('#customerStreet').val());
+    let city = $.trim($('#customerCity').val());
+    let state = $.trim($('#customerState').val());
+    let zipCode = $.trim($('#customerZip').val());
+
+    var toAddress = {
+      'toStreetAddress': streetAddress,
+      'toCity': city,
+      'toState': state,
+      'toZipCode': zipCode,
+      'toCountry': 'US'
+    }
+
+    Session.set('customerAddress', toAddress);
+  },
+
+  'keyup #fromStreet': function(event, template) {
+    let streetAddress = $.trim($('#fromStreet').val());
+    let city = $.trim($('#fromCity').val());
+    let state = $.trim($('#fromState').val());
+    let zipCode = $.trim($('#fromZip').val());
+
+    var businessAddress = {
+      'streetAddress': streetAddress,
+      'city': city,
+      'state': state,
+      'zipCode': zipCode,
+      'country': 'US'
+    }
+
+    Session.set("businessAddress", businessAddress);
+  },
+
+  'keyup #fromCity': function(event, template) {
+    let streetAddress = $.trim($('#fromStreet').val());
+    let city = $.trim($('#fromCity').val());
+    let state = $.trim($('#fromState').val());
+    let zipCode = $.trim($('#fromZip').val());
+
+    var businessAddress = {
+      'streetAddress': streetAddress,
+      'city': city,
+      'state': state,
+      'zipCode': zipCode,
+      'country': 'US'
+    }
+
+    Session.set("businessAddress", businessAddress);
+  },
+
+  'keyup #fromState': function(event, template) {
+    let streetAddress = $.trim($('#fromStreet').val());
+    let city = $.trim($('#fromCity').val());
+    let state = $.trim($('#fromState').val());
+    let zipCode = $.trim($('#fromZip').val());
+
+    var businessAddress = {
+      'streetAddress': streetAddress,
+      'city': city,
+      'state': state,
+      'zipCode': zipCode,
+      'country': 'US'
+    }
+
+    Session.set("businessAddress", businessAddress);
+  },
+
+  'keyup #fromZip': function(event, template) {
+    let streetAddress = $.trim($('#fromStreet').val());
+    let city = $.trim($('#fromCity').val());
+    let state = $.trim($('#fromState').val());
+    let zipCode = $.trim($('#fromZip').val());
+
+    var businessAddress = {
+      'streetAddress': streetAddress,
+      'city': city,
+      'state': state,
+      'zipCode': zipCode,
+      'country': 'US'
+    }
+
+    Session.set("businessAddress", businessAddress);
   }
 });

@@ -31,7 +31,6 @@ Template.manageLocations.events({
         } else {
           Session.set('fetchingResults', false);
           Session.set('nexusStates', res.regions);
-          console.log(Session.get('nexusStates'));
         }
       });
     } else {

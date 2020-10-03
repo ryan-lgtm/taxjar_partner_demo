@@ -192,7 +192,8 @@ Template.configuration.events({
       'streetAddress': streetAddress,
       'city': city,
       'state': state,
-      'zipCode': zipCode
+      'zipCode': zipCode,
+      'country': 'US'
     }
 
     Session.set("businessAddress", businessAddress);

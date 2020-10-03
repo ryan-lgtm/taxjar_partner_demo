@@ -59,7 +59,7 @@ Template.customerOptions.events({
   'click .no-impersonation': function(event) {
     event.preventDefault();
 
-    Session.set('selectedCustomer', 'none');
+    Session.set('selectedCustomer', undefined);
     Meteor.call('createSessionEvent', Session.get('userSessionId'), 'Imitating order activity with no customer selected. No exemption status applies.');
     $('.customer-rows').css('background-color', '#fff');
     $('.no-impersonation').css('background-color','#d3d3d3')

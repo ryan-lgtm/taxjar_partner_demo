@@ -29,7 +29,6 @@ Meteor.methods({
   },
 
   transactionAddProduct: function(sessionId, product, quantity, transactionId) {
-console.log('called to add products');
     var productData = {
       productId: String(product._id),
       quantity: quantity
