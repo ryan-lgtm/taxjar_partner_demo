@@ -60,6 +60,12 @@ Template.estimateTotals.events({
 
   'click .calculate-tax': function(event, template) {
     event.preventDefault();
+    var sessionId = Session.get('userSessionId');
+    var transactionId = Transaction.findOne({
+      'sessionId': sessionId,
+      'transactionStatus': 'In Progress'
+    })._id;
+
     var taxReq = {};
 
     // 1.) Collect the "from" parameters
@@ -71,10 +77,10 @@ Template.estimateTotals.events({
         _id: Session.get('selectedCustomer')
       });
       var toParams = {
-        'toStreet': customer.customerStreet,
+        'toStreetAddress': customer.customerStreet,
         'toCity': customer.customerCity,
         'toState': customer.customerState,
-        'toZip': customer.customerZip,
+        'toZipCode': customer.customerZip,
         'toCountry': customer.customerCountry
       };
       taxReq.toParams = toParams;
@@ -92,7 +98,7 @@ Template.estimateTotals.events({
     if (Session.get('shippingTotal')) {
       taxReq.shipping = Session.get('shippingTotal')
     } else {
-      taxReq.shipping = '0.00'
+      taxReq.shipping = 0;
     }
 
     // 5.) Collect the "lineItems" detail -and- divide discounts, if applicable
@@ -122,10 +128,10 @@ Template.estimateTotals.events({
       // If the discount is not 0, and is less than or equal to the cost of the lineItem, subtract an amount less than or equal to the cost
       if (discount !== 0) {
         if (cost >= discountDiv) { // the cost of the lineItem is greater than the discount amount, use the even distribution
-          var discountAmount = parseFloat(discountDiv);
+          var discountAmount = discountDiv;
           var discount = discount - discountDiv; // subtract the discount amount from the running total of the discount
         } else { // the cost of the lineItem is less than the discount amount, apply the maximum amount available
-          var discountAmount = parseFloat(cost);
+          var discountAmount = cost;
           var discount = discount - discountAmount;
         }
       }
@@ -135,16 +141,15 @@ Template.estimateTotals.events({
         'quantity': quantity,
         'product_tax_code': product.productTaxCode,
         'unit_price': product.productUnitPrice,
-        'discount': (Math.round(discountAmount * 100) / 100).toFixed(2)
+        'discount': parseFloat((Math.round(discountAmount * 100) / 100).toFixed(2))
       }
       lineItemsReq.push(data);
       iterator++;
-      if (iterator === numOfLineItems) {
-        taxReq.lineItems = lineItemsReq;
-      }
     });
 
-    console.log(taxReq);
+    taxReq.lineItems = lineItemsReq;
+
+    Meteor.call('taxCall', taxReq, sessionId, transactionId, Session.get('apiToken'));
   },
 
   'click .explain': function(event, template) {
