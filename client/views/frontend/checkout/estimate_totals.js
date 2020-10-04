@@ -13,9 +13,15 @@ import {
 Template.estimateTotals.helpers({
   shippingTotal: function() {
     if (Session.get('shippingTotal')) {
-      return (Math.round(Session.get('shippingTotal') * 100) / 100).toFixed(2);
+      return Session.get('shippingTotal');
     } else {
       Session.setDefault('shippingTotal', 0);
+    }
+  },
+
+  shippingTotalDisplay: function() {
+    if (Session.get('shippingTotal')) {
+      return (Math.round(Session.get('shippingTotal') * 100) / 100).toFixed(2);
     }
   },
 
@@ -152,7 +158,7 @@ Template.estimateTotals.events({
           var discountAmount = discountDiv;
           var discount = discount - discountDiv; // subtract the discount amount from the running total of the discount
         }
-       if (cost < discount) { // the cost of the lineItem is less than the discount amount, apply the maximum amount available
+        if (cost < discount) { // the cost of the lineItem is less than the discount amount, apply the maximum amount available
           var discountAmount = cost;
           var discount = discount - discountAmount;
         }

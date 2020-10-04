@@ -13,7 +13,7 @@
             <div class="col-md-5 ml-auto mr-auto">
               <div class="form-group bmd-form-group">
                 <label for="shipping">Shipping Costs</label>
-                <input required type="number" step="0.01" class="form-control" value="{{shippingTotal}}" id="shippingTotal">
+                <input type="number" step="0.01" class="form-control" value="{{shippingTotal}}" id="shippingTotal">
               </div>
               <div class="row" style="margin-top: 5%;">
                 <div class="col-md-12 mr-auto ml-auto">
@@ -73,7 +73,7 @@
                       <strong>Shipping</strong>
                     </td>
                     <td style="text-align: right;">
-                      {{shippingTotal}}
+                      {{shippingTotalDisplay}}
                     </td>
                   </tr>
                   <tr>
