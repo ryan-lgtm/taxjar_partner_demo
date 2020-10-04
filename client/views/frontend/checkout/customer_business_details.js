@@ -15,6 +15,23 @@ Template.customerBusinessDetails.helpers({
     var businessAddress = Session.get('businessAddress');
 
     return businessAddress
+  },
+
+  customerAddress: function() {
+    var customerAddress = Session.get('customerAddress');
+
+    if (customerAddress) {
+      return customerAddress
+    } else {
+      var toAddress = {
+        'toStreetAddress': '',
+        'toCity': '',
+        'toState': '',
+        'toZipCode': '',
+        'toCountry': 'US'
+      }
+      Session.set('customerAddress',toAddress);
+    }
   }
 });
 

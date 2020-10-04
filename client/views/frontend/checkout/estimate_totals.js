@@ -188,6 +188,18 @@ Template.estimateTotals.events({
 
   'click .explain': function(event, template) {
     event.preventDefault();
-    // go to awesome tax calc explanation
+    var transaction = Transaction.findOne({
+      'sessionId': Session.get('userSessionId'),
+      'transactionStatus': 'In Progress'
+    });
+    var calculation = Calculation.findOne({
+      'forTransaction': transaction._id,
+    }, {
+      sort: {
+        createdOn: -1,
+        limit: 1
+      }
+    });
+    FlowRouter.go('/explain/' + calculation._id);
   }
 });

@@ -33,7 +33,8 @@ Template.shop.helpers({
 Template.shop.events({
   'click .checkout': function(event, template) {
     event.preventDefault();
-
+    $('.nav-item').removeClass('active');
+    $('.checkout-active').addClass('active');
     FlowRouter.go('/checkout');
   },
 
