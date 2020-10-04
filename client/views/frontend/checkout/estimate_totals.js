@@ -48,6 +48,21 @@ Template.estimateTotals.helpers({
     if (Session.get('discountAmount')) {
       return (Math.round(Session.get('discountAmount') * 100) / 100).toFixed(2);
     }
+  },
+
+  amountToCollect: function() {
+    if (Session.get('atc')) {
+      return (Math.round(Session.get('atc') * 100) / 100).toFixed(2);
+    }
+  },
+
+  orderTotal: function() {
+    if (Session.get('atc')) {
+      var atc = parseFloat(Session.get('atc'));
+      var lineItemTotal = parseFloat(Session.get('lineItemTotal'));
+      var shippingTotal = parseFloat(Session.get('shippingTotal'));
+      return (Math.round((lineItemTotal + shippingTotal + atc) * 100) / 100).toFixed(2);
+    }
   }
 });
 
@@ -98,6 +113,7 @@ Template.estimateTotals.events({
     if (Session.get('shippingTotal')) {
       taxReq.shipping = Session.get('shippingTotal')
     } else {
+      Session.set('shippingTotal', 0);
       taxReq.shipping = 0;
     }
 
@@ -109,11 +125,14 @@ Template.estimateTotals.events({
     }).lineItems;
 
     // Before iteration, see if there is a discount.
-    if (Session.get('discountAmount')) {
+    if (Session.get('discountAmount') !== 0 && Session.get('discountAmount') !== undefined) {
       var discount = Session.get('discountAmount');
       var numOfLineItems = lineItems.length;
       var discountDiv = (discount / numOfLineItems); // the even distribution amount of the discount across all line items
-    } else {
+    }
+    if (Session.get('discountAmount') == 0 || Session.get('discountAmount') == undefined) {
+      Session.set('discountAmount', 0);
+      var discount = 0;
       var discountAmount = 0;
     }
 
@@ -130,10 +149,13 @@ Template.estimateTotals.events({
         if (cost >= discountDiv) { // the cost of the lineItem is greater than the discount amount, use the even distribution
           var discountAmount = discountDiv;
           var discount = discount - discountDiv; // subtract the discount amount from the running total of the discount
-        } else { // the cost of the lineItem is less than the discount amount, apply the maximum amount available
+        }
+       if (cost < discount) { // the cost of the lineItem is less than the discount amount, apply the maximum amount available
           var discountAmount = cost;
           var discount = discount - discountAmount;
         }
+      } else { // there is no discount
+        var discountAmount = 0;
       }
 
       var data = {
@@ -149,7 +171,13 @@ Template.estimateTotals.events({
 
     taxReq.lineItems = lineItemsReq;
 
-    Meteor.call('taxCall', taxReq, sessionId, transactionId, Session.get('apiToken'));
+    Meteor.call('taxCall', taxReq, sessionId, transactionId, Session.get('apiToken'), function(err, res) {
+      if (err) {
+        Bert.alert('Error: ' + err, 'danger');
+      } else {
+        Session.set('atc', res.tax.amount_to_collect);
+      }
+    });
   },
 
   'click .explain': function(event, template) {

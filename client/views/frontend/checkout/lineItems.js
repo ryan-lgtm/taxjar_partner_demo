@@ -23,24 +23,32 @@ Template.lineItems.helpers({
   },
 
   productName: function() {
-    return Product.findOne({_id: this.productId}).productName;
+    return Product.findOne({
+      _id: this.productId
+    }).productName;
   },
 
   productUnitPrice: function() {
-    return Product.findOne({_id: this.productId}).productUnitPrice;
+    return Product.findOne({
+      _id: this.productId
+    }).productUnitPrice;
   },
 
-  productTotalPrice: function () {
+  productTotalPrice: function() {
     var quantity = this.quantity;
 
-    var unitPrice = Product.findOne({_id: this.productId}).productUnitPrice;
+    var unitPrice = Product.findOne({
+      _id: this.productId
+    }).productUnitPrice;
 
     return (quantity * unitPrice).toFixed(2);
   },
 
-  discountAmount: function(){
+  discountAmount: function() {
     if (Session.get('discountAmount')) {
       return Session.get('discountAmount');
+    } else {
+      Session.setDefault('discountAmount', 0);
     }
   }
 });

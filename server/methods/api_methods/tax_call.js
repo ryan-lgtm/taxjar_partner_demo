@@ -21,15 +21,21 @@ Meteor.methods({
       shipping: parseFloat(taxReq.shipping),
       line_items: taxReq.lineItems
     };
-    console.log(requestPayload);
     Meteor.call('createSessionEvent', sessionId, 'Called TaxJar for sales tax calculation with the following:\n' + JSON.stringify(requestPayload, null, 4));
 
     const result = await client.taxForOrder(requestPayload)
     .then(res => {
       Meteor.call('createSessionEvent', sessionId, 'Received from TaxJar the following:\n' + JSON.stringify(res, null, 4));
-      Meteor.call('createSessionEvent', sessionId, 'Amount to collect: ' + res.tax.amount_to_collect)
+      Meteor.call('createSessionEvent', sessionId, 'Amount to collect: ' + res.tax.amount_to_collect);
+      Calculation.insert({
+        sessionId: sessionId,
+        forTransaction: transactionId,
+        reqBody: JSON.stringify(requestPayload),
+        resBody: JSON.stringify(res)
+      });
+      return res
     }).catch(function(err) {
-      console.log(err);
+      Meteor.call('createSessionEvent', sessionId, 'Could not calculate sales tax: ' + err);
     });
 
     return result;

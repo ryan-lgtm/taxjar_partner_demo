@@ -85,7 +85,7 @@
                       <strong>Sales Tax</strong>
                     </td>
                     <td style="text-align: right;">
-                      {{amountToCollect}}
+                      {{#with amountToCollect}}{{amountToCollect}}{{/with}}
                     </td>
                   </tr>
                   <tr>
@@ -93,7 +93,7 @@
                       <strong>Total</strong>
                     </td>
                     <td style="text-align: right; font-size: 1.2m;">
-                      {{orderTotal}}
+                      {{#with orderTotal}}{{orderTotal}}{{/with}}
                     </td>
                   </tr>
                 </tbody>
