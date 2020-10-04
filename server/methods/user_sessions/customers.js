@@ -63,7 +63,7 @@ Meteor.methods({
     Customer.insert({
       'sessionId': sessionId,
       'customerIdentifier': 'CUST-004',
-      'customerName': 'Other Olaf',
+      'customerName': 'Other Oliver',
       'customerStreet': '1500 Hadley St',
       'customerCity': 'Houston',
       'customerState': 'TX',

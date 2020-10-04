@@ -86,6 +86,16 @@ Template.manageProducts.events({
       });
     }
 
+    if ($('#seedFullyTaxable').is(':checked')) {
+      Meteor.call('seedFullyTaxable', sessionId, function(err, res) {
+        if (err) {
+          Bert.alert('An unexpected error occurred.', 'danger');
+        } else {
+          Meteor.call('createSessionEvent', sessionId, 'Seeded fully taxable product data.');
+        }
+      });
+    }
+
     Bert.alert('Successfully seeded product data.', 'success');
   },
 

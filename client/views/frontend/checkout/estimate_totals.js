@@ -14,6 +14,8 @@ Template.estimateTotals.helpers({
   shippingTotal: function() {
     if (Session.get('shippingTotal')) {
       return (Math.round(Session.get('shippingTotal') * 100) / 100).toFixed(2);
+    } else {
+      Session.setDefault('shippingTotal', 0);
     }
   },
 
@@ -35,12 +37,7 @@ Template.estimateTotals.helpers({
       });
       Session.set('lineItemTotal', total);
 
-      if (Session.get('discountAmount')) {
-        var subTotal = (total - Session.get('discountAmount'));
-        return (Math.round(subTotal * 100) / 100).toFixed(2);
-      } else {
-        return (Math.round(total * 100) / 100).toFixed(2);
-      }
+      return (Math.round(total * 100) / 100).toFixed(2);
     }
   },
 
@@ -61,7 +58,9 @@ Template.estimateTotals.helpers({
       var atc = parseFloat(Session.get('atc'));
       var lineItemTotal = parseFloat(Session.get('lineItemTotal'));
       var shippingTotal = parseFloat(Session.get('shippingTotal'));
-      return (Math.round((lineItemTotal + shippingTotal + atc) * 100) / 100).toFixed(2);
+      var discountAmount = parseFloat(Session.get('discountAmount'));
+
+      return (Math.round(((lineItemTotal - discountAmount) + shippingTotal + atc) * 100) / 100).toFixed(2);
     }
   }
 });
@@ -144,6 +143,9 @@ Template.estimateTotals.events({
         _id: lineItem.productId
       });
       var cost = (quantity * product.productUnitPrice);
+
+      // initialize discountAmount as 0.
+      var discountAmount = 0;
       // If the discount is not 0, and is less than or equal to the cost of the lineItem, subtract an amount less than or equal to the cost
       if (discount !== 0) {
         if (cost >= discountDiv) { // the cost of the lineItem is greater than the discount amount, use the even distribution
@@ -154,8 +156,6 @@ Template.estimateTotals.events({
           var discountAmount = cost;
           var discount = discount - discountAmount;
         }
-      } else { // there is no discount
-        var discountAmount = 0;
       }
 
       var data = {

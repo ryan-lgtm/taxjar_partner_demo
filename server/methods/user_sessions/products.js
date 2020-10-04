@@ -133,6 +133,50 @@ Meteor.methods({
     });
   },
 
+  seedFullyTaxable: function(sessionId) {
+    Product.insert({
+      'sessionId': sessionId,
+      'productName': 'Kitchen Gadget',
+      'productIdentifier': '001-taxable',
+      'productDescription': 'Make kitchen stuff easier.',
+      'productUnitPrice': 12.99,
+      'productTaxCode': ''
+    }, function(err, res) {
+      if (err) {
+        console.log(err);
+        return err
+      }
+    });
+
+    Product.insert({
+      'sessionId': sessionId,
+      'productName': 'Fall Decor Kit',
+      'productIdentifier': '002-taxable',
+      'productDescription': 'Festive and ornamental.',
+      'productUnitPrice': 99.99,
+      'productTaxCode': ''
+    }, function(err, res) {
+      if (err) {
+        console.log(err);
+        return err
+      }
+    });
+
+    Product.insert({
+      'sessionId': sessionId,
+      'productName': '5x7 Picture Frame',
+      'productIdentifier': '003-taxable',
+      'productDescription': 'A picture is worth a thousand words.',
+      'productUnitPrice': 6.99,
+      'productTaxCode': ''
+    }, function(err, res) {
+      if (err) {
+        console.log(err);
+        return err
+      }
+    });
+  },
+
   async syncProductTaxCodes(sessionId, token) {
     const client = new Taxjar({
       apiKey: token
