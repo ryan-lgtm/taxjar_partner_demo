@@ -1,3 +1,50 @@
 <template name="explain">
+  {{#prism language="javascript" class="line-numbers"}}
+    "from_street"           -> {{fromStreet}}
+    "from_city"             -> {{fromCity}}
+    "from_state"            -> {{fromState}}
+    "from_zip"              -> {{fromZip}}
+    "from_country"          -> {{fromCountry}}
 
+    "to_street"             -> {{toStreet}}
+    "to_city"               -> {{toCity}}
+    "to_state"              -> {{toState}}
+    "to_zip"                -> {{toZip}}
+    "to_country"            -> {{toCountry}}
+
+    "amount"                -> {{reqAmount}}
+    "shipping"              -> {{reqShipping}}
+    "customer_id"           -> {{reqCustomerId}}
+    "exemption_type"        -> {{reqExemptionType}}
+
+    "line_items": {{reqLineItems}}
+
+    ---
+
+    "order_total_amount"    -> {{orderTotalAmount}}
+    "shipping"              -> {{resShipping}}
+    "taxable_amount"        -> {{taxTaxableAmount}}
+    "amount_to_collect"     -> {{amountToCollect}}
+    "rate"                  -> {{rate}}
+    "has_nexus"             -> {{hasNexus}}
+    "freight_taxable"       -> {{freightTaxable}}
+    "tax_source"            -> {{taxSource}}
+
+    "jurisdictions": {{jurisdictions}}
+    --
+    "taxable_amount"        -> {{breakdownTaxableAmount}}
+    "tax_collectable"       -> {{breakdownTaxCollectable}}
+    "combined_tax_rate"     -> {{breakdownCombinedTaxRate}}
+    "state_taxable_amount"  -> {{breakdownStateTaxableAmount}}
+    "state_tax_rate"        -> {{breakdownStateTaxRate}}
+    "state_tax_collectable" -> {{breakdownStateTaxCollectable}}
+    "county_taxable_amount" -> {{breakdownCountyTaxableAmount}}
+    "county_tax_rate"       -> {{breakdownCountyTaxRate}}
+    "county_tax_collectable"-> {{breakdownCountyTaxCollectable}}
+    "special_district_taxable_amount"  -> {{breakdownSpecialTaxableAmount}}
+    "special_tax_rate"                 -> {{breakdownSpecialTaxRate}}
+    "special_district_tax_collectable" -> {{breakdownSpecialTaxCollectable}}
+
+    "line_items": {{breakdownLineItems}}
+  {{/prism}}
 </template>
