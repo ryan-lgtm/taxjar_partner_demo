@@ -18,22 +18,22 @@
             <div class="col-md-6 ml-auto mr-auto">
               <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.4em;">
                 {{#prism language="javascript" class="line-numbers"}}
-                  "from_street"       -> {{fromStreet}}
-                  "from_city"         -> {{fromCity}}
-                  "from_state"        -> {{fromState}}
-                  "from_zip"          -> {{fromZip}}
-                  "from_country"      -> {{fromCountry}}
+                  "from_street"         -> {{fromStreet}}
+                  "from_city"           -> {{fromCity}}
+                  "from_state"          -> {{fromState}}
+                  "from_zip"            -> {{fromZip}}
+                  "from_country"        -> {{fromCountry}}
 
-                  "to_street"         -> {{toStreet}}
-                  "to_city"           -> {{toCity}}
-                  "to_state"          -> {{toState}}
-                  "to_zip"            -> {{toZip}}
-                  "to_country"        -> {{toCountry}}
+                  "to_street"           -> {{toStreet}}
+                  "to_city"             -> {{toCity}}
+                  "to_state"            -> {{toState}}
+                  "to_zip"              -> {{toZip}}
+                  "to_country"          -> {{toCountry}}
                 {{/prism}}
               </div>
             </div>
-            <div class="col-md-6 ml-auto mr-auto">
-              <h3 class="text-center">Explain stuff.</h3>
+            <div class="col-md-6 ml-auto mr-auto" id="addressParams">
+              <h3 class="text-center">Address Parameters.</h3>
             </div>
           </div>
 
@@ -41,15 +41,51 @@
             <div class="col-md-6 ml-auto mr-auto">
               <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.4em;">
                 {{#prism language="javascript" class="line-numbers"}}
-                  "amount"            -> {{reqAmount}}
-                  "shipping"          -> {{reqShipping}}
-                  "customer_id"       -> {{reqCustomerId}}
-                  "exemption_type"    -> {{reqExemptionType}}
+                  "amount"              -> {{reqAmount}}
                 {{/prism}}
               </div>
             </div>
+            <div class="col-md-6 ml-auto mr-auto" id="reqAmount">
+              <h3 class="text-center">Amount.</h3>
+            </div>
+          </div>
+
+          <div class="row" style="margin-top: 5%;">
             <div class="col-md-6 ml-auto mr-auto">
-              <h3 class="text-center">Explain stuff.</h3>
+              <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.4em;">
+                {{#prism language="javascript" class="line-numbers"}}
+                  "shipping"            -> {{reqShipping}}
+                {{/prism}}
+              </div>
+            </div>
+            <div class="col-md-6 ml-auto mr-auto" id="reqShipping">
+              <h3 class="text-center">Shipping.</h3>
+            </div>
+          </div>
+
+          <div class="row" style="margin-top: 5%;">
+            <div class="col-md-6 ml-auto mr-auto">
+              <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.4em;">
+                {{#prism language="javascript" class="line-numbers"}}
+                  "customer_id"         -> {{reqCustomerId}}
+                {{/prism}}
+              </div>
+            </div>
+            <div class="col-md-6 ml-auto mr-auto" id="reqCustomerId">
+              <h3 class="text-center">Customer ID.</h3>
+            </div>
+          </div>
+
+          <div class="row" style="margin-top: 5%;">
+            <div class="col-md-6 ml-auto mr-auto">
+              <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.4em;">
+                {{#prism language="javascript" class="line-numbers"}}
+                  "exemption_type"      -> {{reqExemptionType}}
+                {{/prism}}
+              </div>
+            </div>
+            <div class="col-md-6 ml-auto mr-auto" id="reqExemptionType">
+              <h3 class="text-center">Exemption Type.</h3>
             </div>
           </div>
 
@@ -61,15 +97,15 @@
                 {{/prism}}
               </div>
             </div>
-            <div class="col-md-6 ml-auto mr-auto">
-              <h3 class="text-center">Explain stuff.</h3>
+            <div class="col-md-6 ml-auto mr-auto" id="reqLineItems">
+              <h3 class="text-center">Line Items.</h3>
             </div>
           </div>
         </div>
       </div>
 
       <div class="card" style="">
-        <div class="card-header card-header-rose card-header-text">
+        <div class="card-header card-header-primary card-header-text">
           <div class="card-icon">
             <i class="material-icons">construction</i>
           </div>
@@ -81,18 +117,102 @@
               <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.4em;">
                 {{#prism language="javascript" class="line-numbers"}}
                   "order_total_amount"  -> {{orderTotalAmount}}
+                {{/prism}}
+              </div>
+            </div>
+            <div class="col-md-6 ml-auto mr-auto" id="resOta">
+              <h3 class="text-center">Order Total Amount.</h3>
+            </div>
+          </div>
+
+          <div class="row" style="margin-top: 5%;">
+            <div class="col-md-6 ml-auto mr-auto">
+              <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.4em;">
+                {{#prism language="javascript" class="line-numbers"}}
                   "shipping"            -> {{resShipping}}
+                {{/prism}}
+              </div>
+            </div>
+            <div class="col-md-6 ml-auto mr-auto" id="resShipping">
+              <h3 class="text-center">Shipping.</h3>
+            </div>
+          </div>
+
+          <div class="row" style="margin-top: 5%;">
+            <div class="col-md-6 ml-auto mr-auto">
+              <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.4em;">
+                {{#prism language="javascript" class="line-numbers"}}
                   "taxable_amount"      -> {{taxTaxableAmount}}
+                {{/prism}}
+              </div>
+            </div>
+            <div class="col-md-6 ml-auto mr-auto" id="resTaxableAmount">
+              <h3 class="text-center">Taxable Amount.</h3>
+            </div>
+          </div>
+
+          <div class="row" style="margin-top: 5%;">
+            <div class="col-md-6 ml-auto mr-auto">
+              <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.4em;">
+                {{#prism language="javascript" class="line-numbers"}}
                   "amount_to_collect"   -> {{amountToCollect}}
+                {{/prism}}
+              </div>
+            </div>
+            <div class="col-md-6 ml-auto mr-auto" id="resAtc">
+              <h3 class="text-center">Amount to Collect.</h3>
+            </div>
+          </div>
+
+          <div class="row" style="margin-top: 5%;">
+            <div class="col-md-6 ml-auto mr-auto">
+              <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.4em;">
+                {{#prism language="javascript" class="line-numbers"}}
                   "rate"                -> {{rate}}
-                  "has_nexus"           -> {{hasNexus}}
+                {{/prism}}
+              </div>
+            </div>
+            <div class="col-md-6 ml-auto mr-auto" id="resRate">
+              <h3 class="text-center">Rate.</h3>
+            </div>
+          </div>
+
+          <div class="row" style="margin-top: 5%;">
+            <div class="col-md-6 ml-auto mr-auto">
+              <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.4em;">
+                {{#prism language="javascript" class="line-numbers"}}
+                  "has_nexus"            -> {{hasNexus}}
+                {{/prism}}
+              </div>
+            </div>
+            <div class="col-md-6 ml-auto mr-auto" id="resHasNexus">
+              <h3 class="text-center">Has Nexus.</h3>
+            </div>
+          </div>
+
+          <div class="row" style="margin-top: 5%;">
+            <div class="col-md-6 ml-auto mr-auto">
+              <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.4em;">
+                {{#prism language="javascript" class="line-numbers"}}
                   "freight_taxable"     -> {{freightTaxable}}
+                {{/prism}}
+              </div>
+            </div>
+            <div class="col-md-6 ml-auto mr-auto" id="resFreightTaxable">
+              <h3 class="text-center">Freight Taxable.</h3>
+            </div>
+          </div>
+
+          <div class="row" style="margin-top: 5%;">
+            <div class="col-md-6 ml-auto mr-auto">
+              <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.4em;">
+                {{#prism language="javascript" class="line-numbers"}}
                   "tax_source"          -> {{taxSource}}
                 {{/prism}}
               </div>
             </div>
-            <div class="col-md-6 ml-auto mr-auto">
-              <h3 class="text-center">Explain stuff.</h3>
+            <div class="col-md-6 ml-auto mr-auto" id="resTaxSource">
+              <h3 class="text-center">Tax Source.</h3>
             </div>
           </div>
 
@@ -104,8 +224,8 @@
                 {{/prism}}
               </div>
             </div>
-            <div class="col-md-6 ml-auto mr-auto">
-              <h3 class="text-center">Explain stuff.</h3>
+            <div class="col-md-6 ml-auto mr-auto" id="resJurisdictions">
+              <h3 class="text-center">Jurisdictions.</h3>
             </div>
           </div>
 
@@ -128,8 +248,8 @@
                 {{/prism}}
               </div>
             </div>
-            <div class="col-md-6 ml-auto mr-auto">
-              <h3 class="text-center">Explain stuff.</h3>
+            <div class="col-md-6 ml-auto mr-auto" id="breakdownDetails">
+              <h3 class="text-center">Breakdown Details.</h3>
             </div>
           </div>
 
@@ -141,10 +261,12 @@
                 {{/prism}}
               </div>
             </div>
-            <div class="col-md-6 ml-auto mr-auto">
-              <h3 class="text-center">Explain stuff.</h3>
+            <div class="col-md-6 ml-auto mr-auto" id="resLineItems">
+              <h3 class="text-center">Line Item Details.</h3>
             </div>
           </div>
+
+          <!-- leave room for shipping breakdown of response -->
         </div>
       </div>
     </div>
@@ -155,27 +277,61 @@
           <div class="row">
             <div class="col-md-12">
               <h3 class="text-center" style="font-weight: bold;">Request</h3>
-              <p style="font-size: 1.2em;">Address Params</p>
-              <p style="font-size: 1.2em;">Amount</p>
-              <p style="font-size: 1.2em;">Shipping</p>
-              <p style="font-size: 1.2em;">Customer ID</p>
-              <p style="font-size: 1.2em;">Exemption Type</p>
+              <a href="#addressParams">
+                <p style="font-size: 1.2em;">Address Params</p>
+              </a>
+              <a href="#reqAmount">
+                <p style="font-size: 1.2em;">Amount</p>
+              </a>
+              <a href="#reqShipping">
+                <p style="font-size: 1.2em;">Shipping</p>
+              </a>
+              <a href="#reqCustomerId">
+                <p style="font-size: 1.2em;">Customer ID</p>
+              </a>
+              <a href="#reqExemptionType">
+                <p style="font-size: 1.2em;">Exemption Type</p>
+              </a>
               <h4 class="text-center" style="font-weight: bold;">Line Items</h4>
-              <p style="font-size: 1.2em;">Line Item Details</p>
+              <a href="#reqLineItems">
+                <p style="font-size: 1.2em;">Line Item Details</p>
+              </a>
               <h3 class="text-center" style="font-weight: bold;">Response</h3>
-              <p style="font-size: 1.2em;">Order Total Amount</p>
-              <p style="font-size: 1.2em;">Shipping</p>
-              <p style="font-size: 1.2em;">Taxable Amount</p>
-              <p style="font-size: 1.2em;">Amount to Collect</p>
-              <p style="font-size: 1.2em;">Rate</p>
-              <p style="font-size: 1.2em;">Has Nexus</p>
-              <p style="font-size: 1.2em;">Freight Taxable</p>
-              <p style="font-size: 1.2em;">Tax Source</p>
-              <p style="font-size: 1.2em;">Jurisdictions</p>
+              <a href="#resOta">
+                <p style="font-size: 1.2em;">Order Total Amount</p>
+              </a>
+              <a href="#resShipping">
+                <p style="font-size: 1.2em;">Shipping</p>
+              </a>
+              <a href="#resTaxableAmount">
+                <p style="font-size: 1.2em;">Taxable Amount</p>
+              </a>
+              <a href="#resAtc">
+                <p style="font-size: 1.2em;">Amount to Collect</p>
+              </a>
+              <a href="#resRate">
+                <p style="font-size: 1.2em;">Rate</p>
+              </a>
+              <a href="#resHasNexus">
+                <p style="font-size: 1.2em;">Has Nexus</p>
+              </a>
+              <a href="#resFreightTaxable">
+                <p style="font-size: 1.2em;">Freight Taxable</p>
+              </a>
+              <a href="#resTaxSource">
+                <p style="font-size: 1.2em;">Tax Source</p>
+              </a>
+              <a href="#resJurisdictions">
+                <p style="font-size: 1.2em;">Jurisdictions</p>
+              </a>
               <h4 class="text-center" style="font-weight: bold;">Breakdown</h4>
-              <p style="font-size: 1.2em;">Breakdown Details</p>
+              <a href="#breakdownDetails">
+                <p style="font-size: 1.2em;">Breakdown Details</p>
+              </a>
               <h4 class="text-center" style="font-weight: bold;">Line Items</h4>
-              <p style="font-size: 1.2em;">Line Item Details</p>
+              <a href="#resLineItems">
+                <p style="font-size: 1.2em;">Line Item Details</p>
+              </a>
               <h4 class="text-center" style="font-weight: bold;">Shipping</h4>
               <p style="font-size: 1.2em;">Shipping Details</p>
             </div>
@@ -185,4 +341,16 @@
     </div>
 
   </div>
+
+  <script>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
 </template>
