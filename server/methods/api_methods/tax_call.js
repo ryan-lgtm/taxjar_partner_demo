@@ -17,6 +17,7 @@ Meteor.methods({
       to_state: taxReq.toParams.toState,
       to_zip: taxReq.toParams.toZipCode,
       to_country: taxReq.toParams.toCountry,
+      customer_id: taxReq.customerId,
       amount: parseFloat(taxReq.amount),
       shipping: parseFloat(taxReq.shipping),
       line_items: taxReq.lineItems

@@ -101,14 +101,14 @@ Template.manageProducts.events({
 
   'click .retrieve-ptcs': function(event) {
     event.preventDefault();
+    $('.retrieve-ptcs').attr('disabled',true);
+    $('.retrieve-ptcs').removeClass('btn-warning');
+    $('.retrieve-ptcs').addClass('btn-default');
 
     Meteor.call('syncProductTaxCodes', Session.get('userSessionId'), Session.get('apiToken'), function(err, res) {
       if (err) {
         Bert.alert('Error: ' + err, 'danger');
       } else {
-        $('.retrieve-ptcs').attr('disabled',true);
-        $('.retrieve-ptcs').removeClass('btn-warning');
-        $('.retrieve-ptcs').addClass('btn-default');
         Bert.alert('Successfully synced ' + res + ' product tax categories.', 'success');
       }
     });

@@ -107,7 +107,7 @@ Template.estimateTotals.events({
       taxReq.customerId = customer.customerIdentifier
     }
 
-    if (Session.get('customerAddress')) {
+    if (Session.get('customerAddress') && Session.get('customerAddress').toZipCode !== '') {
       taxReq.toParams = Session.get('customerAddress');
     }
 
@@ -181,7 +181,7 @@ Template.estimateTotals.events({
       if (err) {
         Bert.alert('Error: ' + err, 'danger');
       } else {
-        Session.set('atc', res.tax.amount_to_collect);
+        Session.set('atc', String(res.tax.amount_to_collect));
       }
     });
   },
