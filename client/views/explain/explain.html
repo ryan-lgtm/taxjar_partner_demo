@@ -1,50 +1,157 @@
 <template name="explain">
-  {{#prism language="javascript" class="line-numbers"}}
-    "from_street"           -> {{fromStreet}}
-    "from_city"             -> {{fromCity}}
-    "from_state"            -> {{fromState}}
-    "from_zip"              -> {{fromZip}}
-    "from_country"          -> {{fromCountry}}
+  <div class="row">
+    <div class="col-md-12 ml-auto mr-auto">
+      <h1 class="text-center">Tax Calculation Explain</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-11 offset-md-1 ml-auto mr-auto">
+      <div class="card" style="">
+        <div class="card-header card-header-rose card-header-text">
+          <div class="card-icon">
+            <i class="material-icons">construction</i>
+          </div>
+          <h2 class="card-title text-center">Request Body</h2>
+        </div>
+        <div class="card-body">
+          <div class="row" style="margin-top: 5%;">
+            <div class="col-md-5 ml-auto mr-auto">
+              <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.4em;">
+                {{#prism language="javascript" class="line-numbers"}}
+                  "from_street"   -> {{fromStreet}}
+                  "from_city"     -> {{fromCity}}
+                  "from_state"    -> {{fromState}}
+                  "from_zip"      -> {{fromZip}}
+                  "from_country"  -> {{fromCountry}}
 
-    "to_street"             -> {{toStreet}}
-    "to_city"               -> {{toCity}}
-    "to_state"              -> {{toState}}
-    "to_zip"                -> {{toZip}}
-    "to_country"            -> {{toCountry}}
+                  "to_street"     -> {{toStreet}}
+                  "to_city"       -> {{toCity}}
+                  "to_state"      -> {{toState}}
+                  "to_zip"        -> {{toZip}}
+                  "to_country"    -> {{toCountry}}
+                {{/prism}}
+              </div>
+            </div>
+            <div class="col-md-7 ml-auto mr-auto">
+              <h3 class="text-center">Explain stuff.</h3>
+            </div>
+          </div>
 
-    "amount"                -> {{reqAmount}}
-    "shipping"              -> {{reqShipping}}
-    "customer_id"           -> {{reqCustomerId}}
-    "exemption_type"        -> {{reqExemptionType}}
+          <div class="row" style="margin-top: 5%;">
+            <div class="col-md-5 ml-auto mr-auto">
+              <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.4em;">
+                {{#prism language="javascript" class="line-numbers"}}
+                  "amount"          -> {{reqAmount}}
+                  "shipping"        -> {{reqShipping}}
+                  "customer_id"     -> {{reqCustomerId}}
+                  "exemption_type"  -> {{reqExemptionType}}
+                {{/prism}}
+              </div>
+            </div>
+            <div class="col-md-7 ml-auto mr-auto">
+              <h3 class="text-center">Explain stuff.</h3>
+            </div>
+          </div>
 
-    "line_items": {{reqLineItems}}
+          <div class="row" style="margin-top: 5%;">
+            <div class="col-md-5 ml-auto mr-auto">
+              <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.4em;">
+                {{#prism language="javascript" class="line-numbers"}}
+                  "line_items": {{reqLineItems}}
+                {{/prism}}
+              </div>
+            </div>
+            <div class="col-md-7 ml-auto mr-auto">
+              <h3 class="text-center">Explain stuff.</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    ---
 
-    "order_total_amount"    -> {{orderTotalAmount}}
-    "shipping"              -> {{resShipping}}
-    "taxable_amount"        -> {{taxTaxableAmount}}
-    "amount_to_collect"     -> {{amountToCollect}}
-    "rate"                  -> {{rate}}
-    "has_nexus"             -> {{hasNexus}}
-    "freight_taxable"       -> {{freightTaxable}}
-    "tax_source"            -> {{taxSource}}
+  <div class="row">
+    <div class="col-md-11 offset-md-1 ml-auto mr-auto">
+      <div class="card" style="">
+        <div class="card-header card-header-rose card-header-text">
+          <div class="card-icon">
+            <i class="material-icons">construction</i>
+          </div>
+          <h2 class="card-title text-center">Response Body</h2>
+        </div>
+        <div class="card-body">
+          <div class="row" style="margin-top: 5%;">
+            <div class="col-md-5 ml-auto mr-auto">
+              <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.4em;">
+                {{#prism language="javascript" class="line-numbers"}}
+                  "order_total_amount" -> {{orderTotalAmount}}
+                  "shipping"           -> {{resShipping}}
+                  "taxable_amount"     -> {{taxTaxableAmount}}
+                  "amount_to_collect"  -> {{amountToCollect}}
+                  "rate"               -> {{rate}}
+                  "has_nexus"          -> {{hasNexus}}
+                  "freight_taxable"    -> {{freightTaxable}}
+                  "tax_source"         -> {{taxSource}}
+                {{/prism}}
+              </div>
+            </div>
+            <div class="col-md-7 ml-auto mr-auto">
+              <h3 class="text-center">Explain stuff.</h3>
+            </div>
+          </div>
 
-    "jurisdictions": {{jurisdictions}}
-    --
-    "taxable_amount"        -> {{breakdownTaxableAmount}}
-    "tax_collectable"       -> {{breakdownTaxCollectable}}
-    "combined_tax_rate"     -> {{breakdownCombinedTaxRate}}
-    "state_taxable_amount"  -> {{breakdownStateTaxableAmount}}
-    "state_tax_rate"        -> {{breakdownStateTaxRate}}
-    "state_tax_collectable" -> {{breakdownStateTaxCollectable}}
-    "county_taxable_amount" -> {{breakdownCountyTaxableAmount}}
-    "county_tax_rate"       -> {{breakdownCountyTaxRate}}
-    "county_tax_collectable"-> {{breakdownCountyTaxCollectable}}
-    "special_district_taxable_amount"  -> {{breakdownSpecialTaxableAmount}}
-    "special_tax_rate"                 -> {{breakdownSpecialTaxRate}}
-    "special_district_tax_collectable" -> {{breakdownSpecialTaxCollectable}}
+          <div class="row" style="margin-top: 5%;">
+            <div class="col-md-5 ml-auto mr-auto">
+              <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.4em;">
+                {{#prism language="javascript" class="line-numbers"}}
+                  "jurisdictions": {{jurisdictions}}
+                {{/prism}}
+              </div>
+            </div>
+            <div class="col-md-7 ml-auto mr-auto">
+              <h3 class="text-center">Explain stuff.</h3>
+            </div>
+          </div>
 
-    "line_items": {{breakdownLineItems}}
-  {{/prism}}
+          <div class="row" style="margin-top: 5%;">
+            <div class="col-md-5 ml-auto mr-auto">
+              <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.4em;">
+                {{#prism language="javascript" class="line-numbers"}}
+                  "taxable_amount"                  -> {{breakdownTaxableAmount}}
+                  "tax_collectable"                 -> {{breakdownTaxCollectable}}
+                  "combined_tax_rate"               -> {{breakdownCombinedTaxRate}}
+                  "state_taxable_amount"            -> {{breakdownStateTaxableAmount}}
+                  "state_tax_rate"                  -> {{breakdownStateTaxRate}}
+                  "state_tax_collectable"           -> {{breakdownStateTaxCollectable}}
+                  "county_taxable_amount"           -> {{breakdownCountyTaxableAmount}}
+                  "county_tax_rate"                 -> {{breakdownCountyTaxRate}}
+                  "county_tax_collectable"          -> {{breakdownCountyTaxCollectable}}
+                  "special_district_taxable_amount" -> {{breakdownSpecialTaxableAmount}}
+                  "special_tax_rate"                -> {{breakdownSpecialTaxRate}}
+                  "special_district_tax_collectable"-> {{breakdownSpecialTaxCollectable}}
+                {{/prism}}
+              </div>
+            </div>
+            <div class="col-md-7 ml-auto mr-auto">
+              <h3 class="text-center">Explain stuff.</h3>
+            </div>
+          </div>
+
+          <div class="row" style="margin-top: 5%;">
+            <div class="col-md-6 ml-auto mr-auto">
+              <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.4em;">
+                {{#prism language="javascript" class="line-numbers"}}
+                  "line_items": {{breakdownLineItems}}
+                {{/prism}}
+              </div>
+            </div>
+            <div class="col-md-6 ml-auto mr-auto">
+              <h3 class="text-center">Explain stuff.</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
