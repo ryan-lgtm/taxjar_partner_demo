@@ -1,11 +1,11 @@
 <template name="explain">
   <div class="row">
     <div class="col-md-12 ml-auto mr-auto">
-      <h1 class="text-center">Tax Calculation Explain</h1>
+      <h1 class="text-center">Tax Calculation Review</h1>
     </div>
   </div>
   <div class="row">
-    <div class="col-md-11 offset-md-1 ml-auto mr-auto">
+    <div class="col-md-10 ml-auto mr-auto">
       <div class="card" style="">
         <div class="card-header card-header-rose card-header-text">
           <div class="card-icon">
@@ -15,64 +15,59 @@
         </div>
         <div class="card-body">
           <div class="row" style="margin-top: 5%;">
-            <div class="col-md-5 ml-auto mr-auto">
+            <div class="col-md-6 ml-auto mr-auto">
               <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.4em;">
                 {{#prism language="javascript" class="line-numbers"}}
-                  "from_street"   -> {{fromStreet}}
-                  "from_city"     -> {{fromCity}}
-                  "from_state"    -> {{fromState}}
-                  "from_zip"      -> {{fromZip}}
-                  "from_country"  -> {{fromCountry}}
+                  "from_street"       -> {{fromStreet}}
+                  "from_city"         -> {{fromCity}}
+                  "from_state"        -> {{fromState}}
+                  "from_zip"          -> {{fromZip}}
+                  "from_country"      -> {{fromCountry}}
 
-                  "to_street"     -> {{toStreet}}
-                  "to_city"       -> {{toCity}}
-                  "to_state"      -> {{toState}}
-                  "to_zip"        -> {{toZip}}
-                  "to_country"    -> {{toCountry}}
+                  "to_street"         -> {{toStreet}}
+                  "to_city"           -> {{toCity}}
+                  "to_state"          -> {{toState}}
+                  "to_zip"            -> {{toZip}}
+                  "to_country"        -> {{toCountry}}
                 {{/prism}}
               </div>
             </div>
-            <div class="col-md-7 ml-auto mr-auto">
+            <div class="col-md-6 ml-auto mr-auto">
               <h3 class="text-center">Explain stuff.</h3>
             </div>
           </div>
 
           <div class="row" style="margin-top: 5%;">
-            <div class="col-md-5 ml-auto mr-auto">
+            <div class="col-md-6 ml-auto mr-auto">
               <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.4em;">
                 {{#prism language="javascript" class="line-numbers"}}
-                  "amount"          -> {{reqAmount}}
-                  "shipping"        -> {{reqShipping}}
-                  "customer_id"     -> {{reqCustomerId}}
-                  "exemption_type"  -> {{reqExemptionType}}
+                  "amount"            -> {{reqAmount}}
+                  "shipping"          -> {{reqShipping}}
+                  "customer_id"       -> {{reqCustomerId}}
+                  "exemption_type"    -> {{reqExemptionType}}
                 {{/prism}}
               </div>
             </div>
-            <div class="col-md-7 ml-auto mr-auto">
+            <div class="col-md-6 ml-auto mr-auto">
               <h3 class="text-center">Explain stuff.</h3>
             </div>
           </div>
 
           <div class="row" style="margin-top: 5%;">
-            <div class="col-md-5 ml-auto mr-auto">
+            <div class="col-md-6 ml-auto mr-auto">
               <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.4em;">
                 {{#prism language="javascript" class="line-numbers"}}
                   "line_items": {{reqLineItems}}
                 {{/prism}}
               </div>
             </div>
-            <div class="col-md-7 ml-auto mr-auto">
+            <div class="col-md-6 ml-auto mr-auto">
               <h3 class="text-center">Explain stuff.</h3>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
 
-
-  <div class="row">
-    <div class="col-md-11 offset-md-1 ml-auto mr-auto">
       <div class="card" style="">
         <div class="card-header card-header-rose card-header-text">
           <div class="card-icon">
@@ -82,40 +77,40 @@
         </div>
         <div class="card-body">
           <div class="row" style="margin-top: 5%;">
-            <div class="col-md-5 ml-auto mr-auto">
+            <div class="col-md-6 ml-auto mr-auto">
               <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.4em;">
                 {{#prism language="javascript" class="line-numbers"}}
-                  "order_total_amount" -> {{orderTotalAmount}}
-                  "shipping"           -> {{resShipping}}
-                  "taxable_amount"     -> {{taxTaxableAmount}}
-                  "amount_to_collect"  -> {{amountToCollect}}
-                  "rate"               -> {{rate}}
-                  "has_nexus"          -> {{hasNexus}}
-                  "freight_taxable"    -> {{freightTaxable}}
-                  "tax_source"         -> {{taxSource}}
+                  "order_total_amount"  -> {{orderTotalAmount}}
+                  "shipping"            -> {{resShipping}}
+                  "taxable_amount"      -> {{taxTaxableAmount}}
+                  "amount_to_collect"   -> {{amountToCollect}}
+                  "rate"                -> {{rate}}
+                  "has_nexus"           -> {{hasNexus}}
+                  "freight_taxable"     -> {{freightTaxable}}
+                  "tax_source"          -> {{taxSource}}
                 {{/prism}}
               </div>
             </div>
-            <div class="col-md-7 ml-auto mr-auto">
+            <div class="col-md-6 ml-auto mr-auto">
               <h3 class="text-center">Explain stuff.</h3>
             </div>
           </div>
 
           <div class="row" style="margin-top: 5%;">
-            <div class="col-md-5 ml-auto mr-auto">
+            <div class="col-md-6 ml-auto mr-auto">
               <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.4em;">
                 {{#prism language="javascript" class="line-numbers"}}
                   "jurisdictions": {{jurisdictions}}
                 {{/prism}}
               </div>
             </div>
-            <div class="col-md-7 ml-auto mr-auto">
+            <div class="col-md-6 ml-auto mr-auto">
               <h3 class="text-center">Explain stuff.</h3>
             </div>
           </div>
 
           <div class="row" style="margin-top: 5%;">
-            <div class="col-md-5 ml-auto mr-auto">
+            <div class="col-md-6 ml-auto mr-auto">
               <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.4em;">
                 {{#prism language="javascript" class="line-numbers"}}
                   "taxable_amount"                  -> {{breakdownTaxableAmount}}
@@ -133,7 +128,7 @@
                 {{/prism}}
               </div>
             </div>
-            <div class="col-md-7 ml-auto mr-auto">
+            <div class="col-md-6 ml-auto mr-auto">
               <h3 class="text-center">Explain stuff.</h3>
             </div>
           </div>
@@ -153,5 +148,41 @@
         </div>
       </div>
     </div>
+    <!-- Nav stuff -->
+    <div class="col-md-2 ml-auto mr-auto">
+      <div class="card" style="width: 100%; position: -webkit-sticky; position: sticky; top: 0;">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <h3 class="text-center" style="font-weight: bold;">Request</h3>
+              <p style="font-size: 1.2em;">Address Params</p>
+              <p style="font-size: 1.2em;">Amount</p>
+              <p style="font-size: 1.2em;">Shipping</p>
+              <p style="font-size: 1.2em;">Customer ID</p>
+              <p style="font-size: 1.2em;">Exemption Type</p>
+              <h4 class="text-center" style="font-weight: bold;">Line Items</h4>
+              <p style="font-size: 1.2em;">Line Item Details</p>
+              <h3 class="text-center" style="font-weight: bold;">Response</h3>
+              <p style="font-size: 1.2em;">Order Total Amount</p>
+              <p style="font-size: 1.2em;">Shipping</p>
+              <p style="font-size: 1.2em;">Taxable Amount</p>
+              <p style="font-size: 1.2em;">Amount to Collect</p>
+              <p style="font-size: 1.2em;">Rate</p>
+              <p style="font-size: 1.2em;">Has Nexus</p>
+              <p style="font-size: 1.2em;">Freight Taxable</p>
+              <p style="font-size: 1.2em;">Tax Source</p>
+              <p style="font-size: 1.2em;">Jurisdictions</p>
+              <h4 class="text-center" style="font-weight: bold;">Breakdown</h4>
+              <p style="font-size: 1.2em;">Breakdown Details</p>
+              <h4 class="text-center" style="font-weight: bold;">Line Items</h4>
+              <p style="font-size: 1.2em;">Line Item Details</p>
+              <h4 class="text-center" style="font-weight: bold;">Shipping</h4>
+              <p style="font-size: 1.2em;">Shipping Details</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </template>
