@@ -233,6 +233,22 @@ Template.explain.helpers({
   breakdownLineItems: function() {
     var resBody = Session.get('resBody');
     return JSON.stringify(resBody.tax.breakdown.line_items, null, 4);
+  },
+
+  breakdownShipping: function() {
+    var resBody = Session.get('resBody');
+    return JSON.stringify(resBody.tax.breakdown.shipping, null, 4);
+  },
+
+  reqLineItemDetails: function() { // This is so fricking dumb. See L126 of template.
+    var reqBody = Session.get('reqBody');
+    return reqBody
+  },
+
+
+
+  getTotal: function() {
+    return ((this.unit_price * this.quantity) - this.discount)
   }
 });
 

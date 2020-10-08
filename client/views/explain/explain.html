@@ -14,9 +14,9 @@
           <h2 class="card-title text-center">Request Body</h2>
         </div>
         <div class="card-body">
-          <div class="row" style="margin-top: 5%;">
-            <div class="col-md-6 ml-auto mr-auto">
-              <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.4em;">
+          <div class="row" style="margin-top: 5%; display: table-row">
+            <div class="col-md-6 ml-auto mr-auto" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
+              <div style="bottom: 0; font-size: 1.4em;">
                 {{#prism language="javascript" class="line-numbers"}}
                   "from_street"         -> {{fromStreet}}
                   "from_city"           -> {{fromCity}}
@@ -32,78 +32,133 @@
                 {{/prism}}
               </div>
             </div>
-            <div class="col-md-6 ml-auto mr-auto" id="addressParams">
+            <div class="col-md-6 ml-auto mr-auto" id="addressParams" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
               <h3 class="text-center">Address Parameters.</h3>
+              <p style="font-size: 1.3em;"><code>"from_"</code> and <code>"to_"</code> address parameters. At a minimum, a "to_state" and "to_zip" are required. However, <a href="https://developers.taxjar.com/integrations/sales-tax-calculations/" target="_blank">TaxJar provides rooftop level accuracy</a>. The more address detail provided, the higher the chances of receiving an accurate rate and/or product exemptions.<br/>
+                <br/><code>"from_"</code> parameters provides TaxJar with the origin of shipment, or where the seller's liability of title (products or services) ends. If left absent, TaxJar will default to the Business Profile address of the account. If an integration takes advantage of multiple locations of origin, <code>"from_"</code> parameters should be present.
+              </p>
             </div>
           </div>
-
-          <div class="row" style="margin-top: 5%;">
-            <div class="col-md-6 ml-auto mr-auto">
-              <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.4em;">
+          <hr>
+          <div class="row" style="margin-top: 5%; display: table-row">
+            <div class="col-md-6 ml-auto mr-auto" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
+              <div style="bottom: 0; font-size: 1.4em;">
                 {{#prism language="javascript" class="line-numbers"}}
                   "amount"              -> {{reqAmount}}
                 {{/prism}}
               </div>
             </div>
-            <div class="col-md-6 ml-auto mr-auto" id="reqAmount">
+            <div class="col-md-6 ml-auto mr-auto" id="reqAmount" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
               <h3 class="text-center">Amount.</h3>
+              <p style="font-size: 1.3em;">
+                The <code>"amount"</code> parameter is optional so long as <code>"line_items"</code> details are provided. The value of <code>"amount"</code> is required if <code>"line_items"</code> are not present.<br/>
+                <br/>Despite being ignored in the first circumstance, however, it is suggested to utilize the <code>"amount"</code> parameter for soft logging and best practices. In this example: <br/><code>"amount" = "line_items[*].unit_price" * "line_items[*].quantity"</code>, not including <code>"line_items[*].discounts"</code>.
+              </p>
             </div>
           </div>
-
-          <div class="row" style="margin-top: 5%;">
-            <div class="col-md-6 ml-auto mr-auto">
-              <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.4em;">
+            <hr>
+          <div class="row" style="margin-top: 5%; display: table-row">
+            <div class="col-md-6 ml-auto mr-auto" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
+              <div style="bottom: 0; width: 100%; font-size: 1.4em;">
                 {{#prism language="javascript" class="line-numbers"}}
                   "shipping"            -> {{reqShipping}}
                 {{/prism}}
               </div>
             </div>
-            <div class="col-md-6 ml-auto mr-auto" id="reqShipping">
+            <div class="col-md-6 ml-auto mr-auto" id="reqShipping" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
               <h3 class="text-center">Shipping.</h3>
+              <p style="font-size: 1.3em;">
+                <code>"shipping"</code> is a required parameter, even if no shipping is applicable. For example, in providing services. Under these circumstances, <code>"shipping": "0"</code> is applicable.<br/><br/>
+                If shipping is considered taxable based on the destination, a <code>"shipping" : {..}"</code> object will be returned in the response body.<br/><br/>
+                In this calculation, <strong>shipping was {{#if breakdownShipping}}taxable{{else}}not taxable{{/if}}.</strong>
+              </p>
             </div>
           </div>
-
-          <div class="row" style="margin-top: 5%;">
-            <div class="col-md-6 ml-auto mr-auto">
-              <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.4em;">
+          <hr>
+          <div class="row" style="margin-top: 5%; display: table-row">
+            <div class="col-md-6 ml-auto mr-auto" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
+              <div style="bottom: 0; width: 100%; font-size: 1.4em;">
                 {{#prism language="javascript" class="line-numbers"}}
                   "customer_id"         -> {{reqCustomerId}}
                 {{/prism}}
               </div>
             </div>
-            <div class="col-md-6 ml-auto mr-auto" id="reqCustomerId">
+            <div class="col-md-6 ml-auto mr-auto" id="reqCustomerId" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
               <h3 class="text-center">Customer ID.</h3>
+              <p style="font-size: 1.3em;">
+                The <code>"customer_id"</code> is utilized to associate a sales tax calculation with a <code>"customer"</code> object. When a <code>"customer_id"</code> value is implied, TaxJar's sales tax engine will query for the associated customer record.<br/><br/>
+                If a matching value is found, any applicable customer entity exemptions will apply. See <a href="https://developers.taxjar.com/api/reference/#customers" target="_blank">/v2/customers API endpoints</a>.<br/><br/>
+                In this calculation, <strong>{{#if reqCustomerId}} a <code>"customer_id"</code> of <code>{{reqCustomerId}}</code> was passed{{else}} no <code>"customer_id"</code> value was supplied{{/if}}.</strong>
+              </p>
             </div>
           </div>
-
-          <div class="row" style="margin-top: 5%;">
-            <div class="col-md-6 ml-auto mr-auto">
-              <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.4em;">
+          <hr>
+          <div class="row" style="margin-top: 5%; display: table-row">
+            <div class="col-md-6 ml-auto mr-auto" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
+              <div style="bottom: 0; width: 100%; font-size: 1.4em;">
                 {{#prism language="javascript" class="line-numbers"}}
                   "exemption_type"      -> {{reqExemptionType}}
                 {{/prism}}
               </div>
             </div>
-            <div class="col-md-6 ml-auto mr-auto" id="reqExemptionType">
+            <div class="col-md-6 ml-auto mr-auto" id="reqExemptionType" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
               <h3 class="text-center">Exemption Type.</h3>
+              <p style="font-size: 1.3em;">
+                Similar to <code>"customer_id"</code>, the <code>"exemption_type"</code> parameter provides the ability to specify an order-level exemption.<br/><br/>
+                Valid <code>"exemption_type"</code> values include <code>"wholesale"</code>, <code>"government"</code>, <code>"marketplace"</code>, <code>"other"</code>, or <code>"non_exempt"</code>.<br/><br/>
+                Supplying a value of <code>"non_exempt"</code> is the same as not supplying an <code>"exemption_type"</code> at all. The order would be considered taxable based on product, destination, and nexus eligibility.<br/><br/>
+                For demonstrative purposes, order-level <code>"exemption_type"</code> properties are not utilized in this application in favor of demonstrating <a href="https://developers.taxjar.com/api/reference/#post-create-a-customer" target="_blank">full <code>"customer"</code> object support</a>.
+              </p>
             </div>
           </div>
-
-          <div class="row" style="margin-top: 5%;">
-            <div class="col-md-6 ml-auto mr-auto">
-              <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.4em;">
+          <hr>
+          <div class="row" style="margin-top: 5%; display: table-row">
+            <div class="col-md-6 ml-auto mr-auto" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
+              <div style="bottom: 0; width: 100%; font-size: 1.4em;">
                 {{#prism language="javascript" class="line-numbers"}}
                   "line_items": {{reqLineItems}}
                 {{/prism}}
               </div>
             </div>
-            <div class="col-md-6 ml-auto mr-auto" id="reqLineItems">
+            <div class="col-md-6 ml-auto mr-auto" id="reqLineItems" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
               <h3 class="text-center">Line Items.</h3>
+              <p style="font-size: 1.3em;">
+                  <code>"line_items"</code> details. This is an <code>array[]</code> of <code>objects{}</code>. When calculating sales tax, it is recommended to take advantage of all parameters. This includes the following:<br/><br/>
+                  <code>"id"</code>, <code>"quantity"</code>, <code>"product_tax_code"</code>, <code>"unit_price"</code>; and <code>"discount"</code>, as applicable.<br/><br/>
+                  <strong>Note:</strong> <code>"id"</code> is explicit to an identifier of the <code>"line_item"</code> in a sales tax calculation. For example, <code>"id": "1"</code>, <code>"id": "2"</code>, and <code>"id": "3"</code>. Do not use things like Product SKU's, catalog numbers, or inventory control figures. The API will reject the presence of duplicate values. Such as in the case where a customer may include the same product more than once as a <code>"line_item"</code>. <br/><br/>
+                  See the table below for the composition of your sales tax calculation request, and the assumed values TaxJar will determine taxability against.
+              </p>
+              <div class="row" style="display: table; margin-top: 15px;">
+                <div style="display: table-cell;">
+                  <table class="table table-bordered" style="font-size: 1.3em; table-layout: fixed; width: 100%;">
+                    <thead>
+                      <tr>
+                        <th>Unit Price</th>
+                        <th>Quantity</th>
+                        <th>Discount</th>
+                        <th>Line Item Total</th>
+                      </tr>
+                    </thead>
+                    <tfoot>
+                    </tfoot>
+                    <tbody>
+                      {{#each reqLineItemDetails.line_items}}
+                        <tr>
+                          <td>{{this.unit_price}}</td>
+                          <td>{{this.quantity}}</td>
+                          <td>{{this.discount}}</td>
+                          <td>{{getTotal}}</td>
+                        </tr>
+                      {{/each}}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-
+      <hr>
       <div class="card" style="">
         <div class="card-header card-header-primary card-header-text">
           <div class="card-icon">
@@ -112,125 +167,152 @@
           <h2 class="card-title text-center">Response Body</h2>
         </div>
         <div class="card-body">
-          <div class="row" style="margin-top: 5%;">
-            <div class="col-md-6 ml-auto mr-auto">
+          <div class="row" style="margin-top: 5%; display: table-row">
+            <div class="col-md-6 ml-auto mr-auto" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
               <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.4em;">
                 {{#prism language="javascript" class="line-numbers"}}
                   "order_total_amount"  -> {{orderTotalAmount}}
                 {{/prism}}
               </div>
             </div>
-            <div class="col-md-6 ml-auto mr-auto" id="resOta">
+            <div class="col-md-6 ml-auto mr-auto" id="resOta" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
               <h3 class="text-center">Order Total Amount.</h3>
+              <p style="font-size: 1.3em;">
+                Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content.
+              </p>
             </div>
           </div>
-
-          <div class="row" style="margin-top: 5%;">
-            <div class="col-md-6 ml-auto mr-auto">
+          <hr>
+          <div class="row" style="margin-top: 5%; display: table-row">
+            <div class="col-md-6 ml-auto mr-auto" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
               <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.4em;">
                 {{#prism language="javascript" class="line-numbers"}}
                   "shipping"            -> {{resShipping}}
                 {{/prism}}
               </div>
             </div>
-            <div class="col-md-6 ml-auto mr-auto" id="resShipping">
+            <div class="col-md-6 ml-auto mr-auto" id="resShipping" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
               <h3 class="text-center">Shipping.</h3>
+              <p style="font-size: 1.3em;">
+                Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content.
+              </p>
             </div>
           </div>
-
-          <div class="row" style="margin-top: 5%;">
-            <div class="col-md-6 ml-auto mr-auto">
+          <hr>
+          <div class="row" style="margin-top: 5%; display: table-row">
+            <div class="col-md-6 ml-auto mr-auto" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
               <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.4em;">
                 {{#prism language="javascript" class="line-numbers"}}
                   "taxable_amount"      -> {{taxTaxableAmount}}
                 {{/prism}}
               </div>
             </div>
-            <div class="col-md-6 ml-auto mr-auto" id="resTaxableAmount">
+            <div class="col-md-6 ml-auto mr-auto" id="resTaxableAmount" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
               <h3 class="text-center">Taxable Amount.</h3>
+              <p style="font-size: 1.3em;">
+                Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content.
+              </p>
             </div>
           </div>
-
-          <div class="row" style="margin-top: 5%;">
-            <div class="col-md-6 ml-auto mr-auto">
+          <hr>
+          <div class="row" style="margin-top: 5%; display: table-row">
+            <div class="col-md-6 ml-auto mr-auto" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
               <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.4em;">
                 {{#prism language="javascript" class="line-numbers"}}
                   "amount_to_collect"   -> {{amountToCollect}}
                 {{/prism}}
               </div>
             </div>
-            <div class="col-md-6 ml-auto mr-auto" id="resAtc">
+            <div class="col-md-6 ml-auto mr-auto" id="resAtc" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
               <h3 class="text-center">Amount to Collect.</h3>
+              <p style="font-size: 1.3em;">
+                Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content.
+              </p>
             </div>
           </div>
-
-          <div class="row" style="margin-top: 5%;">
-            <div class="col-md-6 ml-auto mr-auto">
+          <hr>
+          <div class="row" style="margin-top: 5%; display: table-row">
+            <div class="col-md-6 ml-auto mr-auto" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
               <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.4em;">
                 {{#prism language="javascript" class="line-numbers"}}
                   "rate"                -> {{rate}}
                 {{/prism}}
               </div>
             </div>
-            <div class="col-md-6 ml-auto mr-auto" id="resRate">
+            <div class="col-md-6 ml-auto mr-auto" id="resRate" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
               <h3 class="text-center">Rate.</h3>
+              <p style="font-size: 1.3em;">
+                Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content.
+              </p>
             </div>
           </div>
-
-          <div class="row" style="margin-top: 5%;">
-            <div class="col-md-6 ml-auto mr-auto">
+          <hr>
+          <div class="row" style="margin-top: 5%; display: table-row">
+            <div class="col-md-6 ml-auto mr-auto" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
               <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.4em;">
                 {{#prism language="javascript" class="line-numbers"}}
                   "has_nexus"            -> {{hasNexus}}
                 {{/prism}}
               </div>
             </div>
-            <div class="col-md-6 ml-auto mr-auto" id="resHasNexus">
+            <div class="col-md-6 ml-auto mr-auto" id="resHasNexus" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
               <h3 class="text-center">Has Nexus.</h3>
+              <p style="font-size: 1.3em;">
+                Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content.
+              </p>
             </div>
           </div>
-
-          <div class="row" style="margin-top: 5%;">
-            <div class="col-md-6 ml-auto mr-auto">
+          <hr>
+          <div class="row" style="margin-top: 5%; display: table-row">
+            <div class="col-md-6 ml-auto mr-auto" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
               <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.4em;">
                 {{#prism language="javascript" class="line-numbers"}}
                   "freight_taxable"     -> {{freightTaxable}}
                 {{/prism}}
               </div>
             </div>
-            <div class="col-md-6 ml-auto mr-auto" id="resFreightTaxable">
+            <div class="col-md-6 ml-auto mr-auto" id="resFreightTaxable" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
               <h3 class="text-center">Freight Taxable.</h3>
+              <p style="font-size: 1.3em;">
+                Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content.
+              </p>
             </div>
           </div>
-
-          <div class="row" style="margin-top: 5%;">
-            <div class="col-md-6 ml-auto mr-auto">
+          <hr>
+          <div class="row" style="margin-top: 5%; display: table-row">
+            <div class="col-md-6 ml-auto mr-auto" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
               <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.4em;">
                 {{#prism language="javascript" class="line-numbers"}}
                   "tax_source"          -> {{taxSource}}
                 {{/prism}}
               </div>
             </div>
-            <div class="col-md-6 ml-auto mr-auto" id="resTaxSource">
+            <div class="col-md-6 ml-auto mr-auto" id="resTaxSource" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
               <h3 class="text-center">Tax Source.</h3>
+              <p style="font-size: 1.3em;">
+                Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content.
+              </p>
             </div>
           </div>
-
-          <div class="row" style="margin-top: 5%;">
-            <div class="col-md-6 ml-auto mr-auto">
+          <hr>
+          <div class="row" style="margin-top: 5%; display: table-row">
+            <div class="col-md-6 ml-auto mr-auto" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
               <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.4em;">
                 {{#prism language="javascript" class="line-numbers"}}
                   "jurisdictions": {{jurisdictions}}
                 {{/prism}}
               </div>
             </div>
-            <div class="col-md-6 ml-auto mr-auto" id="resJurisdictions">
+            <div class="col-md-6 ml-auto mr-auto" id="resJurisdictions" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
               <h3 class="text-center">Jurisdictions.</h3>
+              <p style="font-size: 1.3em;">
+                Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content.
+              </p>
             </div>
           </div>
-
-          <div class="row" style="margin-top: 5%;">
-            <div class="col-md-6 ml-auto mr-auto">
+          <hr>
+          <div class="row" style="margin-top: 5%; display: table-row">
+            <div class="col-md-6 ml-auto mr-auto" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
               <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.4em;">
                 {{#prism language="javascript" class="line-numbers"}}
                   "taxable_amount"                  -> {{breakdownTaxableAmount}}
@@ -248,25 +330,45 @@
                 {{/prism}}
               </div>
             </div>
-            <div class="col-md-6 ml-auto mr-auto" id="breakdownDetails">
+            <div class="col-md-6 ml-auto mr-auto" id="breakdownDetails" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
               <h3 class="text-center">Breakdown Details.</h3>
+              <p style="font-size: 1.3em;">
+                Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content.
+              </p>
             </div>
           </div>
-
-          <div class="row" style="margin-top: 5%;">
-            <div class="col-md-6 ml-auto mr-auto">
+          <hr>
+          <div class="row" style="margin-top: 5%; display: table-row">
+            <div class="col-md-6 ml-auto mr-auto" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
               <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.4em;">
                 {{#prism language="javascript" class="line-numbers"}}
                   "line_items": {{breakdownLineItems}}
                 {{/prism}}
               </div>
             </div>
-            <div class="col-md-6 ml-auto mr-auto" id="resLineItems">
+            <div class="col-md-6 ml-auto mr-auto" id="resLineItems" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
               <h3 class="text-center">Line Item Details.</h3>
+              <p style="font-size: 1.3em;">
+                Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content.
+              </p>
             </div>
           </div>
-
-          <!-- leave room for shipping breakdown of response -->
+          <hr>
+          <div class="row" style="margin-top: 5%; display: table-row">
+            <div class="col-md-6 ml-auto mr-auto" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
+              <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.4em;">
+                {{#prism language="javascript" class="line-numbers"}}
+                  "shipping": {{breakdownShipping}}
+                {{/prism}}
+              </div>
+            </div>
+            <div class="col-md-6 ml-auto mr-auto" id="resShipping" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
+              <h3 class="text-center">Shipping Details.</h3>
+              <p style="font-size: 1.3em;">
+                Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -333,7 +435,9 @@
                 <p style="font-size: 1.2em;">Line Item Details</p>
               </a>
               <h4 class="text-center" style="font-weight: bold;">Shipping</h4>
-              <p style="font-size: 1.2em;">Shipping Details</p>
+              <a href="#resShipping">
+                <p style="font-size: 1.2em;">Shipping Details</p>
+              </a>
             </div>
           </div>
         </div>
