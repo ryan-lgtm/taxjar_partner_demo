@@ -121,7 +121,7 @@ Template.explain.helpers({
 
   taxTaxableAmount: function() {
     var resBody = Session.get('resBody');
-    return resBody.tax.taxableAmount;
+    return resBody.tax.taxable_amount;
   },
 
   amountToCollect: function() {
@@ -240,9 +240,14 @@ Template.explain.helpers({
     return JSON.stringify(resBody.tax.breakdown.shipping, null, 4);
   },
 
-  reqLineItemDetails: function() { // This is so fricking dumb. See L126 of template.
+  reqLineItemDetails: function() { // This is so fricking dumb. See L145 of template.
     var reqBody = Session.get('reqBody');
     return reqBody
+  },
+
+  resLineItemDetails: function() { // This is so fricking dumb. See L387 of template.
+    var resBody = Session.get('resBody');
+    return resBody
   },
 
 

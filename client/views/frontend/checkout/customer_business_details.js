@@ -48,7 +48,7 @@ Template.customerBusinessDetails.events({
     Session.set('businessAddress', undefined);
   },
 
-  'keyup #customerStreet': function(event, template) {
+  'focusout .customerAddressDetails': function(event, template) {
     let streetAddress = $.trim($('#customerStreet').val());
     let city = $.trim($('#customerCity').val());
     let state = $.trim($('#customerState').val());
@@ -65,109 +65,7 @@ Template.customerBusinessDetails.events({
     Session.set('customerAddress', toAddress);
   },
 
-  'keyup #customerCity': function(event, template) {
-    let streetAddress = $.trim($('#customerStreet').val());
-    let city = $.trim($('#customerCity').val());
-    let state = $.trim($('#customerState').val());
-    let zipCode = $.trim($('#customerZip').val());
-
-    var toAddress = {
-      'toStreetAddress': streetAddress,
-      'toCity': city,
-      'toState': state,
-      'toZipCode': zipCode,
-      'toCountry': 'US'
-    }
-
-    Session.set('customerAddress', toAddress);
-  },
-
-  'keyup #customerState': function(event, template) {
-    let streetAddress = $.trim($('#customerStreet').val());
-    let city = $.trim($('#customerCity').val());
-    let state = $.trim($('#customerState').val());
-    let zipCode = $.trim($('#customerZip').val());
-
-    var toAddress = {
-      'toStreetAddress': streetAddress,
-      'toCity': city,
-      'toState': state,
-      'toZipCode': zipCode,
-      'toCountry': 'US'
-    }
-
-    Session.set('customerAddress', toAddress);
-  },
-
-  'keyup #customerZip': function(event, template) {
-    let streetAddress = $.trim($('#customerStreet').val());
-    let city = $.trim($('#customerCity').val());
-    let state = $.trim($('#customerState').val());
-    let zipCode = $.trim($('#customerZip').val());
-
-    var toAddress = {
-      'toStreetAddress': streetAddress,
-      'toCity': city,
-      'toState': state,
-      'toZipCode': zipCode,
-      'toCountry': 'US'
-    }
-
-    Session.set('customerAddress', toAddress);
-  },
-
-  'keyup #fromStreet': function(event, template) {
-    let streetAddress = $.trim($('#fromStreet').val());
-    let city = $.trim($('#fromCity').val());
-    let state = $.trim($('#fromState').val());
-    let zipCode = $.trim($('#fromZip').val());
-
-    var businessAddress = {
-      'streetAddress': streetAddress,
-      'city': city,
-      'state': state,
-      'zipCode': zipCode,
-      'country': 'US'
-    }
-
-    Session.set("businessAddress", businessAddress);
-  },
-
-  'keyup #fromCity': function(event, template) {
-    let streetAddress = $.trim($('#fromStreet').val());
-    let city = $.trim($('#fromCity').val());
-    let state = $.trim($('#fromState').val());
-    let zipCode = $.trim($('#fromZip').val());
-
-    var businessAddress = {
-      'streetAddress': streetAddress,
-      'city': city,
-      'state': state,
-      'zipCode': zipCode,
-      'country': 'US'
-    }
-
-    Session.set("businessAddress", businessAddress);
-  },
-
-  'keyup #fromState': function(event, template) {
-    let streetAddress = $.trim($('#fromStreet').val());
-    let city = $.trim($('#fromCity').val());
-    let state = $.trim($('#fromState').val());
-    let zipCode = $.trim($('#fromZip').val());
-
-    var businessAddress = {
-      'streetAddress': streetAddress,
-      'city': city,
-      'state': state,
-      'zipCode': zipCode,
-      'country': 'US'
-    }
-
-    Session.set("businessAddress", businessAddress);
-  },
-
-  'keyup #fromZip': function(event, template) {
+  'focusout .businessAddressDetails': function(event, template) {
     let streetAddress = $.trim($('#fromStreet').val());
     let city = $.trim($('#fromCity').val());
     let state = $.trim($('#fromState').val());

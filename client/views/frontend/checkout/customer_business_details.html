@@ -25,22 +25,22 @@
               {{#with customerAddress}}
                 <div class="form-group bmd-form-group">
                   <label for="customerStreet">Street</label>
-                  <input type="text" class="form-control" value="{{customerAddress.toStreetAddress}}" id="customerStreet">
+                  <input type="text" class="form-control customerAddressDetails" value="{{customerAddress.toStreetAddress}}" id="customerStreet">
                 </div>
 
                 <div class="form-group bmd-form-group">
                   <label for="customerCity">City</label>
-                  <input type="text" class="form-control" value="{{customerAddress.toCity}}" id="customerCity">
+                  <input type="text" class="form-control customerAddressDetails" value="{{customerAddress.toCity}}" id="customerCity">
                 </div>
 
                 <div class="form-group bmd-form-group">
                   <label for="customerState">State</label>
-                  <input type="text" class="form-control" value="{{customerAddress.toState}}" id="customerState" maxlength="2">
+                  <input type="text" class="form-control customerAddressDetails" value="{{customerAddress.toState}}" id="customerState" maxlength="2">
                 </div>
 
                 <div class="form-group bmd-form-group">
                   <label for="customerZip">Zip Code</label>
-                  <input type="text" class="form-control" value="{{customerAddress.toZipCode}}" id="customerZip" maxlength="5">
+                  <input type="text" class="form-control customerAddressDetails" value="{{customerAddress.toZipCode}}" id="customerZip" maxlength="5">
                 </div>
               {{/with}}
               {{/if}}
@@ -62,23 +62,23 @@
             <div class="col-md-5 ml-auto mr-auto">
                 {{#with businessAddress}}
                   <div class="form-group bmd-form-group">
-                    <label for="customerStreet">Street</label>
-                    <input type="text" class="form-control" value="{{this.streetAddress}}" id="fromStreet">
+                    <label for="businessStreet">Street</label>
+                    <input type="text" class="form-control businessAddressDetails" value="{{this.streetAddress}}" id="fromStreet">
                   </div>
 
                   <div class="form-group bmd-form-group">
-                    <label for="customerCity">City</label>
-                    <input type="text" class="form-control" value="{{this.city}}" id="fromCity">
+                    <label for="businessCity">City</label>
+                    <input type="text" class="form-control businessAddressDetails" value="{{this.city}}" id="fromCity">
                   </div>
 
                   <div class="form-group bmd-form-group">
-                    <label for="customerState">State</label>
-                    <input type="text" class="form-control" value="{{this.state}}" id="fromState" maxlength="2">
+                    <label for="businessState">State</label>
+                    <input type="text" class="form-control businessAddressDetails" value="{{this.state}}" id="fromState" maxlength="2">
                   </div>
 
                   <div class="form-group bmd-form-group">
-                    <label for="customerZip">Zip Code</label>
-                    <input type="text" class="form-control" value="{{this.zipCode}}" id="fromZip" maxlength="5">
+                    <label for="businessZip">Zip Code</label>
+                    <input type="text" class="form-control businessAddressDetails" value="{{this.zipCode}}" id="fromZip" maxlength="5">
                   </div>
                 {{/with}}
             </div>

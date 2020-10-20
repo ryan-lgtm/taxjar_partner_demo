@@ -178,7 +178,7 @@
             <div class="col-md-6 ml-auto mr-auto" id="resOta" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
               <h3 class="text-center">Order Total Amount.</h3>
               <p style="font-size: 1.3em;">
-                Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content.
+                The <code>"order_total_amount"</code> is equal to the sum of all <code>line_items[*].unit_price * line_items[*].quantity</code>, <strong>not including discounts</strong>.
               </p>
             </div>
           </div>
@@ -194,7 +194,7 @@
             <div class="col-md-6 ml-auto mr-auto" id="resShipping" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
               <h3 class="text-center">Shipping.</h3>
               <p style="font-size: 1.3em;">
-                Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content.
+                The <code>"shipping"</code> amount indicated during the initial request. Shipping taxability is dependent on the destination state, as well as several other factors.
               </p>
             </div>
           </div>
@@ -210,7 +210,7 @@
             <div class="col-md-6 ml-auto mr-auto" id="resTaxableAmount" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
               <h3 class="text-center">Taxable Amount.</h3>
               <p style="font-size: 1.3em;">
-                Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content.
+                The <code>"taxable_amount"</code> is equal to the sum of all <code>(line_items[*].unit_price * line_items[*].quantity) - line_items[*].discount</code>.
               </p>
             </div>
           </div>
@@ -226,7 +226,8 @@
             <div class="col-md-6 ml-auto mr-auto" id="resAtc" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
               <h3 class="text-center">Amount to Collect.</h3>
               <p style="font-size: 1.3em;">
-                Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content.
+                The <code>"amount_to_collect"</code> is the sum of <code>tax.breakdown.special_district_tax_collectable + tax.breakdown.city_tax_collectable + tax.breakdown.county_tax_collectable + tax.breakdown.state_tax_collectable</code>. <br/><br/>
+                These values are, in turn, the sum of all <code>tax.breakdown.line_items.tax_collectable</code> amounts.
               </p>
             </div>
           </div>
@@ -242,7 +243,7 @@
             <div class="col-md-6 ml-auto mr-auto" id="resRate" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
               <h3 class="text-center">Rate.</h3>
               <p style="font-size: 1.3em;">
-                Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content.
+                The <code>"rate"</code> value is typically that of the <code>tax.combined_tax_rate</code> value. Since different line_items could have different rates apply, it is common for the <code>"rate"</code> to be a cumulative figure of all <code>tax.combined_tax_rate</code> values.
               </p>
             </div>
           </div>
@@ -258,7 +259,12 @@
             <div class="col-md-6 ml-auto mr-auto" id="resHasNexus" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
               <h3 class="text-center">Has Nexus.</h3>
               <p style="font-size: 1.3em;">
-                Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content.
+                <code>"has_nexus"</code> will always return a boolean value. If <code>"has_nexus"</code> is true, it means one of the following conditions applies:<br/>
+                <ul style="font-size: 1.3em;">
+                  <li>The TaxJar account has a <a href="https://app.taxjar.com/account#states" target="_blank">user state defined</a> that matches the "to_state" body parameter</li>
+                  <li>Request body <code>"from_state"</code> and <code>"to_state"</code> parameters are the same</li>
+                  <li>At least one of the Request body <code>"nexus_addresses[*].state"</code> and <code>"to_state"</code> parameters are the same</li>
+                </ul>
               </p>
             </div>
           </div>
@@ -274,7 +280,8 @@
             <div class="col-md-6 ml-auto mr-auto" id="resFreightTaxable" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
               <h3 class="text-center">Freight Taxable.</h3>
               <p style="font-size: 1.3em;">
-                Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content.
+                <code>"freight_taxable"</code> will always return a boolean value. If <code>"freight_taxable"</code> returns true, shipping is taxable. This is determined by the "to_state".<br/><br/>
+                When <code>"freight_taxable"</code> is true, anticipate a Response body <code>"tax.breakdown.shipping"</code> object.<br/><br/>
               </p>
             </div>
           </div>
@@ -290,7 +297,15 @@
             <div class="col-md-6 ml-auto mr-auto" id="resTaxSource" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
               <h3 class="text-center">Tax Source.</h3>
               <p style="font-size: 1.3em;">
-                Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content.
+                The <code>"tax_source"</code> is a determination of what type of sales tax logic applies. It will always hold a value of <code>"origin"</code> -or- <code>"destination"</code>.<br/><br/>
+                Tax sourcing has a number of variable factors that could apply. For example:</p>
+                <ul style="font-size: 1.3em;">
+                  <li>Is the request body <code>"to_state"</code> an origin-based sales tax state, or destination-based?</li>
+                  <li>Is the business located in the state, if origin-based (physical nexus)?</li>
+                  <li>Does the state have a specific remote sellers sales tax rate, and is the business registered for such a rate?</li>
+                </ul><br/>
+                <p style="font-size: 1.3em;">
+                For more on tax sourcing determinations and state-specific details, read TaxJar's blog here: <a href="https://blog.taxjar.com/charging-sales-tax-rates/" target="_blank">Origin-based and Destination-based Sales Tax Collection 101</a>.
               </p>
             </div>
           </div>
@@ -306,7 +321,12 @@
             <div class="col-md-6 ml-auto mr-auto" id="resJurisdictions" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
               <h3 class="text-center">Jurisdictions.</h3>
               <p style="font-size: 1.3em;">
-                Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content.
+                <code>"jurisdictions"</code> returns an object of the referenced locale utilized to determine a sales tax rate. <strong>It is not always a reference to the jurisdiction a product or service is being provided to.</strong> The jurisdiction is dependent on several factors:<br/>
+                <ul style="font-size: 1.3em;">
+                  <li>Does the <code>"to_state"</code> have a single state sales tax rate (presence of just <code>jurisdictions.country && jurisdictions.state</code>)?</li>
+                  <li>Is the <code>"to_state"</code> origin-based, or destination based?</li>
+                  <li>Are the <code>"to_*"</code> address parameters in an incorporated community, or unincorporated?</li>
+                </ul>
               </p>
             </div>
           </div>
@@ -333,7 +353,7 @@
             <div class="col-md-6 ml-auto mr-auto" id="breakdownDetails" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
               <h3 class="text-center">Breakdown Details.</h3>
               <p style="font-size: 1.3em;">
-                Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content.
+                The <code>"breakdown"</code> object of the Response body holds a summary of all sales tax details of the calculation request. It serves as a high-level overview of taxability based on sourcing, <code>"line_items"</code> details, and <code>"shipping"</code>, if taxable.
               </p>
             </div>
           </div>
@@ -346,11 +366,37 @@
                 {{/prism}}
               </div>
             </div>
-            <div class="col-md-6 ml-auto mr-auto" id="resLineItems" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
+            <div class="col-md-6 ml-auto mr-auto" id="resLineItems" style="width: 50%; height: 100%; vertical-align: top; display: table-cell;">
               <h3 class="text-center">Line Item Details.</h3>
               <p style="font-size: 1.3em;">
-                Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content.
+                Further into the <code>"breakdown"</code> object is the <code>"line_items"</code> array. Similar to the Request body's <code>"line_items"</code>, each child is an object of the array, and each object represents one line item.<br/><br/>
               </p>
+              <div class="row" style="display: table; margin-top: 15px;">
+                <div style="display: table-cell;">
+                  <table class="table table-bordered" style="font-size: 1.3em; table-layout: fixed; width: 100%;">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Taxable Amount</th>
+                        <th>Combined Rate</th>
+                        <th>Tax collectable</th>
+                      </tr>
+                    </thead>
+                    <tfoot>
+                    </tfoot>
+                    <tbody>
+                      {{#each resLineItemDetails.tax.breakdown.line_items}}
+                        <tr>
+                          <td>{{this.id}}</td>
+                          <td>{{this.taxable_amount}}</td>
+                          <td>{{this.combined_tax_rate}}</td>
+                          <td>{{this.tax_collectable}}</td>
+                        </tr>
+                      {{/each}}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
           </div>
           <hr>
@@ -362,10 +408,11 @@
                 {{/prism}}
               </div>
             </div>
-            <div class="col-md-6 ml-auto mr-auto" id="resShipping" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
+            <div class="col-md-6 ml-auto mr-auto" id="resShippingDetails" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
               <h3 class="text-center">Shipping Details.</h3>
               <p style="font-size: 1.3em;">
-                Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content. Stubbed content.
+                <code>"shipping"</code> will either return an object, or not exist at all. If <code>"freight_taxable"</code> is true, then TaxJar's API has determined that sales tax on shipping should be calculated.<br/><br/>
+                The breakdown of the "shipping" object is identical to that of <code>"line_items"</code>.
               </p>
             </div>
           </div>
@@ -435,7 +482,7 @@
                 <p style="font-size: 1.2em;">Line Item Details</p>
               </a>
               <h4 class="text-center" style="font-weight: bold;">Shipping</h4>
-              <a href="#resShipping">
+              <a href="#resShippingDetails">
                 <p style="font-size: 1.2em;">Shipping Details</p>
               </a>
             </div>
