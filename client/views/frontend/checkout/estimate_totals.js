@@ -141,7 +141,7 @@ Template.estimateTotals.events({
       var discountAmount = 0;
     }
 
-    var iterator = 0;
+    var iterator = 1;
 
     lineItems.forEach((lineItem) => {
       var quantity = lineItem.quantity;
@@ -165,7 +165,7 @@ Template.estimateTotals.events({
       }
 
       var data = {
-        'id': product.productIdentifier,
+        'id': String(iterator),
         'quantity': quantity,
         'product_tax_code': product.productTaxCode,
         'unit_price': product.productUnitPrice,
