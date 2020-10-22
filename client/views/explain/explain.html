@@ -4,6 +4,13 @@
       <h1 class="text-center">Tax Calculation Review</h1>
     </div>
   </div>
+  {{#if checkRounding.pennyRounding}}
+    <div class="row" style="margin-top: 2%;">
+      <div class="col-md-12 ml-auto mr-auto">
+        <div class="alert alert-primary text-center" style="font-size: 1.3em;"><strong>Penny-rounding found in the tax calculation response.</strong> Would you like to see why? <a href="#pennyRounding"><button class="btn btn-info btn-sm">Show me</button></a></div>
+      </div>
+    </div>
+  {{/if}}
   <div class="row">
     <div class="col-md-10 ml-auto mr-auto">
       <div class="card" style="">
@@ -418,6 +425,151 @@
           </div>
         </div>
       </div>
+
+      <div class="card" style="">
+        <div class="card-header card-header-info card-header-text">
+          <div class="card-icon">
+            <i class="material-icons">compare_arrows</i>
+          </div>
+          <h2 class="card-title text-center">Additional Info</h2>
+        </div>
+        <div class="card-body">
+          <div class="row" style="margin-top: 5%; display: table-row">
+            <div class="col-md-6 ml-auto mr-auto" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
+              <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.4em;">
+                {{#prism language="javascript" class="line-numbers"}}
+                  {
+                    "tax": {
+                      ...
+                      "amount_to_collect": {{amountToCollect}}
+                      ...
+                    },
+                    "breakdown": {
+                      ...
+                    "line_items": {{breakdownLineItems}}{{#with resLineItemDetails.tax.breakdown.shipping}},
+                    "shipping": {{breakdownShipping}}
+                    }{{/with}}
+                  }
+                {{/prism}}
+              </div>
+            </div>
+            <div class="col-md-6 ml-auto mr-auto" id="pennyRounding" style="width: 50%; height: 100%; display: table-cell;">
+              <h3 class="text-center">Penny Rounding.</h3>
+              <p style="font-size: 1.3em;">
+                "Penny rounding" occurs when the sum of all <strong>sales tax due for line items</strong> (<code>response_body.tax.breakdown.line_items[*].tax_collectable</code>) and <strong>sales tax due for shipping</strong> (<code>response_body.tax.breakdown.shipping.tax_collectable</code>, if applicable) doesn't add up to the <strong>total amount of sales tax to collect</strong> (<code>response_body.tax.amount_to_collect</code>). <br/><br/>
+                This makes more sense looking at the data from your sales tax calculation's <code>"response_body"</code>:
+              </p>
+              <h4 style="font-weight: bold; margin-top: 2%;">
+                Line Items.
+              </h4>
+              <div class="row" style="display: table; margin-top: 15px;">
+                <div style="display: table-cell;">
+                  <table class="table table-bordered" style="font-size: 1.3em; table-layout: fixed; width: 100%;">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Taxable Amount</th>
+                        <th>Combined Tax Rate</th>
+                        <th>Decimal Value</th>
+                        <th>Rounded Value</th>
+                      </tr>
+                    </thead>
+                    <tfoot>
+                    </tfoot>
+                    <tbody>
+                      {{#each resLineItemDetails.tax.breakdown.line_items}}
+                        <tr>
+                          <td>{{this.id}}</td>
+                          <td>{{this.taxable_amount}}</td>
+                          <td>{{this.combined_tax_rate}}</td>
+                          <td>{{getDecimal}}</td>
+                          <td>{{getRounded}}</td>
+                        </tr>
+                      {{/each}}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              {{#with resLineItemDetails.tax.breakdown.shipping}}
+                <h4 style="font-weight: bold; margin-top: 2%;">
+                  Shipping.
+                </h4>
+                <div class="row" style="display: table; margin-top: 15px;">
+                  <div style="display: table-cell;">
+                    <table class="table table-bordered" style="font-size: 1.3em; table-layout: fixed; width: 100%;">
+                      <thead>
+                        <tr>
+                          <th>Taxable Amount</th>
+                          <th>Combined Tax Rate</th>
+                          <th>Decimal Value</th>
+                          <th>Individually Rounded</th>
+                        </tr>
+                      </thead>
+                      <tfoot>
+                      </tfoot>
+                      <tbody>
+                        {{#with resLineItemDetails.tax.breakdown.shipping}}
+                          <tr>
+                            <td>{{this.taxable_amount}}</td>
+                            <td>{{this.combined_tax_rate}}</td>
+                            <td>{{getDecimal}}</td>
+                            <td>{{getRounded}}</td>
+                          </tr>
+                        {{/with}}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              {{/with}}
+              <h4 style="font-weight: bold; margin-top: 2%;">
+                Totals.
+              </h4>
+              <div class="row">
+                <div class="col-md-6" style="border-bottom: 1px solid #eee;">
+                  <p style="font-size: 1.3em; font-weight: bold;">Decimals</p>
+                  {{#each resLineItemDetails.tax.breakdown.line_items}}
+                  <p class="decimalVal" style="font-size: 1.3em;">+{{getDecimal}}</p>
+                  {{/each}}
+                  {{#with resLineItemDetails.tax.breakdown.shipping}}
+                  <p class="decimalVal" style="font-size: 1.3em;">+{{getDecimal}} (Shipping)</p>
+                  {{/with}}
+                </div>
+
+                <div class="col-md-6" style="border-bottom: 1px solid #eee;">
+                  <p style="font-size: 1.3em; font-weight: bold;">Individually Rounded</p>
+                  {{#each resLineItemDetails.tax.breakdown.line_items}}
+                  <p class="roundedVal" style="font-size: 1.3em;">+{{getRounded}}</p>
+                  {{/each}}
+                  {{#with resLineItemDetails.tax.breakdown.shipping}}
+                  <p class="roundedVal" style="font-size: 1.3em;">+{{getRounded}} (Shipping)</p>
+                  {{/with}}
+                </div>
+              </div>
+
+              <div class="row" style="margin-top: 2%;">
+                <div class="col-md-6">
+                  <p style="font-size: 1.3em; font-weight: bold;">= {{getTotalDecimal}}</p>
+                </div>
+
+                <div class="col-md-6">
+                  <p style="font-size: 1.3em; font-weight: bold;">= {{getTotalRounded}}</p>
+                </div>
+              </div>
+
+              <div class="row" style="margin-top: 2%;">
+                <div class="col-md-12">
+                  <p style="font-size: 1.3em;">Notice that the <code>"amount_to_collect"</code> of <strong>{{amountToCollect}}</strong> matches the sum of all decimals rounded. <strong>NOT</strong> the sum of all line_items rounded:<br/><br/>
+                    <span style="margin: 0 auto;">{{getTotalDecimal}} -> <strong>{{getTotalDecimalRounded}}</strong></span><br/><br/>
+                    While reasons for this may not be entirely clear from a technical perspective, a better understanding comes from rounding issues at the state level. The amount of sales tax collected that TaxJar calculates is what <a href="https://support.taxjar.com/article/106-rounding-sales-tax" target="_blank">TaxJar's reporting and sales tax returns would anticipate to file for the state</a>. <br/><br/>
+                    For an additional perspective, see <a href="https://blog.taxjar.com/rounding-issues-sales-tax-returns/" target="_blank">"Rounding: Why your 'Sales Tax Collected' and 'Sales Tax Filed' Don't Always Match"</a>.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end row -->
     </div>
     <!-- Nav stuff -->
     <div class="col-md-2 ml-auto mr-auto">
@@ -485,6 +637,12 @@
               <a href="#resShippingDetails">
                 <p style="font-size: 1.2em;">Shipping Details</p>
               </a>
+              {{#if checkRounding.pennyRounding}}
+                <h4 class="text-center" style="font-weight: bold;">Addtl. Info</h4>
+                <a href="#pennyRounding">
+                  <p style="font-size: 1.2em;">Penny Rounding</p>
+                </a>
+              {{/if}}
             </div>
           </div>
         </div>

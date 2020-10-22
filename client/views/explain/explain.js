@@ -20,6 +20,42 @@ Template.explain.onRendered(function() {
 });
 
 Template.explain.helpers({
+  checkRounding: function() {
+    var resBody = Session.get('resBody');
+    var atc = resBody.tax.amount_to_collect;
+    var lineItems = resBody.tax.breakdown.line_items;
+
+    var total = 0;
+    var decimalTotal = 0;
+    lineItems.forEach((lineItem) => {
+      total+= lineItem.tax_collectable;
+      decimalTotal += (lineItem.taxable_amount * lineItem.combined_tax_rate);
+    });
+
+    if (resBody.tax.breakdown.shipping) {
+      total += resBody.tax.breakdown.shipping.tax_collectable;
+      decimalTotal += (resBody.tax.breakdown.shipping.taxable_amount * resBody.tax.breakdown.shipping.combined_tax_rate);
+    };
+
+    var total = (total).toFixed(2);
+
+    if (atc !== total) {
+      var pennyRounding = true;
+    } else {
+      var pennyRounding = false;
+    }
+
+    var data = {
+      atc: atc,
+      total: total,
+      decimalTotal: decimalTotal,
+      pennyRounding: pennyRounding
+    };
+
+    Session.set('taxableData', data);
+    return data
+  },
+
   reqBody: function() {
     parsedJson = JSON.parse(Session.get('reqBody'));
     return JSON.stringify(parsedJson, null, 4)
@@ -232,12 +268,12 @@ Template.explain.helpers({
 
   breakdownLineItems: function() {
     var resBody = Session.get('resBody');
-    return JSON.stringify(resBody.tax.breakdown.line_items, null, 4);
+    return JSON.stringify(resBody.tax.breakdown.line_items, null, 2);
   },
 
   breakdownShipping: function() {
     var resBody = Session.get('resBody');
-    return JSON.stringify(resBody.tax.breakdown.shipping, null, 4);
+    return JSON.stringify(resBody.tax.breakdown.shipping, null, 2);
   },
 
   reqLineItemDetails: function() { // This is so fricking dumb. See L145 of template.
@@ -250,10 +286,28 @@ Template.explain.helpers({
     return resBody
   },
 
-
-
   getTotal: function() {
-    return ((this.unit_price * this.quantity) - this.discount)
+    return ((this.unit_price * this.quantity) - this.discount).toFixed(2)
+  },
+
+  getDecimal: function() {
+    return ((this.combined_tax_rate * this.taxable_amount));
+  },
+
+  getRounded: function() {
+    return ((this.combined_tax_rate * this.taxable_amount)).toFixed(2);
+  },
+
+  getTotalDecimal: function() {
+    return Session.get('taxableData').decimalTotal
+  },
+
+  getTotalDecimalRounded: function() {
+    return Session.get('taxableData').decimalTotal.toFixed(2);
+  },
+
+  getTotalRounded: function() {
+    return Session.get('taxableData').total
   }
 });
 
