@@ -37,7 +37,8 @@ Template.explain.helpers({
       decimalTotal += (resBody.tax.breakdown.shipping.taxable_amount * resBody.tax.breakdown.shipping.combined_tax_rate);
     };
 
-    var total = (total).toFixed(2);
+    var total = parseFloat((total).toFixed(2));
+    var decimalTotalRounded = parseFloat(decimalTotal.toFixed(2));
 
     if (atc !== total) {
       var pennyRounding = true;
@@ -49,6 +50,7 @@ Template.explain.helpers({
       atc: atc,
       total: total,
       decimalTotal: decimalTotal,
+      decimalTotalRounded: decimalTotalRounded,
       pennyRounding: pennyRounding
     };
 
