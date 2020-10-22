@@ -177,7 +177,7 @@ Template.estimateTotals.events({
 
     taxReq.lineItems = lineItemsReq;
 
-    Meteor.call('taxCall', taxReq, sessionId, transactionId, Session.get('apiToken'), function(err, res) {
+    Meteor.call('taxCall', taxReq, sessionId, transactionId, Session.get('apiToken'), "checkout", function(err, res) {
       if (err) {
         Bert.alert('Error: ' + err, 'danger');
       } else {

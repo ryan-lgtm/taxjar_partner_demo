@@ -1,0 +1,48 @@
+<template name="explainRequest">
+  <div class="row">
+    <div class="col-md-12 ml-auto mr-auto">
+      <h1 class="text-center">API Explain Request</h1>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 ml-auto mr-auto">
+      <div class="card" style="height: 100%">
+        <div class="card-header card-header-primary card-header-text">
+          <div class="card-icon">
+            <i class="material-icons">highlight</i>
+          </div>
+          <h2 class="card-title text-center">Tax Request</h2>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-3">
+
+              <div class="form-group bmd-form-group">
+                <label for="apiToken">API Token</label>
+                <input type="password" class="form-control" value="{{apiToken}}" id="apiToken">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-7">
+              <h3>Request Body</h3>
+              <div class="form-group bmd-form-group">
+                <textarea style="font-size: 1.5em; font-family: monospace;" id="taxesReq" name="taxesReq" rows="30" cols="90">
+                  {{taxesReq}}
+                </textarea>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 mr-auto ml-auto">
+              <div class="text-center">
+                <a href="#" class="btn btn-primary btn-round mt-4 submit-request">Submit</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

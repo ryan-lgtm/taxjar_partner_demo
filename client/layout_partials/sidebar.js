@@ -147,6 +147,13 @@ Template.sidebar.events({
     FlowRouter.go('/configuration');
   },
 
+  'click .to-explain-req': function(event) {
+    event.preventDefault();
+    $('.nav-item').removeClass('active');
+    $('.explain-req-active').addClass('active');
+    FlowRouter.go('/explain-request');
+  },
+
   'click .open-debugging': function(event) {
     event.preventDefault();
     if (Session.get('toggleDebug') == true) {
