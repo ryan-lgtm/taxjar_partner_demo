@@ -11,7 +11,9 @@ Template.explainRequest.onRendered(function() {
 });
 
 Template.explainRequest.helpers({
-
+  apiToken: function() {
+    return Session.get('apiToken');
+  }
 });
 
 Template.explainRequest.events({
