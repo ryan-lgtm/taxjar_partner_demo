@@ -25,12 +25,26 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-7">
+            <div class="col-md-5 ml-auto mr-auto">
               <h3>Request Body</h3>
               <div class="form-group bmd-form-group">
-                <textarea style="font-size: 1.5em; font-family: monospace;" id="taxesReq" name="taxesReq" rows="30" cols="90">
-                  {{taxesReq}}
-                </textarea>
+                <textarea style="font-size: 1.5em; font-family: monospace;" id="taxesReq" name="taxesReq" rows="30" cols="50">{{taxesReq}}</textarea>
+              </div>
+            </div>
+
+            <div class="col-md-5 ml-auto mr-auto">
+              <h3>Insights</h3>
+              <div class="form-group bmd-form-group">
+                {{#each detail in insightDetails}}
+                <div class="card">
+                  <div class="card-header {{detail.color}} card-header-text">
+                    <div class="card-icon">
+                      <i class="material-icons">{{detail.icon}}</i>
+                    </div>
+                    <h3 class="card-title text-center" style="font-size: 1.5em;">{{detail.message}}</h3>
+                  </div>
+                </div>
+                {{/each}}
               </div>
             </div>
           </div>

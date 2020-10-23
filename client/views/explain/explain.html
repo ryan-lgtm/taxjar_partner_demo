@@ -185,7 +185,7 @@
             <div class="col-md-6 ml-auto mr-auto" id="resOta" style="width: 50%; height: 100%; vertical-align: middle; display: table-cell;">
               <h3 class="text-center">Order Total Amount.</h3>
               <p style="font-size: 1.3em;">
-                The <code>"order_total_amount"</code> is equal to the sum of all <code>line_items[*].unit_price * line_items[*].quantity</code>, <strong>not including discounts</strong>.
+                The <code>"order_total_amount"</code> is equal to the sum of all <code>line_items[*].unit_price * line_items[*].quantity - line_items[*].discount</code>.
               </p>
             </div>
           </div>

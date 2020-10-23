@@ -1,0 +1,37 @@
+{
+   "from_country": "US",
+   "from_zip": "92093",
+   "from_state": "CA",
+   "from_city": "La Jolla",
+   "from_street": "9500 Gilman Drive",
+   "to_country": "US",
+   "to_zip": "90210-4705",
+   "to_state": "CA",
+   "to_city": "Beverly Hills",
+   "to_street": "300 N Canon Dr",
+   "amount": "292.17",
+   "shipping": "20",
+   "line_items": [
+      {
+         "id": "pg-12pk",
+         "quantity": "1",
+         "description": "PLEASE BUY ME.",
+         "unit_price": "102.39",
+         "discount": "5"
+      },
+      {
+         "id": "sf-12pk",
+         "quantity": "1",
+         "description": "BUY ME TOO.",
+         "unit_price": "102.39",
+         "discount": "5"
+      },
+      {
+         "id": "gfp-12pk",
+         "quantity": "1",
+         "description": "JUST BUY IT ALREADY.",
+         "unit_price": "102.39",
+         "discount": "5"
+      }
+   ]
+}

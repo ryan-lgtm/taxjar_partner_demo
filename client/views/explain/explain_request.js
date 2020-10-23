@@ -6,13 +6,30 @@ import {
   $
 } from 'meteor/jquery'
 
-Template.explainRequest.onRendered(function() {
+Template.explainRequest.onCreated(function() {
+  let template = Template.instance();
 
+  template.insightDetails = new ReactiveVar();
+  template.insightMessages = new ReactiveVar();
+  template.autorun(() => {
+    console.log('Autorun ran.');
+    Meteor.call('insightMessages', template.insightDetails.get(), function(err, res) {
+      if (err) {
+        console.log(err);
+      } else {
+        template.insightMessages.set(res);
+      }
+    });
+  })
 });
 
 Template.explainRequest.helpers({
   apiToken: function() {
     return Session.get('apiToken');
+  },
+
+  insightDetails: function() {
+    return Template.instance().insightMessages.get();
   }
 });
 
@@ -38,6 +55,22 @@ Template.explainRequest.events({
     }
   },
 
+  'input #taxesReq': function(event, template) {
+    event.preventDefault();
+
+    let taxesReq = JSON.parse($.trim($('#taxesReq').val()));
+
+    let insightDetails = {};
+
+    Meteor.call('validateReq', taxesReq, function(err, res) {
+      if (err) {
+        console.log(err);
+      } else {
+        template.insightDetails.set(res);
+      }
+    });
+  },
+
   'click .submit-request': function(event) {
     event.preventDefault();
 
@@ -46,11 +79,11 @@ Template.explainRequest.events({
     let reqBody = $.trim($('#taxesReq').val());
     var sessionId = Session.get('userSessionId');
 
-    console.log(reqBody);
     Meteor.call('taxCall', reqBody, sessionId, 'explain', apiTokenValue, 'explainReq', function(err, res) {
       if (err) {
         Bert.alert('Error: ' + err, 'danger');
       } else {
+        Session.set('insightDetails', null);
         var calculation = Calculation.findOne({
           'sessionId': sessionId
         }, {
