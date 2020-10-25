@@ -84,15 +84,11 @@ Template.explainRequest.events({
         Bert.alert('Error: ' + err, 'danger');
       } else {
         Session.set('insightDetails', null);
-        var calculation = Calculation.findOne({
-          'sessionId': sessionId
-        }, {
-          sort: {
-            createdOn: -1,
-            limit: 1
+        Meteor.call('getCalculation', null, null, sessionId, function(err, res) {
+          if (res) {
+            FlowRouter.go('/explain/' + res._id);
           }
-        });
-        FlowRouter.go('/explain/' + calculation._id);
+        })
       }
     });
   }

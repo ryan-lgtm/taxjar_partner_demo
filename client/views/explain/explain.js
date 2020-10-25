@@ -11,12 +11,14 @@ import {
 } from 'meteor/tracker'
 
 Template.explain.onRendered(function() {
-  var calculation = Calculation.findOne({
-    _id: FlowRouter.getParam('id')
-  });
 
-  Session.set('reqBody', JSON.parse(calculation.reqBody));
-  Session.set('resBody', JSON.parse(calculation.resBody));
+
+  Meteor.call('getCalculation', FlowRouter.getParam('id'), null, function(err,res){
+    if (res) {
+      Session.set('reqBody', JSON.parse(res.reqBody));
+      Session.set('resBody', JSON.parse(res.resBody));
+    }
+  });
 });
 
 Template.explain.helpers({

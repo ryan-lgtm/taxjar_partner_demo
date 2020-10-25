@@ -192,14 +192,10 @@ Template.estimateTotals.events({
       'sessionId': Session.get('userSessionId'),
       'transactionStatus': 'In Progress'
     });
-    var calculation = Calculation.findOne({
-      'forTransaction': transaction._id,
-    }, {
-      sort: {
-        createdOn: -1,
-        limit: 1
+    Meteor.call('getCalculation', null, transaction._id, function(err,res){
+      if (res) {
+        FlowRouter.go('/explain/' + res._id)
       }
     });
-    FlowRouter.go('/explain/' + calculation._id);
   }
 });
