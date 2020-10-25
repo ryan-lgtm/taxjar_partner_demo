@@ -1,9 +1,7 @@
 <template name="debugging">
   <div style="bottom: 0; width: 100%; margin: 0 auto; font-size: 1.2em;">
     {{#prism language="javascript" class="line-numbers"}}
-      {{#each sessionEvents}}
-        {{this.sessionId}}+{{this.timeString}} | {{this.logEvent}}
-      {{/each}}
+      {{#each sessionEvents}}{{this.sessionId}}+{{this.timeString}} | {{this.logEvent}}{{/each}}
     {{/prism}}
   </div>
 </template>
