@@ -71,7 +71,7 @@ Template.manageCustomers.events({
       if (err) {
         Bert.alert('Error: ' + err, 'danger');
       } else {
-        Bert.alert('Successfully synced ' + res + ' customers.', 'success');
+        Bert.alert('Successfully synced customer data.', 'success');
       }
     });
   },
