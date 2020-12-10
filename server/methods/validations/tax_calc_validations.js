@@ -47,7 +47,7 @@ Meteor.methods({
     };
 
     var shippingDetails = {};
-    if (!taxesReq.shipping) {
+    if (!taxesReq.shipping && taxesReq.shipping !== 0) {
       shippingDetails.shipping_missing = true;
     } else {
       shippingDetails.shipping_missing = false;
@@ -110,7 +110,7 @@ Meteor.methods({
 
     if (insights.addressDetails.to_state_missing == true) {
       data = {
-        message: "'to_state' is missing. This is a required parameters.",
+        message: "'to_state' is missing. This is a required parameter.",
         icon: 'cancel',
         color: 'card-header-danger'
       };
@@ -119,7 +119,7 @@ Meteor.methods({
 
     if (insights.addressDetails.to_zip_missing == true) {
       data = {
-        message: "'to_zip' is missing. This is a required parameters.",
+        message: "'to_zip' is missing. This is a required parameter.",
         icon: 'cancel',
         color: 'card-header-danger'
       };
@@ -128,7 +128,7 @@ Meteor.methods({
 
     if (insights.shippingDetails.shipping_missing == true) {
       data = {
-        message: "'shipping' is missing. This is a required parameters.",
+        message: "'shipping' is missing. This is a required parameter.",
         icon: 'cancel',
         color: 'card-header-danger'
       };
